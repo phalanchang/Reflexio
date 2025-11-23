@@ -1,0 +1,35 @@
+# 機密情報を含むファイル
+.cursor/mcp.json
+
+# 環境変数ファイル
+.env
+.env.local
+.env.*.local
+
+# 依存関係
+node_modules/
+package-lock.json
+yarn.lock
+
+# ビルド成果物
+dist/
+build/
+*.log
+
+# OS固有のファイル
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+*~
+
+# IDE固有のファイル
+.vscode/
+.idea/
+*.iml
+
+# 一時ファイル
+*.tmp
+*.temp
+.cache/
+

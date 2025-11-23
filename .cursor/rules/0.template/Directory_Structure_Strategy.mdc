@@ -1,0 +1,113 @@
+# ディレクトリ構成戦略
+
+## 概要
+本プロジェクトでは、階層的ドキュメント管理とナンバリング統一による構造化されたディレクトリ構成を採用します。
+
+## 基本構造
+
+```
+voice-memo-app/
+├── docs/
+│   ├── 01_agile/                    # アジャイル開発プロセス
+│   │   ├── sprint_list.md
+│   │   ├── 01_sprint_planning/
+│   │   │   └── 01_sprint_planning.md
+│   │   ├── 02_user_stories/
+│   │   │   ├── user_stories_list.md
+│   │   │   ├── 01_voice_recording/
+│   │   │   │   └── 01_voice_recording.md
+│   │   │   └── 02_playback/
+│   │   │       └── 02_playback.md
+│   │   └── 03_retrospective/
+│   │       └── 03_retrospective.md
+│   └── 02_waterfall/               # ウォーターフォール成果物
+│       ├── 01_requirement/
+│       │   ├── requirement_list.md
+│       │   ├── 01_user_kanri/
+│       │   │   └── 01_user_kanri.md
+│       │   ├── 02_voice_recording/
+│       │   │   └── 02_voice_recording.md
+│       │   └── 03_playback/
+│       │       └── 03_playback.md
+│       ├── 02_design/
+│       │   ├── design_list.md
+│       │   ├── 01_architecture/
+│       │   │   └── 01_architecture.md
+│       │   └── 02_ui_design/
+│       │       └── 02_ui_design.md
+│       ├── 03_implementation/
+│       │   ├── implementation_list.md
+│       │   ├── 01_frontend/
+│       │   │   └── 01_frontend.md
+│       │   └── 02_backend/
+│       │       └── 02_backend.md
+│       ├── 04_test/
+│       │   ├── test_list.md
+│       │   ├── 01_unit_test/
+│       │   │   └── 01_unit_test.md
+│       │   └── 02_integration_test/
+│       │       └── 02_integration_test.md
+│       └── 05_deployment/
+│           ├── deployment_list.md
+│           ├── 01_environment_setup/
+│           │   └── 01_environment_setup.md
+│           └── 02_release_management/
+│               └── 02_release_management.md
+├── .ai/                            # AIエージェント間通信
+│   ├── agents/
+│   │   ├── project-manager.md
+│   │   ├── developer.md
+│   │   ├── tester.md
+│   │   └── architect.md
+│   ├── conversations/
+│   └── shared-context.md
+└── src/                            # ソースコード
+```
+
+## 命名規則
+
+### ディレクトリ名
+- **大分類**: `01_agile`, `02_waterfall`
+- **中分類**: `01_requirement`, `02_design`, `03_implementation`
+- **小分類**: `01_user_kanri`, `02_voice_recording`
+
+### ファイル名
+- **一覧ファイル**: `*_list.md` (例: `requirement_list.md`)
+- **詳細ファイル**: `01_*.md`, `02_*.md` (例: `01_user_kanri.md`)
+
+## ファイルテンプレート
+
+### 一覧ファイルテンプレート
+```markdown
+# [分類名]一覧
+
+| 番号 | 項目名 | 概要 | 詳細ファイル | 状態 |
+|------|--------|------|-------------|------|
+| 01 | [項目名] | [概要] | [01_項目名/01_項目名.md](./01_項目名/01_項目名.md) | 未着手 |
+```
+
+### 詳細ファイルテンプレート
+```markdown
+# [番号]. [項目名]
+
+## 概要
+[項目の概要説明]
+
+## 詳細
+[詳細な内容]
+
+## 関連ファイル
+- [一覧ファイル](../[分類名]_list.md)
+```
+
+## 戦略の利点
+
+1. **ナビゲーション性**: 一覧から詳細への明確な導線
+2. **保守性**: 各項目の独立した管理
+3. **拡張性**: 新しい項目の追加が容易
+4. **一貫性**: 全階層での統一された命名規則
+5. **可読性**: 階層構造による関連性の明確化
+description:
+globs:
+alwaysApply: false
+---
