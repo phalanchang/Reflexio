@@ -33,3 +33,5 @@ Thumbs.db
 *.temp
 .cache/
 
+# Docker
+docker-compose.override.yml

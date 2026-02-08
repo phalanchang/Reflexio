@@ -4,5 +4,6 @@
 
 | 番号 | タスク内容 | 状態 | ブランチ名 | 備考 |
 |------|-----------|------|-----------|------|
-| 01 | 要件定義作成 | 未着手 | feature/01-requirement-definition | |
+| 01 | 要件定義作成 | 完了 | feature/01-requirement-definition | マージ済み |
+| 02 | 1stスプリント実装 | 未着手 | feature/02-sprint-01-implementation | 認証機能と基本レイアウト |
 
