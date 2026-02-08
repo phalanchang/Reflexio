@@ -1,0 +1,78 @@
+version: '3.8'
+
+services:
+  # データベース（MySQL）
+  db:
+    image: mysql:8.0
+    container_name: reflexio-db
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpassword
+      MYSQL_DATABASE: reflexio
+      MYSQL_USER: reflexio_user
+      MYSQL_PASSWORD: reflexio_password
+    ports:
+      - "3307:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+      - ./docker/mysql/init:/docker-entrypoint-initdb.d
+    networks:
+      - reflexio-network
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # バックエンド（Node.js）
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: reflexio-backend
+    environment:
+      NODE_ENV: development
+      DB_HOST: db
+      DB_PORT: 3306
+      DB_NAME: reflexio
+      DB_USER: reflexio_user
+      DB_PASSWORD: reflexio_password
+      PORT: 3001
+      SESSION_SECRET: reflexio-session-secret-dev
+    ports:
+      - "3002:3001"
+    volumes:
+      - ./backend:/app
+      - /app/node_modules
+    depends_on:
+      db:
+        condition: service_healthy
+    networks:
+      - reflexio-network
+    command: npm run dev
+
+  # フロントエンド（React）
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: reflexio-frontend
+    environment:
+      PORT: 3003
+    ports:
+      - "3003:3003"
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
+    depends_on:
+      - backend
+    networks:
+      - reflexio-network
+    command: npm start
+
+volumes:
+  mysql_data:
+
+networks:
+  reflexio-network:
+    driver: bridge
+
