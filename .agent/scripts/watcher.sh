@@ -80,9 +80,11 @@ while true; do
                 continue
             fi
 
-            # Send notification via tmux send-keys to the specific pane
+            # Send notification via tmux send-keys to the specific pane (Enter separated)
             NOTIFICATION="[MESSAGE] ${local_id} を読んでください。ファイル: .agent/messages/${local_id}.yaml (送信元: ${local_from}, 件名: ${local_subject})"
-            tmux send-keys -t "${SESSION_NAME}:${local_pane}" "${NOTIFICATION}" Enter
+            tmux send-keys -t "${SESSION_NAME}:${local_pane}" "${NOTIFICATION}"
+            sleep 0.5
+            tmux send-keys -t "${SESSION_NAME}:${local_pane}" Enter
 
             echo "  → ${local_to} に通知送信完了"
 
