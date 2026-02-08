@@ -252,6 +252,10 @@ echo ""
 echo " 接続: tmux attach -t ${SESSION_NAME}"
 echo "================================================"
 
+# Select PM-PL window so user lands on PM pane
+tmux select-window -t "${SESSION_NAME}:PM-PL"
+tmux select-pane -t "${SESSION_NAME}:PM-PL.0"
+
 # Attach if interactive
 if [ -t 1 ]; then
     tmux attach -t "${SESSION_NAME}"
