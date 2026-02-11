@@ -21,6 +21,8 @@
 ## 現在の状態
 
 - Sprint 1 完了: ログイン/ログアウト/メインレイアウト
+- Sprint 2 完了: 「やりたいこと」CRUD管理（wishes テーブル、REST API、一覧/追加/編集/削除UI）
+- Sprint 3 完了: タグ機能（多対多、自動作成）、フィルタリング機能（タグOR/優先度OR/組合せAND）
 - シードユーザー: admin / password123
 - セッションベース認証（express-session、メモリストア）
 

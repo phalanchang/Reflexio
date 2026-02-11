@@ -1,0 +1,114 @@
+.wish-filter {
+  background: #fafafa;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  padding: 12px 16px;
+  margin-bottom: 16px;
+}
+
+.filter-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.filter-row + .filter-row {
+  margin-top: 8px;
+}
+
+.filter-label {
+  font-size: 13px;
+  color: #666;
+  font-weight: 500;
+  min-width: 48px;
+  flex-shrink: 0;
+}
+
+.filter-options {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+/* フィルタチップ共通 */
+.filter-chip {
+  display: inline-block;
+  padding: 4px 12px;
+  border-radius: 14px;
+  font-size: 12px;
+  font-weight: 500;
+  cursor: pointer;
+  border: 1px solid #ccc;
+  background: white;
+  color: #666;
+  transition: all 0.2s;
+}
+
+.filter-chip:hover {
+  border-color: #999;
+}
+
+/* タグチップ */
+.filter-chip-tag {
+  border-color: #90caf9;
+  color: #1565c0;
+}
+
+.filter-chip-tag.filter-chip-active {
+  background-color: #1565c0;
+  color: white;
+  border-color: #1565c0;
+}
+
+/* 優先度チップ */
+.filter-priority-high {
+  border-color: #ef9a9a;
+  color: #c62828;
+}
+
+.filter-priority-high.filter-chip-active {
+  background-color: #c62828;
+  color: white;
+  border-color: #c62828;
+}
+
+.filter-priority-medium {
+  border-color: #ffe082;
+  color: #f57f17;
+}
+
+.filter-priority-medium.filter-chip-active {
+  background-color: #f57f17;
+  color: white;
+  border-color: #f57f17;
+}
+
+.filter-priority-low {
+  border-color: #ccc;
+  color: #757575;
+}
+
+.filter-priority-low.filter-chip-active {
+  background-color: #757575;
+  color: white;
+  border-color: #757575;
+}
+
+/* リセットボタン */
+.filter-reset {
+  margin-left: auto;
+  padding: 4px 12px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 12px;
+  cursor: pointer;
+  background: white;
+  color: #888;
+  transition: all 0.2s;
+}
+
+.filter-reset:hover {
+  background-color: #f0f0f0;
+  color: #555;
+}

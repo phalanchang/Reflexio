@@ -2,5 +2,6 @@
 
 | 番号 | スプリント名 | 期間 | 詳細ファイル | 状態 |
 |------|-------------|------|-------------|------|
-| 01 | 1stスプリント：認証機能と基本レイアウトの実装 | [期間を記載] | [01_sprint_01_planning.md](./01_sprint_planning/01_sprint_01_planning.md) | 計画中 |
+| 01 | 1stスプリント：認証機能と基本レイアウトの実装 | - | [01_sprint_01_planning.md](./01_sprint_planning/01_sprint_01_planning.md) | 完了 |
+| 02 | 2ndスプリント：「やりたいこと」管理機能 - 基盤構築 | - | [02_sprint_02_planning.md](./01_sprint_planning/02_sprint_02_planning.md) | 計画中 |
 

@@ -4,6 +4,7 @@ import LoginForm from './components/LoginForm';
 import MainLayout from './components/MainLayout';
 import ProtectedRoute from './components/ProtectedRoute';
 import Dashboard from './components/Dashboard';
+import WishList from './components/WishList';
 import './App.css';
 
 const API_URL = process.env.REACT_APP_API_URL || `http://${window.location.hostname}:3002`;
@@ -66,6 +67,7 @@ function App() {
                 <Routes>
                   <Route path="/" element={<Dashboard />} />
                   <Route path="/dashboard" element={<Dashboard />} />
+                  <Route path="/wishes" element={<WishList />} />
                   <Route path="*" element={<Navigate to="/" replace />} />
                 </Routes>
               </MainLayout>
