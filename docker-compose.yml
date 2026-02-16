@@ -38,6 +38,9 @@ services:
       DB_PASSWORD: reflexio_password
       PORT: 3001
       SESSION_SECRET: reflexio-session-secret-dev
+      GOOGLE_CLIENT_ID: "${GOOGLE_CLIENT_ID:-your-client-id}"
+      GOOGLE_CLIENT_SECRET: "${GOOGLE_CLIENT_SECRET:-your-client-secret}"
+      GOOGLE_REDIRECT_URI: "${GOOGLE_REDIRECT_URI:-http://localhost:3003/auth/google/callback}"
     ports:
       - "3002:3001"
     volumes:

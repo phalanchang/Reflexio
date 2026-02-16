@@ -1,0 +1,1189 @@
+<mxfile host="app.diagrams.net" modified="2026-02-12T00:00:00.000Z" agent="Claude" version="24.0.0" type="device">
+  <diagram id="login" name="1. ログインワークフロー">
+    <mxGraphModel dx="1200" dy="2500" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1200" pageHeight="2500" math="0" shadow="0">
+      <root>
+        <mxCell id="0"/>
+        <mxCell id="1" parent="0"/>
+
+        <!-- Column Headers -->
+        <mxCell id="L_H1" value="&#x1f310; ブラウザ" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#333333;fontColor=#ffffff;strokeColor=#333333;fontSize=12;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="20" y="10" width="220" height="35" as="geometry"/>
+        </mxCell>
+        <mxCell id="L_H2" value="&#x269b;&#xfe0f; Frontend (React)" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#333333;fontColor=#ffffff;strokeColor=#333333;fontSize=12;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="270" y="10" width="260" height="35" as="geometry"/>
+        </mxCell>
+        <mxCell id="L_H3" value="&#x1f5a5;&#xfe0f; Backend (Express)" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#333333;fontColor=#ffffff;strokeColor=#333333;fontSize=12;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="560" y="10" width="260" height="35" as="geometry"/>
+        </mxCell>
+        <mxCell id="L_H4" value="&#x1f5c4;&#xfe0f; Database (MySQL)" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#333333;fontColor=#ffffff;strokeColor=#333333;fontSize=12;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="850" y="10" width="220" height="35" as="geometry"/>
+        </mxCell>
+
+        <!-- Column Dividers -->
+        <mxCell id="L_div1" value="" style="endArrow=none;dashed=1;strokeColor=#cccccc;strokeWidth=1;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="255" y="10" as="sourcePoint"/>
+            <mxPoint x="255" y="2200" as="targetPoint"/>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="L_div2" value="" style="endArrow=none;dashed=1;strokeColor=#cccccc;strokeWidth=1;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="545" y="10" as="sourcePoint"/>
+            <mxPoint x="545" y="2200" as="targetPoint"/>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="L_div3" value="" style="endArrow=none;dashed=1;strokeColor=#cccccc;strokeWidth=1;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="835" y="10" as="sourcePoint"/>
+            <mxPoint x="835" y="2200" as="targetPoint"/>
+          </mxGeometry>
+        </mxCell>
+
+        <!-- Phase 1 Divider -->
+        <mxCell id="L_phase1" value="Phase 1: 初期認証チェック（アプリ読み込み時）" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f0f0f0;strokeColor=#cccccc;fontSize=11;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="20" y="55" width="1050" height="25" as="geometry"/>
+        </mxCell>
+
+        <!-- y=90 Browser: ユーザーがアプリにアクセス -->
+        <mxCell id="L_01" value="&lt;b&gt;ユーザーがアプリにアクセス&lt;/b&gt;&lt;br&gt;&lt;i&gt;http://localhost:3003&lt;/i&gt;&lt;br&gt;ブラウザでURL入力" style="html=1;whiteSpace=wrap;rounded=1;fontSize=10;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="1">
+          <mxGeometry x="20" y="90" width="220" height="75" as="geometry"/>
+        </mxCell>
+
+        <!-- Arrow L_01 → L_02 -->
+        <mxCell id="L_a01" style="edgeStyle=orthogonalEdgeStyle;" edge="1" source="L_01" target="L_02" parent="1">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <!-- y=180 Frontend: React アプリ初期化 -->
+        <mxCell id="L_02" value="&lt;b&gt;React アプリ初期化&lt;/b&gt;&lt;br&gt;&lt;i&gt;index.js L:7-14&lt;/i&gt;&lt;br&gt;BrowserRouterでAppをラップしてレンダリング" style="html=1;whiteSpace=wrap;rounded=1;fontSize=10;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1">
+          <mxGeometry x="270" y="180" width="260" height="75" as="geometry"/>
+        </mxCell>
+
+        <!-- Arrow L_02 → L_03 -->
+        <mxCell id="L_a02" style="edgeStyle=orthogonalEdgeStyle;" edge="1" source="L_02" target="L_03" parent="1">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <!-- y=270 Frontend: useEffect 認証状態チェック -->
+        <mxCell id="L_03" value="&lt;b&gt;useEffect: 認証状態チェック&lt;/b&gt;&lt;br&gt;&lt;i&gt;App.js L:18-35&lt;/i&gt;&lt;br&gt;マウント時にcheckAuth()を実行" style="html=1;whiteSpace=wrap;rounded=1;fontSize=10;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1">
+          <mxGeometry x="270" y="270" width="260" height="75" as="geometry"/>
+        </mxCell>
+
+        <!-- Arrow L_03 → L_04 -->
+        <mxCell id="L_a03" style="edgeStyle=orthogonalEdgeStyle;" edge="1" source="L_03" target="L_04" parent="1">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <!-- y=360 Frontend: fetch GET /api/auth/me -->
+        <mxCell id="L_04" value="&lt;b&gt;fetch GET /api/auth/me&lt;/b&gt;&lt;br&gt;&lt;i&gt;App.js L:21-23&lt;/i&gt;&lt;br&gt;credentials:&amp;#39;include&amp;#39;でセッションCookie送信" style="html=1;whiteSpace=wrap;rounded=1;fontSize=10;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1">
+          <mxGeometry x="270" y="360" width="260" height="75" as="geometry"/>
+        </mxCell>
+
+        <!-- Arrow L_04 → L_05 (Frontend to Backend) -->
+        <mxCell id="L_a04" value="GET /api/auth/me" style="edgeStyle=orthogonalEdgeStyle;fontSize=9;" edge="1" source="L_04" target="L_05" parent="1">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <!-- y=450 Backend: CORS + Session ミドルウェア -->
+        <mxCell id="L_05" value="&lt;b&gt;CORS + Sessionミドルウェア&lt;/b&gt;&lt;br&gt;&lt;i&gt;server.js L:18-38&lt;/i&gt;&lt;br&gt;origin:true, credentials:true, httpOnly cookie" style="html=1;whiteSpace=wrap;rounded=1;fontSize=10;fillColor=#fff2cc;strokeColor=#d6b656;" vertex="1" parent="1">
+          <mxGeometry x="560" y="450" width="260" height="75" as="geometry"/>
+        </mxCell>
+
+        <!-- Arrow L_05 → L_06 -->
+        <mxCell id="L_a05" style="edgeStyle=orthogonalEdgeStyle;" edge="1" source="L_05" target="L_06" parent="1">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <!-- y=540 Backend: requireAuth ミドルウェア -->
+        <mxCell id="L_06" value="&lt;b&gt;requireAuthミドルウェア&lt;/b&gt;&lt;br&gt;&lt;i&gt;middleware/auth.js L:1-7&lt;/i&gt;&lt;br&gt;req.session.userId存在チェック" style="html=1;whiteSpace=wrap;rounded=1;fontSize=10;fillColor=#fff2cc;strokeColor=#d6b656;" vertex="1" parent="1">
+          <mxGeometry x="560" y="540" width="260" height="75" as="geometry"/>
+        </mxCell>
+
+        <!-- Arrow L_06 → L_07 -->
+        <mxCell id="L_a06" style="edgeStyle=orthogonalEdgeStyle;" edge="1" source="L_06" target="L_07" parent="1">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <!-- y=630 Backend: セッションなし → 401返却 -->
+        <mxCell id="L_07" value="&lt;b&gt;セッションなし → 401返却&lt;/b&gt;&lt;br&gt;&lt;i&gt;middleware/auth.js L:4-5&lt;/i&gt;&lt;br&gt;{ error: &amp;#39;Authentication required&amp;#39; }" style="html=1;whiteSpace=wrap;rounded=1;fontSize=10;fillColor=#fff2cc;strokeColor=#d6b656;" vertex="1" parent="1">
+          <mxGeometry x="560" y="630" width="260" height="75" as="geometry"/>
+        </mxCell>
+
+        <!-- Arrow L_07 → L_08 (Backend to Frontend) -->
+        <mxCell id="L_a07" value="401 Unauthorized" style="edgeStyle=orthogonalEdgeStyle;fontSize=9;" edge="1" source="L_07" target="L_08" parent="1">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <!-- y=720 Frontend: エラーキャッチ -->
+        <mxCell id="L_08" value="&lt;b&gt;エラーキャッチ → user=null&lt;/b&gt;&lt;br&gt;&lt;i&gt;App.js L:27-31&lt;/i&gt;&lt;br&gt;setUser(null), setLoading(false)" style="html=1;whiteSpace=wrap;rounded=1;fontSize=10;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1">
+          <mxGeometry x="270" y="720" width="260" height="75" as="geometry"/>
+        </mxCell>
+
+        <!-- Arrow L_08 → L_09 -->
+        <mxCell id="L_a08" style="edgeStyle=orthogonalEdgeStyle;" edge="1" source="L_08" target="L_09" parent="1">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <!-- y=810 Frontend: /login ルート表示 -->
+        <mxCell id="L_09" value="&lt;b&gt;/login ルート → LoginForm表示&lt;/b&gt;&lt;br&gt;&lt;i&gt;App.js L:60-63&lt;/i&gt;&lt;br&gt;user=null → LoginFormコンポーネント表示" style="html=1;whiteSpace=wrap;rounded=1;fontSize=10;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1">
+          <mxGeometry x="270" y="810" width="260" height="75" as="geometry"/>
+        </mxCell>
+
+        <!-- Phase 2 Divider -->
+        <mxCell id="L_phase2" value="Phase 2: ログインフォーム送信" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f0f0f0;strokeColor=#cccccc;fontSize=11;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="20" y="895" width="1050" height="25" as="geometry"/>
+        </mxCell>
+
+        <!-- y=930 Browser: ユーザー名・パスワード入力 -->
+        <mxCell id="L_10" value="&lt;b&gt;ユーザー名・パスワード入力&lt;/b&gt;&lt;br&gt;&lt;i&gt;ブラウザ&lt;/i&gt;&lt;br&gt;フォームに認証情報を入力" style="html=1;whiteSpace=wrap;rounded=1;fontSize=10;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="1">
+          <mxGeometry x="20" y="930" width="220" height="75" as="geometry"/>
+        </mxCell>
+
+        <!-- Arrow L_10 → L_11 -->
+        <mxCell id="L_a10" style="edgeStyle=orthogonalEdgeStyle;" edge="1" source="L_10" target="L_11" parent="1">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <!-- y=1020 Frontend: LoginForm レンダリング -->
+        <mxCell id="L_11" value="&lt;b&gt;LoginForm レンダリング&lt;/b&gt;&lt;br&gt;&lt;i&gt;LoginForm.js L:39-74&lt;/i&gt;&lt;br&gt;username/password state管理, autofocus" style="html=1;whiteSpace=wrap;rounded=1;fontSize=10;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1">
+          <mxGeometry x="270" y="1020" width="260" height="75" as="geometry"/>
+        </mxCell>
+
+        <!-- Arrow L_11 → L_12 -->
+        <mxCell id="L_a11" style="edgeStyle=orthogonalEdgeStyle;" edge="1" source="L_11" target="L_12" parent="1">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <!-- y=1110 Frontend: handleSubmit() -->
+        <mxCell id="L_12" value="&lt;b&gt;handleSubmit() 実行&lt;/b&gt;&lt;br&gt;&lt;i&gt;LoginForm.js L:12-37&lt;/i&gt;&lt;br&gt;e.preventDefault(), setIsSubmitting(true)" style="html=1;whiteSpace=wrap;rounded=1;fontSize=10;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1">
+          <mxGeometry x="270" y="1110" width="260" height="75" as="geometry"/>
+        </mxCell>
+
+        <!-- Arrow L_12 → L_13 (Frontend to Backend) -->
+        <mxCell id="L_a12" value="POST /api/auth/login" style="edgeStyle=orthogonalEdgeStyle;fontSize=9;" edge="1" source="L_12" target="L_13" parent="1">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <!-- y=1200 Backend: POST /login ハンドラー -->
+        <mxCell id="L_13" value="&lt;b&gt;POST /login ハンドラー&lt;/b&gt;&lt;br&gt;&lt;i&gt;auth.js L:8-48&lt;/i&gt;&lt;br&gt;req.bodyからusername, password取得" style="html=1;whiteSpace=wrap;rounded=1;fontSize=10;fillColor=#fff2cc;strokeColor=#d6b656;" vertex="1" parent="1">
+          <mxGeometry x="560" y="1200" width="260" height="75" as="geometry"/>
+        </mxCell>
+
+        <!-- Arrow L_13 → L_14 -->
+        <mxCell id="L_a13" style="edgeStyle=orthogonalEdgeStyle;" edge="1" source="L_13" target="L_14" parent="1">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <!-- y=1290 Backend: 入力バリデーション -->
+        <mxCell id="L_14" value="&lt;b&gt;入力バリデーション&lt;/b&gt;&lt;br&gt;&lt;i&gt;auth.js L:9-14&lt;/i&gt;&lt;br&gt;username/password未入力 → 400エラー" style="html=1;whiteSpace=wrap;rounded=1;fontSize=10;fillColor=#fff2cc;strokeColor=#d6b656;" vertex="1" parent="1">
+          <mxGeometry x="560" y="1290" width="260" height="75" as="geometry"/>
+        </mxCell>
+
+        <!-- Arrow L_14 → L_15 (Backend to Database) -->
+        <mxCell id="L_a14" value="SELECT" style="edgeStyle=orthogonalEdgeStyle;fontSize=9;" edge="1" source="L_14" target="L_15" parent="1">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <!-- y=1380 Database: ユーザー検索 -->
+        <mxCell id="L_15" value="&lt;b&gt;ユーザー検索&lt;/b&gt;&lt;br&gt;&lt;i&gt;auth.js L:16-19 → users テーブル&lt;/i&gt;&lt;br&gt;SELECT id,username,password_hash FROM users WHERE username=?" style="html=1;whiteSpace=wrap;rounded=1;fontSize=10;fillColor=#f8cecc;strokeColor=#b85450;" vertex="1" parent="1">
+          <mxGeometry x="850" y="1380" width="220" height="75" as="geometry"/>
+        </mxCell>
+
+        <!-- Arrow L_15 → L_16 (Database to Backend) -->
+        <mxCell id="L_a15" value="Result rows" style="edgeStyle=orthogonalEdgeStyle;fontSize=9;" edge="1" source="L_15" target="L_16" parent="1">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <!-- y=1470 Backend: パスワード照合 -->
+        <mxCell id="L_16" value="&lt;b&gt;パスワード照合&lt;/b&gt;&lt;br&gt;&lt;i&gt;auth.js L:26&lt;/i&gt;&lt;br&gt;bcrypt.compare(password, user.password_hash)" style="html=1;whiteSpace=wrap;rounded=1;fontSize=10;fillColor=#fff2cc;strokeColor=#d6b656;" vertex="1" parent="1">
+          <mxGeometry x="560" y="1470" width="260" height="75" as="geometry"/>
+        </mxCell>
+
+        <!-- Arrow L_16 → L_17 -->
+        <mxCell id="L_a16" style="edgeStyle=orthogonalEdgeStyle;" edge="1" source="L_16" target="L_17" parent="1">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <!-- y=1560 Backend: セッション作成 -->
+        <mxCell id="L_17" value="&lt;b&gt;セッション作成&lt;/b&gt;&lt;br&gt;&lt;i&gt;auth.js L:32-34&lt;/i&gt;&lt;br&gt;session.userId, username, displayName設定" style="html=1;whiteSpace=wrap;rounded=1;fontSize=10;fillColor=#fff2cc;strokeColor=#d6b656;" vertex="1" parent="1">
+          <mxGeometry x="560" y="1560" width="260" height="75" as="geometry"/>
+        </mxCell>
+
+        <!-- Arrow L_17 → L_18 -->
+        <mxCell id="L_a17" style="edgeStyle=orthogonalEdgeStyle;" edge="1" source="L_17" target="L_18" parent="1">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <!-- y=1650 Backend: 200レスポンス + Set-Cookie -->
+        <mxCell id="L_18" value="&lt;b&gt;200レスポンス + Set-Cookie&lt;/b&gt;&lt;br&gt;&lt;i&gt;auth.js L:36-43&lt;/i&gt;&lt;br&gt;{ user: {id, username, displayName} }" style="html=1;whiteSpace=wrap;rounded=1;fontSize=10;fillColor=#fff2cc;strokeColor=#d6b656;" vertex="1" parent="1">
+          <mxGeometry x="560" y="1650" width="260" height="75" as="geometry"/>
+        </mxCell>
+
+        <!-- Arrow L_18 → L_19 (Backend to Browser: Set-Cookie) -->
+        <mxCell id="L_a18a" value="Set-Cookie: connect.sid" style="edgeStyle=orthogonalEdgeStyle;fontSize=9;" edge="1" source="L_18" target="L_19" parent="1">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <!-- Arrow L_18 → L_20 (Backend to Frontend: 200 OK) -->
+        <mxCell id="L_a18b" value="200 OK + user object" style="edgeStyle=orthogonalEdgeStyle;fontSize=9;" edge="1" source="L_18" target="L_20" parent="1">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <!-- y=1740 Browser: セッションCookie保存 -->
+        <mxCell id="L_19" value="&lt;b&gt;セッションCookie保存&lt;/b&gt;&lt;br&gt;&lt;i&gt;ブラウザ自動処理&lt;/i&gt;&lt;br&gt;connect.sid cookie をブラウザに保存" style="html=1;whiteSpace=wrap;rounded=1;fontSize=10;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="1">
+          <mxGeometry x="20" y="1740" width="220" height="75" as="geometry"/>
+        </mxCell>
+
+        <!-- y=1740 Frontend: onLogin コールバック -->
+        <mxCell id="L_20" value="&lt;b&gt;onLogin コールバック&lt;/b&gt;&lt;br&gt;&lt;i&gt;LoginForm.js L:27-28&lt;/i&gt;&lt;br&gt;response.ok → onLogin(data.user)呼び出し" style="html=1;whiteSpace=wrap;rounded=1;fontSize=10;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1">
+          <mxGeometry x="270" y="1740" width="260" height="75" as="geometry"/>
+        </mxCell>
+
+        <!-- Arrow L_20 → L_21 -->
+        <mxCell id="L_a20" style="edgeStyle=orthogonalEdgeStyle;" edge="1" source="L_20" target="L_21" parent="1">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <!-- y=1830 Frontend: setUser(userData) -->
+        <mxCell id="L_21" value="&lt;b&gt;setUser(userData)&lt;/b&gt;&lt;br&gt;&lt;i&gt;App.js L:37-39&lt;/i&gt;&lt;br&gt;handleLogin() → user stateを更新" style="html=1;whiteSpace=wrap;rounded=1;fontSize=10;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1">
+          <mxGeometry x="270" y="1830" width="260" height="75" as="geometry"/>
+        </mxCell>
+
+        <!-- Arrow L_21 → L_22 -->
+        <mxCell id="L_a21" style="edgeStyle=orthogonalEdgeStyle;" edge="1" source="L_21" target="L_22" parent="1">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <!-- y=1920 Frontend: React再レンダリング -->
+        <mxCell id="L_22" value="&lt;b&gt;React再レンダリング → リダイレクト&lt;/b&gt;&lt;br&gt;&lt;i&gt;App.js L:60-62&lt;/i&gt;&lt;br&gt;user存在 → Navigate to &amp;#39;/&amp;#39;" style="html=1;whiteSpace=wrap;rounded=1;fontSize=10;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1">
+          <mxGeometry x="270" y="1920" width="260" height="75" as="geometry"/>
+        </mxCell>
+
+        <!-- Arrow L_22 → L_23 -->
+        <mxCell id="L_a22" style="edgeStyle=orthogonalEdgeStyle;" edge="1" source="L_22" target="L_23" parent="1">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <!-- y=2010 Frontend: ProtectedRoute 通過 -->
+        <mxCell id="L_23" value="&lt;b&gt;ProtectedRoute 通過&lt;/b&gt;&lt;br&gt;&lt;i&gt;ProtectedRoute.js L:4-9&lt;/i&gt;&lt;br&gt;user存在 → children(MainLayout)表示" style="html=1;whiteSpace=wrap;rounded=1;fontSize=10;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1">
+          <mxGeometry x="270" y="2010" width="260" height="75" as="geometry"/>
+        </mxCell>
+
+        <!-- Arrow L_23 → L_24 -->
+        <mxCell id="L_a23" style="edgeStyle=orthogonalEdgeStyle;" edge="1" source="L_23" target="L_24" parent="1">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <!-- y=2100 Frontend: Dashboard 表示完了 -->
+        <mxCell id="L_24" value="&lt;b&gt;Dashboard 表示完了&lt;/b&gt;&lt;br&gt;&lt;i&gt;MainLayout.js L:6-17 + App.js L:70&lt;/i&gt;&lt;br&gt;Header + Sidebar + Dashboard レンダリング" style="html=1;whiteSpace=wrap;rounded=1;fontSize=10;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1">
+          <mxGeometry x="270" y="2100" width="260" height="75" as="geometry"/>
+        </mxCell>
+
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram id="calendar" name="2. カレンダーサマリー取得ワークフロー">
+    <mxGraphModel dx="1350" dy="3200" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1350" pageHeight="3200" math="0" shadow="0">
+      <root>
+        <mxCell id="0"/>
+        <mxCell id="1" parent="0"/>
+
+        <!-- Column Headers (5 columns) -->
+        <mxCell id="C_H1" value="&#x1f310; ブラウザ" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#333333;fontColor=#ffffff;strokeColor=#333333;fontSize=12;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="20" y="10" width="200" height="35" as="geometry"/>
+        </mxCell>
+        <mxCell id="C_H2" value="&#x269b;&#xfe0f; Frontend (React)" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#333333;fontColor=#ffffff;strokeColor=#333333;fontSize=12;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="240" y="10" width="240" height="35" as="geometry"/>
+        </mxCell>
+        <mxCell id="C_H3" value="&#x1f5a5;&#xfe0f; Backend (Express)" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#333333;fontColor=#ffffff;strokeColor=#333333;fontSize=12;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="500" y="10" width="250" height="35" as="geometry"/>
+        </mxCell>
+        <mxCell id="C_H4" value="&#x1f5c4;&#xfe0f; Database (MySQL)" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#333333;fontColor=#ffffff;strokeColor=#333333;fontSize=12;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="770" y="10" width="210" height="35" as="geometry"/>
+        </mxCell>
+        <mxCell id="C_H5" value="&#x2601;&#xfe0f; Google Calendar API" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#333333;fontColor=#ffffff;strokeColor=#333333;fontSize=12;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="1000" y="10" width="220" height="35" as="geometry"/>
+        </mxCell>
+
+        <!-- Column Dividers (5 columns) -->
+        <mxCell id="C_div1" value="" style="endArrow=none;dashed=1;strokeColor=#cccccc;strokeWidth=1;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="230" y="10" as="sourcePoint"/>
+            <mxPoint x="230" y="2500" as="targetPoint"/>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="C_div2" value="" style="endArrow=none;dashed=1;strokeColor=#cccccc;strokeWidth=1;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="490" y="10" as="sourcePoint"/>
+            <mxPoint x="490" y="2500" as="targetPoint"/>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="C_div3" value="" style="endArrow=none;dashed=1;strokeColor=#cccccc;strokeWidth=1;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="760" y="10" as="sourcePoint"/>
+            <mxPoint x="760" y="2500" as="targetPoint"/>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="C_div4" value="" style="endArrow=none;dashed=1;strokeColor=#cccccc;strokeWidth=1;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="990" y="10" as="sourcePoint"/>
+            <mxPoint x="990" y="2500" as="targetPoint"/>
+          </mxGeometry>
+        </mxCell>
+
+        <!-- Phase 1 Divider -->
+        <mxCell id="C_phase1" value="Phase 1: Google接続状態チェック" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f0f0f0;strokeColor=#cccccc;fontSize=11;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="20" y="55" width="1200" height="25" as="geometry"/>
+        </mxCell>
+
+        <!-- y=90 Frontend: Dashboard マウント -->
+        <mxCell id="C_01" value="&lt;b&gt;Dashboard マウント&lt;/b&gt;&lt;br&gt;&lt;i&gt;Dashboard.js L:10-15&lt;/i&gt;&lt;br&gt;useState初期化: googleStatus, period=&amp;#39;7days&amp;#39;, summaryData" style="html=1;whiteSpace=wrap;rounded=1;fontSize=10;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1">
+          <mxGeometry x="240" y="90" width="240" height="75" as="geometry"/>
+        </mxCell>
+
+        <!-- Arrow C_01 → C_02 -->
+        <mxCell id="C_a01" style="edgeStyle=orthogonalEdgeStyle;" edge="1" source="C_01" target="C_02" parent="1">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <!-- y=180 Frontend: useEffect fetchGoogleStatus -->
+        <mxCell id="C_02" value="&lt;b&gt;useEffect: fetchGoogleStatus()&lt;/b&gt;&lt;br&gt;&lt;i&gt;Dashboard.js L:62-64&lt;/i&gt;&lt;br&gt;マウント時にGoogle接続状態を確認" style="html=1;whiteSpace=wrap;rounded=1;fontSize=10;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1">
+          <mxGeometry x="240" y="180" width="240" height="75" as="geometry"/>
+        </mxCell>
+
+        <!-- Arrow C_02 → C_03 (Frontend to Backend) -->
+        <mxCell id="C_a02" value="GET /api/google/auth/status" style="edgeStyle=orthogonalEdgeStyle;fontSize=9;" edge="1" source="C_02" target="C_03" parent="1">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <!-- y=270 Backend: 認証ミドルウェア -->
+        <mxCell id="C_03" value="&lt;b&gt;認証ミドルウェア&lt;/b&gt;&lt;br&gt;&lt;i&gt;google.js L:9&lt;/i&gt;&lt;br&gt;router.use(requireAuth) → session確認" style="html=1;whiteSpace=wrap;rounded=1;fontSize=10;fillColor=#fff2cc;strokeColor=#d6b656;" vertex="1" parent="1">
+          <mxGeometry x="500" y="270" width="250" height="75" as="geometry"/>
+        </mxCell>
+
+        <!-- Arrow C_03 → C_04 -->
+        <mxCell id="C_a03" style="edgeStyle=orthogonalEdgeStyle;" edge="1" source="C_03" target="C_04" parent="1">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <!-- y=360 Backend: OAuth設定チェック -->
+        <mxCell id="C_04" value="&lt;b&gt;OAuth設定チェック&lt;/b&gt;&lt;br&gt;&lt;i&gt;google.js L:116-120&lt;/i&gt;&lt;br&gt;SELECT id FROM google_oauth_settings WHERE user_id=?" style="html=1;whiteSpace=wrap;rounded=1;fontSize=10;fillColor=#fff2cc;strokeColor=#d6b656;" vertex="1" parent="1">
+          <mxGeometry x="500" y="360" width="250" height="75" as="geometry"/>
+        </mxCell>
+
+        <!-- Arrow C_04 → C_05 (Backend to Database) -->
+        <mxCell id="C_a04" style="edgeStyle=orthogonalEdgeStyle;" edge="1" source="C_04" target="C_05" parent="1">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <!-- y=360 Database: google_oauth_settings検索 -->
+        <mxCell id="C_05" value="&lt;b&gt;google_oauth_settings検索&lt;/b&gt;&lt;br&gt;&lt;i&gt;007_create...sql L:3-12&lt;/i&gt;&lt;br&gt;ユーザーのOAuth Client ID/Secret設定" style="html=1;whiteSpace=wrap;rounded=1;fontSize=10;fillColor=#f8cecc;strokeColor=#b85450;" vertex="1" parent="1">
+          <mxGeometry x="770" y="360" width="210" height="75" as="geometry"/>
+        </mxCell>
+
+        <!-- Arrow C_05 → C_06 (Database back to Backend) -->
+        <mxCell id="C_a05" style="edgeStyle=orthogonalEdgeStyle;" edge="1" source="C_05" target="C_06" parent="1">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <!-- y=450 Backend: トークン検索 -->
+        <mxCell id="C_06" value="&lt;b&gt;トークン検索&lt;/b&gt;&lt;br&gt;&lt;i&gt;google.js L:127-130&lt;/i&gt;&lt;br&gt;SELECT google_email FROM google_tokens WHERE user_id=?" style="html=1;whiteSpace=wrap;rounded=1;fontSize=10;fillColor=#fff2cc;strokeColor=#d6b656;" vertex="1" parent="1">
+          <mxGeometry x="500" y="450" width="250" height="75" as="geometry"/>
+        </mxCell>
+
+        <!-- Arrow C_06 → C_07 (Backend to Database) -->
+        <mxCell id="C_a06" style="edgeStyle=orthogonalEdgeStyle;" edge="1" source="C_06" target="C_07" parent="1">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <!-- y=450 Database: google_tokens検索 -->
+        <mxCell id="C_07" value="&lt;b&gt;google_tokens検索&lt;/b&gt;&lt;br&gt;&lt;i&gt;006_create...sql L:3-16&lt;/i&gt;&lt;br&gt;access_token, refresh_token, expires_at" style="html=1;whiteSpace=wrap;rounded=1;fontSize=10;fillColor=#f8cecc;strokeColor=#b85450;" vertex="1" parent="1">
+          <mxGeometry x="770" y="450" width="210" height="75" as="geometry"/>
+        </mxCell>
+
+        <!-- Arrow C_07 → C_08 -->
+        <mxCell id="C_a07" style="edgeStyle=orthogonalEdgeStyle;" edge="1" source="C_07" target="C_08" parent="1">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <!-- y=540 Backend: 接続状態レスポンス -->
+        <mxCell id="C_08" value="&lt;b&gt;接続状態レスポンス&lt;/b&gt;&lt;br&gt;&lt;i&gt;google.js L:132-145&lt;/i&gt;&lt;br&gt;{ connected: true/false, hasSettings, email }" style="html=1;whiteSpace=wrap;rounded=1;fontSize=10;fillColor=#fff2cc;strokeColor=#d6b656;" vertex="1" parent="1">
+          <mxGeometry x="500" y="540" width="250" height="75" as="geometry"/>
+        </mxCell>
+
+        <!-- Arrow C_08 → C_09 (Backend to Frontend) -->
+        <mxCell id="C_a08" value="200 OK" style="edgeStyle=orthogonalEdgeStyle;fontSize=9;" edge="1" source="C_08" target="C_09" parent="1">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <!-- y=630 Frontend: setGoogleStatus -->
+        <mxCell id="C_09" value="&lt;b&gt;setGoogleStatus(data)&lt;/b&gt;&lt;br&gt;&lt;i&gt;Dashboard.js L:24&lt;/i&gt;&lt;br&gt;connected状態をstateに保存" style="html=1;whiteSpace=wrap;rounded=1;fontSize=10;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1">
+          <mxGeometry x="240" y="630" width="240" height="75" as="geometry"/>
+        </mxCell>
+
+        <!-- Phase 2 Divider -->
+        <mxCell id="C_phase2" value="Phase 2: カレンダーサマリー取得（connected=true時）" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f0f0f0;strokeColor=#cccccc;fontSize=11;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="20" y="710" width="1200" height="25" as="geometry"/>
+        </mxCell>
+
+        <!-- y=750 Frontend: useEffect fetchSummary -->
+        <mxCell id="C_10" value="&lt;b&gt;useEffect: fetchSummary(&amp;#39;7days&amp;#39;)&lt;/b&gt;&lt;br&gt;&lt;i&gt;Dashboard.js L:66-70&lt;/i&gt;&lt;br&gt;googleStatus.connected=true → サマリー取得" style="html=1;whiteSpace=wrap;rounded=1;fontSize=10;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1">
+          <mxGeometry x="240" y="750" width="240" height="75" as="geometry"/>
+        </mxCell>
+
+        <!-- Arrow C_10 → C_11 (Frontend to Backend) -->
+        <mxCell id="C_a10" value="GET /api/calendar/summary?period=7days" style="edgeStyle=orthogonalEdgeStyle;fontSize=9;" edge="1" source="C_10" target="C_11" parent="1">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <!-- y=840 Backend: getAuthenticatedClient -->
+        <mxCell id="C_11" value="&lt;b&gt;getAuthenticatedClient()&lt;/b&gt;&lt;br&gt;&lt;i&gt;google.js L:30-68 (config)&lt;/i&gt;&lt;br&gt;DB からトークン取得 → OAuth2Client作成" style="html=1;whiteSpace=wrap;rounded=1;fontSize=10;fillColor=#fff2cc;strokeColor=#d6b656;" vertex="1" parent="1">
+          <mxGeometry x="500" y="840" width="250" height="75" as="geometry"/>
+        </mxCell>
+
+        <!-- Arrow C_11 → C_12 (Backend to Database) -->
+        <mxCell id="C_a11" style="edgeStyle=orthogonalEdgeStyle;" edge="1" source="C_11" target="C_12" parent="1">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <!-- y=840 Database: トークン取得 -->
+        <mxCell id="C_12" value="&lt;b&gt;トークン取得&lt;/b&gt;&lt;br&gt;&lt;i&gt;google.js L:32-39&lt;/i&gt;&lt;br&gt;SELECT access_token, refresh_token, expires_at" style="html=1;whiteSpace=wrap;rounded=1;fontSize=10;fillColor=#f8cecc;strokeColor=#b85450;" vertex="1" parent="1">
+          <mxGeometry x="770" y="840" width="210" height="75" as="geometry"/>
+        </mxCell>
+
+        <!-- Arrow C_12 → C_13 -->
+        <mxCell id="C_a12" style="edgeStyle=orthogonalEdgeStyle;" edge="1" source="C_12" target="C_13" parent="1">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <!-- y=930 Backend: トークン有効期限チェック -->
+        <mxCell id="C_13" value="&lt;b&gt;トークン有効期限チェック&lt;/b&gt;&lt;br&gt;&lt;i&gt;google.js L:50-65&lt;/i&gt;&lt;br&gt;5分以内に期限切れ → refreshAccessToken()" style="html=1;whiteSpace=wrap;rounded=1;fontSize=10;fillColor=#fff2cc;strokeColor=#d6b656;" vertex="1" parent="1">
+          <mxGeometry x="500" y="930" width="250" height="75" as="geometry"/>
+        </mxCell>
+
+        <!-- Arrow C_13 → C_14 -->
+        <mxCell id="C_a13" style="edgeStyle=orthogonalEdgeStyle;" edge="1" source="C_13" target="C_14" parent="1">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <!-- y=1020 Backend: getTimeRange -->
+        <mxCell id="C_14" value="&lt;b&gt;getTimeRange(&amp;#39;7days&amp;#39;)&lt;/b&gt;&lt;br&gt;&lt;i&gt;calendar.js L:32-61&lt;/i&gt;&lt;br&gt;timeMin=7日前 00:00, timeMax=今日 23:59" style="html=1;whiteSpace=wrap;rounded=1;fontSize=10;fillColor=#fff2cc;strokeColor=#d6b656;" vertex="1" parent="1">
+          <mxGeometry x="500" y="1020" width="250" height="75" as="geometry"/>
+        </mxCell>
+
+        <!-- Arrow C_14 → C_15 -->
+        <mxCell id="C_a14" style="edgeStyle=orthogonalEdgeStyle;" edge="1" source="C_14" target="C_15" parent="1">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <!-- y=1110 Backend: カレンダー一覧取得 -->
+        <mxCell id="C_15" value="&lt;b&gt;カレンダー一覧取得&lt;/b&gt;&lt;br&gt;&lt;i&gt;calendar.js L:178-189&lt;/i&gt;&lt;br&gt;calendarApi.calendarList.list()" style="html=1;whiteSpace=wrap;rounded=1;fontSize=10;fillColor=#fff2cc;strokeColor=#d6b656;" vertex="1" parent="1">
+          <mxGeometry x="500" y="1110" width="250" height="75" as="geometry"/>
+        </mxCell>
+
+        <!-- Arrow C_15 → C_16 (Backend to Google API) -->
+        <mxCell id="C_a15" value="calendarList.list()" style="edgeStyle=orthogonalEdgeStyle;fontSize=9;" edge="1" source="C_15" target="C_16" parent="1">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <!-- y=1110 Google API: カレンダー一覧返却 -->
+        <mxCell id="C_16" value="&lt;b&gt;カレンダー一覧返却&lt;/b&gt;&lt;br&gt;&lt;i&gt;Google Calendar API v3&lt;/i&gt;&lt;br&gt;calendars[]: {id, summary, backgroundColor}" style="html=1;whiteSpace=wrap;rounded=1;fontSize=10;fillColor=#e1d5e7;strokeColor=#9673a6;" vertex="1" parent="1">
+          <mxGeometry x="1000" y="1110" width="220" height="75" as="geometry"/>
+        </mxCell>
+
+        <!-- Arrow C_16 → C_17 (Google API to Backend) -->
+        <mxCell id="C_a16" style="edgeStyle=orthogonalEdgeStyle;" edge="1" source="C_16" target="C_17" parent="1">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <!-- y=1200 Backend: calendarInfoMap構築 -->
+        <mxCell id="C_17" value="&lt;b&gt;calendarInfoMap構築&lt;/b&gt;&lt;br&gt;&lt;i&gt;calendar.js L:183-189&lt;/i&gt;&lt;br&gt;cal.id → {name: cal.summary, color: cal.backgroundColor}" style="html=1;whiteSpace=wrap;rounded=1;fontSize=10;fillColor=#fff2cc;strokeColor=#d6b656;" vertex="1" parent="1">
+          <mxGeometry x="500" y="1200" width="250" height="75" as="geometry"/>
+        </mxCell>
+
+        <!-- Arrow C_17 → C_18 -->
+        <mxCell id="C_a17" style="edgeStyle=orthogonalEdgeStyle;" edge="1" source="C_17" target="C_18" parent="1">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <!-- y=1290 Backend: 各カレンダーのイベント取得ループ -->
+        <mxCell id="C_18" value="&lt;b&gt;各カレンダーのイベント取得ループ&lt;/b&gt;&lt;br&gt;&lt;i&gt;calendar.js L:193-218&lt;/i&gt;&lt;br&gt;for (const cal of calendars) { events.list(...) }" style="html=1;whiteSpace=wrap;rounded=1;fontSize=10;fillColor=#fff2cc;strokeColor=#d6b656;" vertex="1" parent="1">
+          <mxGeometry x="500" y="1290" width="250" height="75" as="geometry"/>
+        </mxCell>
+
+        <!-- Arrow C_18 → C_19 (Backend to Google API) -->
+        <mxCell id="C_a18" value="events.list() x N回" style="edgeStyle=orthogonalEdgeStyle;fontSize=9;" edge="1" source="C_18" target="C_19" parent="1">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <!-- y=1290 Google API: イベント一覧返却 -->
+        <mxCell id="C_19" value="&lt;b&gt;イベント一覧返却&lt;/b&gt;&lt;br&gt;&lt;i&gt;Google Calendar API v3&lt;/i&gt;&lt;br&gt;events[]: {start, end, summary, colorId}" style="html=1;whiteSpace=wrap;rounded=1;fontSize=10;fillColor=#e1d5e7;strokeColor=#9673a6;" vertex="1" parent="1">
+          <mxGeometry x="1000" y="1290" width="220" height="75" as="geometry"/>
+        </mxCell>
+
+        <!-- Arrow C_19 → C_20 (Google API to Backend) -->
+        <mxCell id="C_a19" style="edgeStyle=orthogonalEdgeStyle;" edge="1" source="C_19" target="C_20" parent="1">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <!-- y=1380 Backend: 終日イベント除外 -->
+        <mxCell id="C_20" value="&lt;b&gt;終日イベント除外 + rawEvents構築&lt;/b&gt;&lt;br&gt;&lt;i&gt;calendar.js L:205-217&lt;/i&gt;&lt;br&gt;!event.start?.dateTime → skip, colorId取得" style="html=1;whiteSpace=wrap;rounded=1;fontSize=10;fillColor=#fff2cc;strokeColor=#d6b656;" vertex="1" parent="1">
+          <mxGeometry x="500" y="1380" width="250" height="75" as="geometry"/>
+        </mxCell>
+
+        <!-- Arrow C_20 → C_21 -->
+        <mxCell id="C_a20" style="edgeStyle=orthogonalEdgeStyle;" edge="1" source="C_20" target="C_21" parent="1">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <!-- y=1470 Backend: カテゴリマッピング取得 -->
+        <mxCell id="C_21" value="&lt;b&gt;カテゴリマッピング取得&lt;/b&gt;&lt;br&gt;&lt;i&gt;calendar.js L:221-228&lt;/i&gt;&lt;br&gt;SELECT google_color_id, category_name FROM category_mappings WHERE user_id=?" style="html=1;whiteSpace=wrap;rounded=1;fontSize=10;fillColor=#fff2cc;strokeColor=#d6b656;" vertex="1" parent="1">
+          <mxGeometry x="500" y="1470" width="250" height="75" as="geometry"/>
+        </mxCell>
+
+        <!-- Arrow C_21 → C_22 (Backend to Database) -->
+        <mxCell id="C_a21" style="edgeStyle=orthogonalEdgeStyle;" edge="1" source="C_21" target="C_22" parent="1">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <!-- y=1470 Database: category_mappings検索 -->
+        <mxCell id="C_22" value="&lt;b&gt;category_mappings検索&lt;/b&gt;&lt;br&gt;&lt;i&gt;009_create...sql&lt;/i&gt;&lt;br&gt;ユーザーのcolorId→カテゴリ名マッピング" style="html=1;whiteSpace=wrap;rounded=1;fontSize=10;fillColor=#f8cecc;strokeColor=#b85450;" vertex="1" parent="1">
+          <mxGeometry x="770" y="1470" width="210" height="75" as="geometry"/>
+        </mxCell>
+
+        <!-- Arrow C_22 → C_23 (Database to Backend) -->
+        <mxCell id="C_a22" style="edgeStyle=orthogonalEdgeStyle;" edge="1" source="C_22" target="C_23" parent="1">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <!-- y=1560 Backend: 日別データ集計 -->
+        <mxCell id="C_23" value="&lt;b&gt;日別データ集計&lt;/b&gt;&lt;br&gt;&lt;i&gt;calendar.js L:232-281&lt;/i&gt;&lt;br&gt;イベントを日ごとに分割、カテゴリ別時間計算" style="html=1;whiteSpace=wrap;rounded=1;fontSize=10;fillColor=#fff2cc;strokeColor=#d6b656;" vertex="1" parent="1">
+          <mxGeometry x="500" y="1560" width="250" height="75" as="geometry"/>
+        </mxCell>
+
+        <!-- Arrow C_23 → C_24 -->
+        <mxCell id="C_a23" style="edgeStyle=orthogonalEdgeStyle;" edge="1" source="C_23" target="C_24" parent="1">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <!-- y=1650 Backend: 全日付埋め -->
+        <mxCell id="C_24" value="&lt;b&gt;全日付埋め&lt;/b&gt;&lt;br&gt;&lt;i&gt;calendar.js L:284-293&lt;/i&gt;&lt;br&gt;期間内の全日付を生成、イベントなし日=categories:[]" style="html=1;whiteSpace=wrap;rounded=1;fontSize=10;fillColor=#fff2cc;strokeColor=#d6b656;" vertex="1" parent="1">
+          <mxGeometry x="500" y="1650" width="250" height="75" as="geometry"/>
+        </mxCell>
+
+        <!-- Arrow C_24 → C_25 -->
+        <mxCell id="C_a24" style="edgeStyle=orthogonalEdgeStyle;" edge="1" source="C_24" target="C_25" parent="1">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <!-- y=1740 Backend: レスポンスフォーマット -->
+        <mxCell id="C_25" value="&lt;b&gt;レスポンスフォーマット&lt;/b&gt;&lt;br&gt;&lt;i&gt;calendar.js L:296-322&lt;/i&gt;&lt;br&gt;{ period, data: [{date, categories, total}], calendars }" style="html=1;whiteSpace=wrap;rounded=1;fontSize=10;fillColor=#fff2cc;strokeColor=#d6b656;" vertex="1" parent="1">
+          <mxGeometry x="500" y="1740" width="250" height="75" as="geometry"/>
+        </mxCell>
+
+        <!-- Arrow C_25 → C_26 (Backend to Frontend) -->
+        <mxCell id="C_a25" value="200 OK + JSON" style="edgeStyle=orthogonalEdgeStyle;fontSize=9;" edge="1" source="C_25" target="C_26" parent="1">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <!-- y=1830 Frontend: setSummaryData -->
+        <mxCell id="C_26" value="&lt;b&gt;setSummaryData(data)&lt;/b&gt;&lt;br&gt;&lt;i&gt;Dashboard.js L:52-53&lt;/i&gt;&lt;br&gt;サマリーデータをstateに保存" style="html=1;whiteSpace=wrap;rounded=1;fontSize=10;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1">
+          <mxGeometry x="240" y="1830" width="240" height="75" as="geometry"/>
+        </mxCell>
+
+        <!-- Phase 3 Divider -->
+        <mxCell id="C_phase3" value="Phase 3: グラフ描画" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f0f0f0;strokeColor=#cccccc;fontSize=11;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="20" y="1910" width="1200" height="25" as="geometry"/>
+        </mxCell>
+
+        <!-- y=1950 Frontend: TimeChart データ変換 -->
+        <mxCell id="C_27" value="&lt;b&gt;TimeChart データ変換&lt;/b&gt;&lt;br&gt;&lt;i&gt;TimeChart.js L:36-45&lt;/i&gt;&lt;br&gt;data → {date:&amp;#39;2/10&amp;#39;, Work:3.5, Personal:1.0}" style="html=1;whiteSpace=wrap;rounded=1;fontSize=10;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1">
+          <mxGeometry x="240" y="1950" width="240" height="75" as="geometry"/>
+        </mxCell>
+
+        <!-- Arrow C_27 → C_28 -->
+        <mxCell id="C_a27" style="edgeStyle=orthogonalEdgeStyle;" edge="1" source="C_27" target="C_28" parent="1">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <!-- y=2040 Frontend: 日付フォーマット -->
+        <mxCell id="C_28" value="&lt;b&gt;日付フォーマット&lt;/b&gt;&lt;br&gt;&lt;i&gt;TimeChart.js L:14-17&lt;/i&gt;&lt;br&gt;&amp;#39;2024-02-10&amp;#39; → &amp;#39;2/10&amp;#39; 形式に変換" style="html=1;whiteSpace=wrap;rounded=1;fontSize=10;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1">
+          <mxGeometry x="240" y="2040" width="240" height="75" as="geometry"/>
+        </mxCell>
+
+        <!-- Arrow C_28 → C_29 -->
+        <mxCell id="C_a28" style="edgeStyle=orthogonalEdgeStyle;" edge="1" source="C_28" target="C_29" parent="1">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <!-- y=2130 Frontend: Recharts BarChart レンダリング -->
+        <mxCell id="C_29" value="&lt;b&gt;Recharts BarChart レンダリング&lt;/b&gt;&lt;br&gt;&lt;i&gt;TimeChart.js L:49-72&lt;/i&gt;&lt;br&gt;ResponsiveContainer + BarChart + CartesianGrid" style="html=1;whiteSpace=wrap;rounded=1;fontSize=10;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1">
+          <mxGeometry x="240" y="2130" width="240" height="75" as="geometry"/>
+        </mxCell>
+
+        <!-- Arrow C_29 → C_30 -->
+        <mxCell id="C_a29" style="edgeStyle=orthogonalEdgeStyle;" edge="1" source="C_29" target="C_30" parent="1">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <!-- y=2220 Frontend: 積み上げBar生成 -->
+        <mxCell id="C_30" value="&lt;b&gt;積み上げBar生成&lt;/b&gt;&lt;br&gt;&lt;i&gt;TimeChart.js L:62-70&lt;/i&gt;&lt;br&gt;calendars.map(cal =&gt; Bar stackId=&amp;#39;time&amp;#39; fill={cal.color})" style="html=1;whiteSpace=wrap;rounded=1;fontSize=10;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1">
+          <mxGeometry x="240" y="2220" width="240" height="75" as="geometry"/>
+        </mxCell>
+
+        <!-- Arrow C_30 → C_31 -->
+        <mxCell id="C_a30" style="edgeStyle=orthogonalEdgeStyle;" edge="1" source="C_30" target="C_31" parent="1">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <!-- y=2310 Frontend: CustomTooltip -->
+        <mxCell id="C_31" value="&lt;b&gt;CustomTooltip&lt;/b&gt;&lt;br&gt;&lt;i&gt;TimeChart.js L:19-33&lt;/i&gt;&lt;br&gt;カテゴリ別時間表示 + 合計時間" style="html=1;whiteSpace=wrap;rounded=1;fontSize=10;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1">
+          <mxGeometry x="240" y="2310" width="240" height="75" as="geometry"/>
+        </mxCell>
+
+        <!-- Arrow C_31 → C_32 -->
+        <mxCell id="C_a31" style="edgeStyle=orthogonalEdgeStyle;" edge="1" source="C_31" target="C_32" parent="1">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <!-- y=2400 Browser: グラフ表示完了 -->
+        <mxCell id="C_32" value="&lt;b&gt;グラフ表示完了&lt;/b&gt;&lt;br&gt;&lt;i&gt;ブラウザ&lt;/i&gt;&lt;br&gt;7日間の積み上げ棒グラフがDashboardに表示" style="html=1;whiteSpace=wrap;rounded=1;fontSize=10;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="1">
+          <mxGeometry x="20" y="2400" width="200" height="75" as="geometry"/>
+        </mxCell>
+
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram id="wishcreate" name="3. やりたいこと登録ワークフロー">
+    <mxGraphModel dx="1200" dy="2600" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1200" pageHeight="2600" math="0" shadow="0">
+      <root>
+        <mxCell id="0"/>
+        <mxCell id="1" parent="0"/>
+
+        <!-- Column Headers -->
+        <mxCell id="W_H1" value="&#x1f310; ブラウザ" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#333333;fontColor=#ffffff;strokeColor=#333333;fontSize=12;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="20" y="10" width="220" height="35" as="geometry"/>
+        </mxCell>
+        <mxCell id="W_H2" value="&#x269b;&#xfe0f; Frontend (React)" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#333333;fontColor=#ffffff;strokeColor=#333333;fontSize=12;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="270" y="10" width="260" height="35" as="geometry"/>
+        </mxCell>
+        <mxCell id="W_H3" value="&#x1f5a5;&#xfe0f; Backend (Express)" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#333333;fontColor=#ffffff;strokeColor=#333333;fontSize=12;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="560" y="10" width="260" height="35" as="geometry"/>
+        </mxCell>
+        <mxCell id="W_H4" value="&#x1f5c4;&#xfe0f; Database (MySQL)" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#333333;fontColor=#ffffff;strokeColor=#333333;fontSize=12;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="850" y="10" width="220" height="35" as="geometry"/>
+        </mxCell>
+
+        <!-- Column Dividers -->
+        <mxCell id="W_div1" value="" style="endArrow=none;dashed=1;strokeColor=#cccccc;strokeWidth=1;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="255" y="10" as="sourcePoint"/>
+            <mxPoint x="255" y="2500" as="targetPoint"/>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="W_div2" value="" style="endArrow=none;dashed=1;strokeColor=#cccccc;strokeWidth=1;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="545" y="10" as="sourcePoint"/>
+            <mxPoint x="545" y="2500" as="targetPoint"/>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="W_div3" value="" style="endArrow=none;dashed=1;strokeColor=#cccccc;strokeWidth=1;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="835" y="10" as="sourcePoint"/>
+            <mxPoint x="835" y="2500" as="targetPoint"/>
+          </mxGeometry>
+        </mxCell>
+
+        <!-- Phase 1 Divider -->
+        <mxCell id="W_phase1" value="Phase 1: フォーム表示" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f0f0f0;strokeColor=#cccccc;fontSize=11;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="20" y="55" width="1050" height="25" as="geometry"/>
+        </mxCell>
+
+        <!-- y=90 Browser: 「＋ 追加」ボタンクリック -->
+        <mxCell id="W_01" value="&lt;b&gt;「＋ 追加」ボタンクリック&lt;/b&gt;&lt;br&gt;&lt;i&gt;ブラウザ&lt;/i&gt;&lt;br&gt;やりたいことページで追加ボタンを押す" style="html=1;whiteSpace=wrap;rounded=1;fontSize=10;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="1">
+          <mxGeometry x="20" y="90" width="220" height="75" as="geometry"/>
+        </mxCell>
+        <mxCell id="W_a01" style="edgeStyle=orthogonalEdgeStyle;" edge="1" source="W_01" target="W_02" parent="1">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <!-- y=180 Frontend: handleAdd() 実行 -->
+        <mxCell id="W_02" value="&lt;b&gt;handleAdd() 実行&lt;/b&gt;&lt;br&gt;&lt;i&gt;WishList.js L:71-74&lt;/i&gt;&lt;br&gt;setEditingWish(null), setShowForm(true)" style="html=1;whiteSpace=wrap;rounded=1;fontSize=10;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1">
+          <mxGeometry x="270" y="180" width="260" height="75" as="geometry"/>
+        </mxCell>
+        <mxCell id="W_a02" style="edgeStyle=orthogonalEdgeStyle;" edge="1" source="W_02" target="W_03" parent="1">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <!-- y=270 Frontend: WishForm コンポーネント表示 -->
+        <mxCell id="W_03" value="&lt;b&gt;WishForm コンポーネント表示&lt;/b&gt;&lt;br&gt;&lt;i&gt;WishList.js L:180-186&lt;/i&gt;&lt;br&gt;wish={null} → 新規作成モード" style="html=1;whiteSpace=wrap;rounded=1;fontSize=10;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1">
+          <mxGeometry x="270" y="270" width="260" height="75" as="geometry"/>
+        </mxCell>
+        <mxCell id="W_a03" style="edgeStyle=orthogonalEdgeStyle;" edge="1" source="W_03" target="W_04" parent="1">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <!-- y=360 Frontend: フォーム初期化 -->
+        <mxCell id="W_04" value="&lt;b&gt;フォーム初期化&lt;/b&gt;&lt;br&gt;&lt;i&gt;WishForm.js L:7-17&lt;/i&gt;&lt;br&gt;title=&amp;#39;&amp;#39;, status=&amp;#39;not_started&amp;#39;, priority=&amp;#39;medium&amp;#39;, tags=[]" style="html=1;whiteSpace=wrap;rounded=1;fontSize=10;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1">
+          <mxGeometry x="270" y="360" width="260" height="75" as="geometry"/>
+        </mxCell>
+        <mxCell id="W_a04" style="edgeStyle=orthogonalEdgeStyle;" edge="1" source="W_04" target="W_05" parent="1">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <!-- y=450 Frontend: フォームフィールド描画 -->
+        <mxCell id="W_05" value="&lt;b&gt;フォームフィールド描画&lt;/b&gt;&lt;br&gt;&lt;i&gt;WishForm.js L:94-186&lt;/i&gt;&lt;br&gt;タイトル/ステータス/優先度/期限/タグ/メモ" style="html=1;whiteSpace=wrap;rounded=1;fontSize=10;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1">
+          <mxGeometry x="270" y="450" width="260" height="75" as="geometry"/>
+        </mxCell>
+
+        <!-- Phase 2 Divider -->
+        <mxCell id="W_phase2" value="Phase 2: タグ入力" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f0f0f0;strokeColor=#cccccc;fontSize=11;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="20" y="530" width="1050" height="25" as="geometry"/>
+        </mxCell>
+
+        <!-- y=570 Browser: タグ入力 -->
+        <mxCell id="W_06" value="&lt;b&gt;タグ入力（カンマ or Enter）&lt;/b&gt;&lt;br&gt;&lt;i&gt;ブラウザ&lt;/i&gt;&lt;br&gt;テキスト入力後、カンマかEnterキーで確定" style="html=1;whiteSpace=wrap;rounded=1;fontSize=10;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="1">
+          <mxGeometry x="20" y="570" width="220" height="75" as="geometry"/>
+        </mxCell>
+        <mxCell id="W_a06" style="edgeStyle=orthogonalEdgeStyle;" edge="1" source="W_06" target="W_07" parent="1">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <!-- y=660 Frontend: handleKeyDown / handleChange -->
+        <mxCell id="W_07" value="&lt;b&gt;handleKeyDown / handleChange&lt;/b&gt;&lt;br&gt;&lt;i&gt;TagInput.js L:15-34&lt;/i&gt;&lt;br&gt;Enter/カンマ検知 → addTag()呼び出し" style="html=1;whiteSpace=wrap;rounded=1;fontSize=10;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1">
+          <mxGeometry x="270" y="660" width="260" height="75" as="geometry"/>
+        </mxCell>
+        <mxCell id="W_a07" style="edgeStyle=orthogonalEdgeStyle;" edge="1" source="W_07" target="W_08" parent="1">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <!-- y=750 Frontend: addTag() 実行 -->
+        <mxCell id="W_08" value="&lt;b&gt;addTag() 実行&lt;/b&gt;&lt;br&gt;&lt;i&gt;TagInput.js L:7-12&lt;/i&gt;&lt;br&gt;trim → 重複チェック → onChange([...tags, trimmed])" style="html=1;whiteSpace=wrap;rounded=1;fontSize=10;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1">
+          <mxGeometry x="270" y="750" width="260" height="75" as="geometry"/>
+        </mxCell>
+        <mxCell id="W_a08" style="edgeStyle=orthogonalEdgeStyle;" edge="1" source="W_08" target="W_09" parent="1">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <!-- y=840 Frontend: formData.tags 更新 -->
+        <mxCell id="W_09" value="&lt;b&gt;formData.tags 更新&lt;/b&gt;&lt;br&gt;&lt;i&gt;WishForm.js L:157&lt;/i&gt;&lt;br&gt;onChange → setFormData({...prev, tags: newTags})" style="html=1;whiteSpace=wrap;rounded=1;fontSize=10;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1">
+          <mxGeometry x="270" y="840" width="260" height="75" as="geometry"/>
+        </mxCell>
+
+        <!-- Phase 3 Divider -->
+        <mxCell id="W_phase3" value="Phase 3: フォーム送信 → DB保存" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f0f0f0;strokeColor=#cccccc;fontSize=11;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="20" y="920" width="1050" height="25" as="geometry"/>
+        </mxCell>
+
+        <!-- y=960 Browser: 「保存」ボタンクリック -->
+        <mxCell id="W_10" value="&lt;b&gt;「保存」ボタンクリック&lt;/b&gt;&lt;br&gt;&lt;i&gt;ブラウザ&lt;/i&gt;&lt;br&gt;フォームsubmitイベント発火" style="html=1;whiteSpace=wrap;rounded=1;fontSize=10;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="1">
+          <mxGeometry x="20" y="960" width="220" height="75" as="geometry"/>
+        </mxCell>
+        <mxCell id="W_a10" style="edgeStyle=orthogonalEdgeStyle;" edge="1" source="W_10" target="W_11" parent="1">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <!-- y=1050 Frontend: handleSubmit() バリデーション -->
+        <mxCell id="W_11" value="&lt;b&gt;handleSubmit() バリデーション&lt;/b&gt;&lt;br&gt;&lt;i&gt;WishForm.js L:42-49&lt;/i&gt;&lt;br&gt;タイトル空チェック、setIsSubmitting(true)" style="html=1;whiteSpace=wrap;rounded=1;fontSize=10;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1">
+          <mxGeometry x="270" y="1050" width="260" height="75" as="geometry"/>
+        </mxCell>
+        <mxCell id="W_a11" style="edgeStyle=orthogonalEdgeStyle;" edge="1" source="W_11" target="W_12" parent="1">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <!-- y=1140 Frontend: fetch POST /api/wishes -->
+        <mxCell id="W_12" value="&lt;b&gt;fetch POST /api/wishes&lt;/b&gt;&lt;br&gt;&lt;i&gt;WishForm.js L:54-73&lt;/i&gt;&lt;br&gt;body: {title, status, priority, due_date, description, tags}" style="html=1;whiteSpace=wrap;rounded=1;fontSize=10;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1">
+          <mxGeometry x="270" y="1140" width="260" height="75" as="geometry"/>
+        </mxCell>
+        <mxCell id="W_a12" value="POST /api/wishes" style="edgeStyle=orthogonalEdgeStyle;fontSize=9;" edge="1" source="W_12" target="W_13" parent="1">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <!-- y=1230 Backend: requireAuth ミドルウェア -->
+        <mxCell id="W_13" value="&lt;b&gt;requireAuth ミドルウェア&lt;/b&gt;&lt;br&gt;&lt;i&gt;wishes.js L:10-11&lt;/i&gt;&lt;br&gt;router.use(requireAuth) → session確認" style="html=1;whiteSpace=wrap;rounded=1;fontSize=10;fillColor=#fff2cc;strokeColor=#d6b656;" vertex="1" parent="1">
+          <mxGeometry x="560" y="1230" width="260" height="75" as="geometry"/>
+        </mxCell>
+        <mxCell id="W_a13" style="edgeStyle=orthogonalEdgeStyle;" edge="1" source="W_13" target="W_14" parent="1">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <!-- y=1320 Backend: POST / ハンドラー -->
+        <mxCell id="W_14" value="&lt;b&gt;POST / ハンドラー&lt;/b&gt;&lt;br&gt;&lt;i&gt;wishes.js L:49-52&lt;/i&gt;&lt;br&gt;req.bodyからtitle, status, priority, tags等を取得" style="html=1;whiteSpace=wrap;rounded=1;fontSize=10;fillColor=#fff2cc;strokeColor=#d6b656;" vertex="1" parent="1">
+          <mxGeometry x="560" y="1320" width="260" height="75" as="geometry"/>
+        </mxCell>
+        <mxCell id="W_a14" style="edgeStyle=orthogonalEdgeStyle;" edge="1" source="W_14" target="W_15" parent="1">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <!-- y=1410 Backend: ENUM バリデーション -->
+        <mxCell id="W_15" value="&lt;b&gt;ENUM バリデーション&lt;/b&gt;&lt;br&gt;&lt;i&gt;wishes.js L:6-8, 54-65&lt;/i&gt;&lt;br&gt;VALID_STATUS/VALID_PRIORITYホワイトリスト照合" style="html=1;whiteSpace=wrap;rounded=1;fontSize=10;fillColor=#fff2cc;strokeColor=#d6b656;" vertex="1" parent="1">
+          <mxGeometry x="560" y="1410" width="260" height="75" as="geometry"/>
+        </mxCell>
+        <mxCell id="W_a15" value="INSERT" style="edgeStyle=orthogonalEdgeStyle;fontSize=9;" edge="1" source="W_15" target="W_16" parent="1">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <!-- y=1500 Backend: INSERT INTO wishes -->
+        <mxCell id="W_16" value="&lt;b&gt;INSERT INTO wishes&lt;/b&gt;&lt;br&gt;&lt;i&gt;wishes.js L:72-75&lt;/i&gt;&lt;br&gt;INSERT INTO wishes (user_id, title, description, status, priority, due_date) VALUES (?,?,?,?,?,?)" style="html=1;whiteSpace=wrap;rounded=1;fontSize=10;fillColor=#fff2cc;strokeColor=#d6b656;" vertex="1" parent="1">
+          <mxGeometry x="560" y="1500" width="260" height="75" as="geometry"/>
+        </mxCell>
+        <mxCell id="W_a16" style="edgeStyle=orthogonalEdgeStyle;" edge="1" source="W_16" target="W_17" parent="1">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <!-- y=1500 Database: wishes テーブルへ保存 -->
+        <mxCell id="W_17" value="&lt;b&gt;wishes テーブルへ保存&lt;/b&gt;&lt;br&gt;&lt;i&gt;003_create_wishes_table.sql L:3-14&lt;/i&gt;&lt;br&gt;id AUTO_INCREMENT, ENUM status/priority, FK user_id" style="html=1;whiteSpace=wrap;rounded=1;fontSize=10;fillColor=#f8cecc;strokeColor=#b85450;" vertex="1" parent="1">
+          <mxGeometry x="850" y="1500" width="220" height="75" as="geometry"/>
+        </mxCell>
+        <mxCell id="W_a17" value="insertId" style="edgeStyle=orthogonalEdgeStyle;fontSize=9;" edge="1" source="W_17" target="W_18" parent="1">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <!-- y=1590 Backend: タグ処理ループ -->
+        <mxCell id="W_18" value="&lt;b&gt;タグ処理ループ&lt;/b&gt;&lt;br&gt;&lt;i&gt;wishes.js L:77-103&lt;/i&gt;&lt;br&gt;for (const tagName of tags) { ... }" style="html=1;whiteSpace=wrap;rounded=1;fontSize=10;fillColor=#fff2cc;strokeColor=#d6b656;" vertex="1" parent="1">
+          <mxGeometry x="560" y="1590" width="260" height="75" as="geometry"/>
+        </mxCell>
+        <mxCell id="W_a18" style="edgeStyle=orthogonalEdgeStyle;" edge="1" source="W_18" target="W_19" parent="1">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <!-- y=1680 Backend: INSERT IGNORE INTO tags -->
+        <mxCell id="W_19" value="&lt;b&gt;INSERT IGNORE INTO tags&lt;/b&gt;&lt;br&gt;&lt;i&gt;wishes.js L:84-87&lt;/i&gt;&lt;br&gt;INSERT IGNORE INTO tags (user_id, name) VALUES (?,?)" style="html=1;whiteSpace=wrap;rounded=1;fontSize=10;fillColor=#fff2cc;strokeColor=#d6b656;" vertex="1" parent="1">
+          <mxGeometry x="560" y="1680" width="260" height="75" as="geometry"/>
+        </mxCell>
+        <mxCell id="W_a19" style="edgeStyle=orthogonalEdgeStyle;" edge="1" source="W_19" target="W_20" parent="1">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <!-- y=1680 Database: tags テーブル -->
+        <mxCell id="W_20" value="&lt;b&gt;tags テーブル&lt;/b&gt;&lt;br&gt;&lt;i&gt;005_create_tags_tables.sql L:3-11&lt;/i&gt;&lt;br&gt;UNIQUE KEY (user_id, name) → 重複無視" style="html=1;whiteSpace=wrap;rounded=1;fontSize=10;fillColor=#f8cecc;strokeColor=#b85450;" vertex="1" parent="1">
+          <mxGeometry x="850" y="1680" width="220" height="75" as="geometry"/>
+        </mxCell>
+        <mxCell id="W_a20" style="edgeStyle=orthogonalEdgeStyle;" edge="1" source="W_20" target="W_21" parent="1">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <!-- y=1770 Backend: SELECT tag id + INSERT wish_tags -->
+        <mxCell id="W_21" value="&lt;b&gt;SELECT tag id + INSERT wish_tags&lt;/b&gt;&lt;br&gt;&lt;i&gt;wishes.js L:90-101&lt;/i&gt;&lt;br&gt;SELECT id FROM tags → INSERT IGNORE INTO wish_tags (wish_id, tag_id)" style="html=1;whiteSpace=wrap;rounded=1;fontSize=10;fillColor=#fff2cc;strokeColor=#d6b656;" vertex="1" parent="1">
+          <mxGeometry x="560" y="1770" width="260" height="75" as="geometry"/>
+        </mxCell>
+        <mxCell id="W_a21" style="edgeStyle=orthogonalEdgeStyle;" edge="1" source="W_21" target="W_22" parent="1">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <!-- y=1770 Database: wish_tags ジャンクションテーブル -->
+        <mxCell id="W_22" value="&lt;b&gt;wish_tags ジャンクションテーブル&lt;/b&gt;&lt;br&gt;&lt;i&gt;005_create_tags_tables.sql L:13-20&lt;/i&gt;&lt;br&gt;PK (wish_id, tag_id), CASCADE DELETE" style="html=1;whiteSpace=wrap;rounded=1;fontSize=10;fillColor=#f8cecc;strokeColor=#b85450;" vertex="1" parent="1">
+          <mxGeometry x="850" y="1770" width="220" height="75" as="geometry"/>
+        </mxCell>
+        <mxCell id="W_a22" style="edgeStyle=orthogonalEdgeStyle;" edge="1" source="W_22" target="W_23" parent="1">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <!-- y=1860 Backend: 作成済みwish取得（タグ含む） -->
+        <mxCell id="W_23" value="&lt;b&gt;作成済みwish取得（タグ含む）&lt;/b&gt;&lt;br&gt;&lt;i&gt;wishes.js L:105-118&lt;/i&gt;&lt;br&gt;SELECT wish + JOIN wish_tags+tags → createdWish.tags=[...]" style="html=1;whiteSpace=wrap;rounded=1;fontSize=10;fillColor=#fff2cc;strokeColor=#d6b656;" vertex="1" parent="1">
+          <mxGeometry x="560" y="1860" width="260" height="75" as="geometry"/>
+        </mxCell>
+        <mxCell id="W_a23" style="edgeStyle=orthogonalEdgeStyle;" edge="1" source="W_23" target="W_24" parent="1">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <!-- y=1860 Database: wish + tags JOIN結果返却 -->
+        <mxCell id="W_24" value="&lt;b&gt;wish + tags JOIN結果返却&lt;/b&gt;&lt;br&gt;&lt;i&gt;wishes.js L:112-115&lt;/i&gt;&lt;br&gt;SELECT t.id, t.name FROM wish_tags wt JOIN tags t" style="html=1;whiteSpace=wrap;rounded=1;fontSize=10;fillColor=#f8cecc;strokeColor=#b85450;" vertex="1" parent="1">
+          <mxGeometry x="850" y="1860" width="220" height="75" as="geometry"/>
+        </mxCell>
+        <mxCell id="W_a24" style="edgeStyle=orthogonalEdgeStyle;" edge="1" source="W_24" target="W_25" parent="1">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <!-- y=1950 Backend: 201レスポンス返却 -->
+        <mxCell id="W_25" value="&lt;b&gt;201レスポンス返却&lt;/b&gt;&lt;br&gt;&lt;i&gt;wishes.js L:119&lt;/i&gt;&lt;br&gt;{ message: &amp;#39;作成しました&amp;#39;, wish: {id,title,...,tags:[]} }" style="html=1;whiteSpace=wrap;rounded=1;fontSize=10;fillColor=#fff2cc;strokeColor=#d6b656;" vertex="1" parent="1">
+          <mxGeometry x="560" y="1950" width="260" height="75" as="geometry"/>
+        </mxCell>
+        <mxCell id="W_a25" value="201 Created" style="edgeStyle=orthogonalEdgeStyle;fontSize=9;" edge="1" source="W_25" target="W_26" parent="1">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <!-- y=2040 Frontend: onSave(data.wish) コールバック -->
+        <mxCell id="W_26" value="&lt;b&gt;onSave(data.wish) コールバック&lt;/b&gt;&lt;br&gt;&lt;i&gt;WishForm.js L:75-81&lt;/i&gt;&lt;br&gt;response.ok → onSave呼び出し" style="html=1;whiteSpace=wrap;rounded=1;fontSize=10;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1">
+          <mxGeometry x="270" y="2040" width="260" height="75" as="geometry"/>
+        </mxCell>
+        <mxCell id="W_a26" style="edgeStyle=orthogonalEdgeStyle;" edge="1" source="W_26" target="W_27" parent="1">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <!-- y=2130 Frontend: WishList state更新 -->
+        <mxCell id="W_27" value="&lt;b&gt;WishList state更新&lt;/b&gt;&lt;br&gt;&lt;i&gt;WishList.js L:104-114&lt;/i&gt;&lt;br&gt;setWishes([savedWish, ...prev]), showMessage(&amp;#39;追加しました&amp;#39;)" style="html=1;whiteSpace=wrap;rounded=1;fontSize=10;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1">
+          <mxGeometry x="270" y="2130" width="260" height="75" as="geometry"/>
+        </mxCell>
+        <mxCell id="W_a27" style="edgeStyle=orthogonalEdgeStyle;" edge="1" source="W_27" target="W_28" parent="1">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <!-- y=2220 Frontend: フォーム非表示 + タグ再取得 -->
+        <mxCell id="W_28" value="&lt;b&gt;フォーム非表示 + タグ再取得&lt;/b&gt;&lt;br&gt;&lt;i&gt;WishList.js L:112-114&lt;/i&gt;&lt;br&gt;setShowForm(false), fetchTags()" style="html=1;whiteSpace=wrap;rounded=1;fontSize=10;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1">
+          <mxGeometry x="270" y="2220" width="260" height="75" as="geometry"/>
+        </mxCell>
+        <mxCell id="W_a28" style="edgeStyle=orthogonalEdgeStyle;" edge="1" source="W_28" target="W_29" parent="1">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <!-- y=2310 Browser: 新しいwishが一覧に表示 -->
+        <mxCell id="W_29" value="&lt;b&gt;新しいwishが一覧に表示&lt;/b&gt;&lt;br&gt;&lt;i&gt;ブラウザ&lt;/i&gt;&lt;br&gt;一覧先頭に新規wishが即座に表示される" style="html=1;whiteSpace=wrap;rounded=1;fontSize=10;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="1">
+          <mxGeometry x="20" y="2310" width="220" height="75" as="geometry"/>
+        </mxCell>
+
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram id="wishlist" name="4. やりたいこと一覧表示ワークフロー">
+    <mxGraphModel dx="1200" dy="2400" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1200" pageHeight="2400" math="0" shadow="0">
+      <root>
+        <mxCell id="0"/>
+        <mxCell id="1" parent="0"/>
+
+        <!-- Column Headers -->
+        <mxCell id="D_H1" value="&#x1f310; ブラウザ" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#333333;fontColor=#ffffff;strokeColor=#333333;fontSize=12;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="20" y="10" width="220" height="35" as="geometry"/>
+        </mxCell>
+        <mxCell id="D_H2" value="&#x269b;&#xfe0f; Frontend (React)" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#333333;fontColor=#ffffff;strokeColor=#333333;fontSize=12;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="270" y="10" width="260" height="35" as="geometry"/>
+        </mxCell>
+        <mxCell id="D_H3" value="&#x1f5a5;&#xfe0f; Backend (Express)" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#333333;fontColor=#ffffff;strokeColor=#333333;fontSize=12;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="560" y="10" width="260" height="35" as="geometry"/>
+        </mxCell>
+        <mxCell id="D_H4" value="&#x1f5c4;&#xfe0f; Database (MySQL)" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#333333;fontColor=#ffffff;strokeColor=#333333;fontSize=12;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="850" y="10" width="220" height="35" as="geometry"/>
+        </mxCell>
+
+        <!-- Column Dividers -->
+        <mxCell id="D_div1" value="" style="endArrow=none;dashed=1;strokeColor=#cccccc;strokeWidth=1;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="255" y="10" as="sourcePoint"/>
+            <mxPoint x="255" y="2300" as="targetPoint"/>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="D_div2" value="" style="endArrow=none;dashed=1;strokeColor=#cccccc;strokeWidth=1;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="545" y="10" as="sourcePoint"/>
+            <mxPoint x="545" y="2300" as="targetPoint"/>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="D_div3" value="" style="endArrow=none;dashed=1;strokeColor=#cccccc;strokeWidth=1;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="835" y="10" as="sourcePoint"/>
+            <mxPoint x="835" y="2300" as="targetPoint"/>
+          </mxGeometry>
+        </mxCell>
+
+        <!-- Phase 1 Divider -->
+        <mxCell id="D_phase1" value="Phase 1: ナビゲーション → コンポーネントマウント" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f0f0f0;strokeColor=#cccccc;fontSize=11;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="20" y="55" width="1050" height="25" as="geometry"/>
+        </mxCell>
+
+        <!-- y=90 Browser: 「やりたいこと」メニュークリック -->
+        <mxCell id="D_01" value="&lt;b&gt;「やりたいこと」メニュークリック&lt;/b&gt;&lt;br&gt;&lt;i&gt;ブラウザ&lt;/i&gt;&lt;br&gt;サイドバーのナビゲーションリンクをクリック" style="html=1;whiteSpace=wrap;rounded=1;fontSize=10;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="1">
+          <mxGeometry x="20" y="90" width="220" height="75" as="geometry"/>
+        </mxCell>
+        <mxCell id="D_a01" style="edgeStyle=orthogonalEdgeStyle;" edge="1" source="D_01" target="D_02" parent="1">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <!-- y=180 Frontend: NavLink → /wishes ルート -->
+        <mxCell id="D_02" value="&lt;b&gt;NavLink → /wishes ルート&lt;/b&gt;&lt;br&gt;&lt;i&gt;Sidebar.js L:7, App.js L:72&lt;/i&gt;&lt;br&gt;React Router が /wishes にマッチ → WishList" style="html=1;whiteSpace=wrap;rounded=1;fontSize=10;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1">
+          <mxGeometry x="270" y="180" width="260" height="75" as="geometry"/>
+        </mxCell>
+        <mxCell id="D_a02" style="edgeStyle=orthogonalEdgeStyle;" edge="1" source="D_02" target="D_03" parent="1">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <!-- y=270 Frontend: ProtectedRoute 認証チェック -->
+        <mxCell id="D_03" value="&lt;b&gt;ProtectedRoute 認証チェック&lt;/b&gt;&lt;br&gt;&lt;i&gt;ProtectedRoute.js L:4-9&lt;/i&gt;&lt;br&gt;user存在 → children表示、なし → /login リダイレクト" style="html=1;whiteSpace=wrap;rounded=1;fontSize=10;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1">
+          <mxGeometry x="270" y="270" width="260" height="75" as="geometry"/>
+        </mxCell>
+        <mxCell id="D_a03" style="edgeStyle=orthogonalEdgeStyle;" edge="1" source="D_03" target="D_04" parent="1">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <!-- y=360 Frontend: MainLayout 内に描画 -->
+        <mxCell id="D_04" value="&lt;b&gt;MainLayout 内に描画&lt;/b&gt;&lt;br&gt;&lt;i&gt;MainLayout.js L:12-14&lt;/i&gt;&lt;br&gt;Header + Sidebar + main content にWishList配置" style="html=1;whiteSpace=wrap;rounded=1;fontSize=10;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1">
+          <mxGeometry x="270" y="360" width="260" height="75" as="geometry"/>
+        </mxCell>
+
+        <!-- Phase 2 Divider -->
+        <mxCell id="D_phase2" value="Phase 2: データ取得" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f0f0f0;strokeColor=#cccccc;fontSize=11;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="20" y="440" width="1050" height="25" as="geometry"/>
+        </mxCell>
+
+        <!-- y=480 Frontend: useEffect: fetchWishes() + fetchTags() -->
+        <mxCell id="D_05" value="&lt;b&gt;useEffect: fetchWishes() + fetchTags()&lt;/b&gt;&lt;br&gt;&lt;i&gt;WishList.js L:66-69&lt;/i&gt;&lt;br&gt;マウント時に2つのAPIを並行呼び出し" style="html=1;whiteSpace=wrap;rounded=1;fontSize=10;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1">
+          <mxGeometry x="270" y="480" width="260" height="75" as="geometry"/>
+        </mxCell>
+        <mxCell id="D_a05" value="GET /api/wishes" style="edgeStyle=orthogonalEdgeStyle;fontSize=9;" edge="1" source="D_05" target="D_06" parent="1">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <!-- y=570 Backend: GET /api/wishes ハンドラー -->
+        <mxCell id="D_06" value="&lt;b&gt;GET /api/wishes ハンドラー&lt;/b&gt;&lt;br&gt;&lt;i&gt;wishes.js L:14&lt;/i&gt;&lt;br&gt;requireAuth → GET / async handler" style="html=1;whiteSpace=wrap;rounded=1;fontSize=10;fillColor=#fff2cc;strokeColor=#d6b656;" vertex="1" parent="1">
+          <mxGeometry x="560" y="570" width="260" height="75" as="geometry"/>
+        </mxCell>
+        <mxCell id="D_a06" value="SELECT" style="edgeStyle=orthogonalEdgeStyle;fontSize=9;" edge="1" source="D_06" target="D_07" parent="1">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <!-- y=660 Backend: wishes検索クエリ -->
+        <mxCell id="D_07" value="&lt;b&gt;wishes検索クエリ&lt;/b&gt;&lt;br&gt;&lt;i&gt;wishes.js L:16-19&lt;/i&gt;&lt;br&gt;SELECT ... FROM wishes WHERE user_id=? ORDER BY created_at DESC" style="html=1;whiteSpace=wrap;rounded=1;fontSize=10;fillColor=#fff2cc;strokeColor=#d6b656;" vertex="1" parent="1">
+          <mxGeometry x="560" y="660" width="260" height="75" as="geometry"/>
+        </mxCell>
+        <mxCell id="D_a07" style="edgeStyle=orthogonalEdgeStyle;" edge="1" source="D_07" target="D_08" parent="1">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <!-- y=660 Database: wishes テーブル検索 -->
+        <mxCell id="D_08" value="&lt;b&gt;wishes テーブル検索&lt;/b&gt;&lt;br&gt;&lt;i&gt;003_create_wishes_table.sql&lt;/i&gt;&lt;br&gt;ユーザーのwish一覧をcreated_at降順で返却" style="html=1;whiteSpace=wrap;rounded=1;fontSize=10;fillColor=#f8cecc;strokeColor=#b85450;" vertex="1" parent="1">
+          <mxGeometry x="850" y="660" width="220" height="75" as="geometry"/>
+        </mxCell>
+        <mxCell id="D_a08" style="edgeStyle=orthogonalEdgeStyle;" edge="1" source="D_08" target="D_09" parent="1">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <!-- y=750 Backend: タグ一括取得（N+1防止） -->
+        <mxCell id="D_09" value="&lt;b&gt;タグ一括取得（N+1防止）&lt;/b&gt;&lt;br&gt;&lt;i&gt;wishes.js L:21-37&lt;/i&gt;&lt;br&gt;wishIds → SELECT wt.wish_id, t.name FROM wish_tags JOIN tags WHERE wish_id IN (?)" style="html=1;whiteSpace=wrap;rounded=1;fontSize=10;fillColor=#fff2cc;strokeColor=#d6b656;" vertex="1" parent="1">
+          <mxGeometry x="560" y="750" width="260" height="75" as="geometry"/>
+        </mxCell>
+        <mxCell id="D_a09" style="edgeStyle=orthogonalEdgeStyle;" edge="1" source="D_09" target="D_10" parent="1">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <!-- y=750 Database: wish_tags + tags JOIN -->
+        <mxCell id="D_10" value="&lt;b&gt;wish_tags + tags JOIN&lt;/b&gt;&lt;br&gt;&lt;i&gt;005_create_tags_tables.sql&lt;/i&gt;&lt;br&gt;wishIdごとにタグ名をグルーピング" style="html=1;whiteSpace=wrap;rounded=1;fontSize=10;fillColor=#f8cecc;strokeColor=#b85450;" vertex="1" parent="1">
+          <mxGeometry x="850" y="750" width="220" height="75" as="geometry"/>
+        </mxCell>
+        <mxCell id="D_a10" style="edgeStyle=orthogonalEdgeStyle;" edge="1" source="D_10" target="D_11" parent="1">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <!-- y=840 Backend: タグマッピング構築 -->
+        <mxCell id="D_11" value="&lt;b&gt;タグマッピング構築&lt;/b&gt;&lt;br&gt;&lt;i&gt;wishes.js L:30-37&lt;/i&gt;&lt;br&gt;tagMap[wishId] = [{id, name},...] → wish.tags = tagMap[id]" style="html=1;whiteSpace=wrap;rounded=1;fontSize=10;fillColor=#fff2cc;strokeColor=#d6b656;" vertex="1" parent="1">
+          <mxGeometry x="560" y="840" width="260" height="75" as="geometry"/>
+        </mxCell>
+        <mxCell id="D_a11" style="edgeStyle=orthogonalEdgeStyle;" edge="1" source="D_11" target="D_12" parent="1">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <!-- y=930 Backend: wishes + tags レスポンス -->
+        <mxCell id="D_12" value="&lt;b&gt;wishes + tags レスポンス&lt;/b&gt;&lt;br&gt;&lt;i&gt;wishes.js L:42&lt;/i&gt;&lt;br&gt;{ wishes: [{id, title, status, priority, tags:[...]},...] }" style="html=1;whiteSpace=wrap;rounded=1;fontSize=10;fillColor=#fff2cc;strokeColor=#d6b656;" vertex="1" parent="1">
+          <mxGeometry x="560" y="930" width="260" height="75" as="geometry"/>
+        </mxCell>
+        <mxCell id="D_a12" value="200 OK" style="edgeStyle=orthogonalEdgeStyle;fontSize=9;" edge="1" source="D_12" target="D_13" parent="1">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <!-- y=1020 Frontend: setWishes(data.wishes) -->
+        <mxCell id="D_13" value="&lt;b&gt;setWishes(data.wishes)&lt;/b&gt;&lt;br&gt;&lt;i&gt;WishList.js L:43&lt;/i&gt;&lt;br&gt;wishes stateにデータ保存、loading=false" style="html=1;whiteSpace=wrap;rounded=1;fontSize=10;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1">
+          <mxGeometry x="270" y="1020" width="260" height="75" as="geometry"/>
+        </mxCell>
+
+        <!-- Phase 3 Divider -->
+        <mxCell id="D_phase3" value="Phase 3: タグ取得 + フィルタリング" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f0f0f0;strokeColor=#cccccc;fontSize=11;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="20" y="1100" width="1050" height="25" as="geometry"/>
+        </mxCell>
+
+        <!-- y=1140 Frontend: fetchTags() 実行 -->
+        <mxCell id="D_14" value="&lt;b&gt;fetchTags() 実行&lt;/b&gt;&lt;br&gt;&lt;i&gt;WishList.js L:54-64&lt;/i&gt;&lt;br&gt;GET /api/tags → setAllTags(data.tags)" style="html=1;whiteSpace=wrap;rounded=1;fontSize=10;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1">
+          <mxGeometry x="270" y="1140" width="260" height="75" as="geometry"/>
+        </mxCell>
+        <mxCell id="D_a14" value="GET /api/tags" style="edgeStyle=orthogonalEdgeStyle;fontSize=9;" edge="1" source="D_14" target="D_15" parent="1">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <!-- y=1230 Backend: GET /api/tags ハンドラー -->
+        <mxCell id="D_15" value="&lt;b&gt;GET /api/tags ハンドラー&lt;/b&gt;&lt;br&gt;&lt;i&gt;tags.js L:9-22&lt;/i&gt;&lt;br&gt;SELECT id, name FROM tags WHERE user_id=? ORDER BY name ASC" style="html=1;whiteSpace=wrap;rounded=1;fontSize=10;fillColor=#fff2cc;strokeColor=#d6b656;" vertex="1" parent="1">
+          <mxGeometry x="560" y="1230" width="260" height="75" as="geometry"/>
+        </mxCell>
+        <mxCell id="D_a15" style="edgeStyle=orthogonalEdgeStyle;" edge="1" source="D_15" target="D_16" parent="1">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <!-- y=1230 Database: tags テーブル検索 -->
+        <mxCell id="D_16" value="&lt;b&gt;tags テーブル検索&lt;/b&gt;&lt;br&gt;&lt;i&gt;005_create_tags_tables.sql&lt;/i&gt;&lt;br&gt;ユーザーのタグ一覧をname順で返却" style="html=1;whiteSpace=wrap;rounded=1;fontSize=10;fillColor=#f8cecc;strokeColor=#b85450;" vertex="1" parent="1">
+          <mxGeometry x="850" y="1230" width="220" height="75" as="geometry"/>
+        </mxCell>
+        <mxCell id="D_a16" style="edgeStyle=orthogonalEdgeStyle;" edge="1" source="D_16" target="D_17" parent="1">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <!-- y=1320 Backend: タグ一覧レスポンス -->
+        <mxCell id="D_17" value="&lt;b&gt;タグ一覧レスポンス&lt;/b&gt;&lt;br&gt;&lt;i&gt;tags.js L:17&lt;/i&gt;&lt;br&gt;{ tags: [{id, name},...] }" style="html=1;whiteSpace=wrap;rounded=1;fontSize=10;fillColor=#fff2cc;strokeColor=#d6b656;" vertex="1" parent="1">
+          <mxGeometry x="560" y="1320" width="260" height="75" as="geometry"/>
+        </mxCell>
+        <mxCell id="D_a17" value="200 OK" style="edgeStyle=orthogonalEdgeStyle;fontSize=9;" edge="1" source="D_17" target="D_18" parent="1">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <!-- y=1410 Frontend: WishFilter レンダリング -->
+        <mxCell id="D_18" value="&lt;b&gt;WishFilter レンダリング&lt;/b&gt;&lt;br&gt;&lt;i&gt;WishFilter.js L:10-70&lt;/i&gt;&lt;br&gt;タグ/優先度のフィルターチップをラベル形式で表示" style="html=1;whiteSpace=wrap;rounded=1;fontSize=10;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1">
+          <mxGeometry x="270" y="1410" width="260" height="75" as="geometry"/>
+        </mxCell>
+
+        <!-- Phase 4 Divider -->
+        <mxCell id="D_phase4" value="Phase 4: フィルタリング → 一覧表示" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f0f0f0;strokeColor=#cccccc;fontSize=11;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="20" y="1490" width="1050" height="25" as="geometry"/>
+        </mxCell>
+
+        <!-- y=1530 Browser: フィルターチップをクリック -->
+        <mxCell id="D_19" value="&lt;b&gt;フィルターチップをクリック&lt;/b&gt;&lt;br&gt;&lt;i&gt;ブラウザ&lt;/i&gt;&lt;br&gt;タグまたは優先度のラベルをクリックして選択/解除" style="html=1;whiteSpace=wrap;rounded=1;fontSize=10;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="1">
+          <mxGeometry x="20" y="1530" width="220" height="75" as="geometry"/>
+        </mxCell>
+        <mxCell id="D_a19" style="edgeStyle=orthogonalEdgeStyle;" edge="1" source="D_19" target="D_20" parent="1">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <!-- y=1620 Frontend: toggleTag() / togglePriority() -->
+        <mxCell id="D_20" value="&lt;b&gt;toggleTag() / togglePriority()&lt;/b&gt;&lt;br&gt;&lt;i&gt;WishFilter.js L:11-25&lt;/i&gt;&lt;br&gt;selectedTags/selectedPriorities stateを更新" style="html=1;whiteSpace=wrap;rounded=1;fontSize=10;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1">
+          <mxGeometry x="270" y="1620" width="260" height="75" as="geometry"/>
+        </mxCell>
+        <mxCell id="D_a20" style="edgeStyle=orthogonalEdgeStyle;" edge="1" source="D_20" target="D_21" parent="1">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <!-- y=1710 Frontend: filteredWishes フィルタロジック -->
+        <mxCell id="D_21" value="&lt;b&gt;filteredWishes フィルタロジック&lt;/b&gt;&lt;br&gt;&lt;i&gt;WishList.js L:128-144&lt;/i&gt;&lt;br&gt;タグOR + 優先度OR + 組み合わせAND でフィルタ" style="html=1;whiteSpace=wrap;rounded=1;fontSize=10;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1">
+          <mxGeometry x="270" y="1710" width="260" height="75" as="geometry"/>
+        </mxCell>
+        <mxCell id="D_a21" style="edgeStyle=orthogonalEdgeStyle;" edge="1" source="D_21" target="D_22" parent="1">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <!-- y=1800 Frontend: 一覧レンダリング -->
+        <mxCell id="D_22" value="&lt;b&gt;一覧レンダリング&lt;/b&gt;&lt;br&gt;&lt;i&gt;WishList.js L:196-237&lt;/i&gt;&lt;br&gt;filteredWishes.map(wish =&gt; wish-item表示)" style="html=1;whiteSpace=wrap;rounded=1;fontSize=10;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1">
+          <mxGeometry x="270" y="1800" width="260" height="75" as="geometry"/>
+        </mxCell>
+        <mxCell id="D_a22" style="edgeStyle=orthogonalEdgeStyle;" edge="1" source="D_22" target="D_23" parent="1">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <!-- y=1890 Frontend: wish-item 各要素描画 -->
+        <mxCell id="D_23" value="&lt;b&gt;wish-item 各要素描画&lt;/b&gt;&lt;br&gt;&lt;i&gt;WishList.js L:199-234&lt;/i&gt;&lt;br&gt;タイトル + ステータスバッジ + 優先度バッジ + 期限" style="html=1;whiteSpace=wrap;rounded=1;fontSize=10;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1">
+          <mxGeometry x="270" y="1890" width="260" height="75" as="geometry"/>
+        </mxCell>
+        <mxCell id="D_a23" style="edgeStyle=orthogonalEdgeStyle;" edge="1" source="D_23" target="D_24" parent="1">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <!-- y=1980 Frontend: タグラベル表示 -->
+        <mxCell id="D_24" value="&lt;b&gt;タグラベル表示&lt;/b&gt;&lt;br&gt;&lt;i&gt;WishList.js L:216-222&lt;/i&gt;&lt;br&gt;wish.tags.map(tag =&gt; span.tag-label {tag.name})" style="html=1;whiteSpace=wrap;rounded=1;fontSize=10;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1">
+          <mxGeometry x="270" y="1980" width="260" height="75" as="geometry"/>
+        </mxCell>
+        <mxCell id="D_a24" style="edgeStyle=orthogonalEdgeStyle;" edge="1" source="D_24" target="D_25" parent="1">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <!-- y=2070 Browser: 一覧表示完了 -->
+        <mxCell id="D_25" value="&lt;b&gt;一覧表示完了&lt;/b&gt;&lt;br&gt;&lt;i&gt;ブラウザ&lt;/i&gt;&lt;br&gt;フィルタ適用済みのwish一覧がタグ・バッジ付きで表示" style="html=1;whiteSpace=wrap;rounded=1;fontSize=10;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="1">
+          <mxGeometry x="20" y="2070" width="220" height="75" as="geometry"/>
+        </mxCell>
+
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

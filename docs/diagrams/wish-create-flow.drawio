@@ -1,0 +1,222 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mxfile host="app.diagrams.net" modified="2026-02-15T00:00:00.000Z" type="device">
+  <diagram id="wish-create-flow" name="やりたいこと登録フロー">
+    <mxGraphModel dx="1422" dy="762" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1600" pageHeight="1200" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+
+        <!-- Swim Lane: Frontend -->
+        <mxCell id="lane_fe" value="Frontend (WishForm.js)" style="shape=swimlane;startSize=30;fillColor=#E3F2FD;strokeColor=#1565C0;fontStyle=1;fontSize=14;" vertex="1" parent="1">
+          <mxGeometry x="40" y="40" width="500" height="1060" as="geometry" />
+        </mxCell>
+
+        <!-- Swim Lane: Backend -->
+        <mxCell id="lane_be" value="Backend (routes/wishes.js)" style="shape=swimlane;startSize=30;fillColor=#E8F5E9;strokeColor=#2E7D32;fontStyle=1;fontSize=14;" vertex="1" parent="1">
+          <mxGeometry x="580" y="40" width="500" height="1060" as="geometry" />
+        </mxCell>
+
+        <!-- Swim Lane: Database -->
+        <mxCell id="lane_db" value="Database (MySQL)" style="shape=swimlane;startSize=30;fillColor=#FFF3E0;strokeColor=#E65100;fontStyle=1;fontSize=14;" vertex="1" parent="1">
+          <mxGeometry x="1120" y="40" width="420" height="1060" as="geometry" />
+        </mxCell>
+
+        <!-- FE: Start -->
+        <mxCell id="n1" value="ユーザーがフォーム入力&#xa;(タイトル, ステータス, 優先度,&#xa;期限, タグ, メモ, 画像)" style="rounded=1;whiteSpace=wrap;fillColor=#BBDEFB;strokeColor=#1565C0;" vertex="1" parent="lane_fe">
+          <mxGeometry x="100" y="60" width="300" height="70" as="geometry" />
+        </mxCell>
+
+        <!-- FE: Submit -->
+        <mxCell id="n2" value="handleSubmit() 実行" style="rounded=0;whiteSpace=wrap;fillColor=#FFF3E0;strokeColor=#E65100;" vertex="1" parent="lane_fe">
+          <mxGeometry x="130" y="160" width="240" height="40" as="geometry" />
+        </mxCell>
+
+        <!-- FE: Title check -->
+        <mxCell id="n3" value="タイトル空？" style="rhombus;whiteSpace=wrap;fillColor=#FFF9C4;strokeColor=#F57F17;" vertex="1" parent="lane_fe">
+          <mxGeometry x="160" y="230" width="180" height="60" as="geometry" />
+        </mxCell>
+
+        <!-- FE: Error -->
+        <mxCell id="n4" value="エラー表示&#xa;'タイトルは必須です'" style="rounded=0;whiteSpace=wrap;fillColor=#FFCDD2;strokeColor=#C62828;" vertex="1" parent="lane_fe">
+          <mxGeometry x="10" y="240" width="130" height="50" as="geometry" />
+        </mxCell>
+
+        <!-- FE: Fetch POST -->
+        <mxCell id="n5" value="fetch() POST /api/wishes&#xa;Content-Type: application/json&#xa;credentials: 'include'&#xa;body: {title, status, priority,&#xa;  description, due_date, tags}" style="rounded=0;whiteSpace=wrap;fillColor=#FFF3E0;strokeColor=#E65100;" vertex="1" parent="lane_fe">
+          <mxGeometry x="100" y="320" width="300" height="90" as="geometry" />
+        </mxCell>
+
+        <!-- FE: onSave -->
+        <mxCell id="n20" value="onSave(savedWish)&#xa;一覧を更新" style="rounded=0;whiteSpace=wrap;fillColor=#BBDEFB;strokeColor=#1565C0;" vertex="1" parent="lane_fe">
+          <mxGeometry x="130" y="770" width="240" height="50" as="geometry" />
+        </mxCell>
+
+        <!-- FE: Image check -->
+        <mxCell id="n21" value="pendingFiles&#xa;あり？" style="rhombus;whiteSpace=wrap;fillColor=#FFF9C4;strokeColor=#F57F17;" vertex="1" parent="lane_fe">
+          <mxGeometry x="160" y="850" width="180" height="60" as="geometry" />
+        </mxCell>
+
+        <!-- FE: Image upload -->
+        <mxCell id="n22" value="POST /api/wishes/:id/images&#xa;multipart/form-data&#xa;(1枚ずつアップロード)" style="rounded=0;whiteSpace=wrap;fillColor=#FFF3E0;strokeColor=#E65100;" vertex="1" parent="lane_fe">
+          <mxGeometry x="100" y="940" width="300" height="60" as="geometry" />
+        </mxCell>
+
+        <!-- FE: Done -->
+        <mxCell id="n23" value="完了&#xa;WishList 再描画" style="rounded=1;whiteSpace=wrap;fillColor=#C8E6C9;strokeColor=#2E7D32;" vertex="1" parent="lane_fe">
+          <mxGeometry x="370" y="860" width="120" height="50" as="geometry" />
+        </mxCell>
+
+        <!-- BE: requireAuth -->
+        <mxCell id="n6" value="requireAuth&#xa;ミドルウェア" style="rounded=0;whiteSpace=wrap;fillColor=#F3E5F5;strokeColor=#6A1B9A;" vertex="1" parent="lane_be">
+          <mxGeometry x="140" y="330" width="220" height="50" as="geometry" />
+        </mxCell>
+
+        <!-- BE: Auth fail -->
+        <mxCell id="n7" value="401&#xa;Unauthorized" style="rounded=0;whiteSpace=wrap;fillColor=#FFCDD2;strokeColor=#C62828;" vertex="1" parent="lane_be">
+          <mxGeometry x="10" y="340" width="110" height="40" as="geometry" />
+        </mxCell>
+
+        <!-- BE: Validation -->
+        <mxCell id="n8" value="サーバー側バリデーション&#xa;- title 空チェック&#xa;- status ENUM チェック&#xa;- priority ENUM チェック" style="rhombus;whiteSpace=wrap;fillColor=#FFF9C4;strokeColor=#F57F17;" vertex="1" parent="lane_be">
+          <mxGeometry x="100" y="410" width="300" height="80" as="geometry" />
+        </mxCell>
+
+        <!-- BE: Validation fail -->
+        <mxCell id="n9" value="400&#xa;Bad Request" style="rounded=0;whiteSpace=wrap;fillColor=#FFCDD2;strokeColor=#C62828;" vertex="1" parent="lane_be">
+          <mxGeometry x="10" y="430" width="80" height="40" as="geometry" />
+        </mxCell>
+
+        <!-- BE: Insert wish -->
+        <mxCell id="n10" value="INSERT INTO wishes&#xa;(user_id, title, description,&#xa;status, priority, due_date)" style="rounded=0;whiteSpace=wrap;fillColor=#C8E6C9;strokeColor=#2E7D32;" vertex="1" parent="lane_be">
+          <mxGeometry x="130" y="520" width="240" height="60" as="geometry" />
+        </mxCell>
+
+        <!-- BE: Tag check -->
+        <mxCell id="n11" value="タグあり？" style="rhombus;whiteSpace=wrap;fillColor=#FFF9C4;strokeColor=#F57F17;" vertex="1" parent="lane_be">
+          <mxGeometry x="170" y="610" width="160" height="50" as="geometry" />
+        </mxCell>
+
+        <!-- BE: Tag loop -->
+        <mxCell id="n12" value="タグごとにループ" style="rounded=0;whiteSpace=wrap;fillColor=#E8F5E9;strokeColor=#2E7D32;" vertex="1" parent="lane_be">
+          <mxGeometry x="160" y="690" width="180" height="40" as="geometry" />
+        </mxCell>
+
+        <!-- BE: Select result -->
+        <mxCell id="n16" value="SELECT 作成レコード&#xa;+ タグ情報取得" style="rounded=0;whiteSpace=wrap;fillColor=#C8E6C9;strokeColor=#2E7D32;" vertex="1" parent="lane_be">
+          <mxGeometry x="130" y="830" width="240" height="50" as="geometry" />
+        </mxCell>
+
+        <!-- BE: Response -->
+        <mxCell id="n17" value="201 Created&#xa;{ wish: {..., tags: [...]} }" style="rounded=0;whiteSpace=wrap;fillColor=#E8F5E9;strokeColor=#2E7D32;" vertex="1" parent="lane_be">
+          <mxGeometry x="130" y="910" width="240" height="50" as="geometry" />
+        </mxCell>
+
+        <!-- DB: wishes table -->
+        <mxCell id="n30" value="wishes テーブル&#xa;INSERT 実行" style="shape=cylinder3;whiteSpace=wrap;boundedLbl=1;backgroundOutline=1;size=15;fillColor=#FFE0B2;strokeColor=#E65100;" vertex="1" parent="lane_db">
+          <mxGeometry x="130" y="510" width="160" height="70" as="geometry" />
+        </mxCell>
+
+        <!-- DB: tags table -->
+        <mxCell id="n31" value="tags テーブル&#xa;INSERT IGNORE&#xa;(既存なら無視)" style="shape=cylinder3;whiteSpace=wrap;boundedLbl=1;backgroundOutline=1;size=15;fillColor=#FFE0B2;strokeColor=#E65100;" vertex="1" parent="lane_db">
+          <mxGeometry x="130" y="620" width="160" height="70" as="geometry" />
+        </mxCell>
+
+        <!-- DB: SELECT tag id -->
+        <mxCell id="n32" value="tags テーブル&#xa;SELECT id&#xa;WHERE user_id, name" style="shape=cylinder3;whiteSpace=wrap;boundedLbl=1;backgroundOutline=1;size=15;fillColor=#FFE0B2;strokeColor=#E65100;" vertex="1" parent="lane_db">
+          <mxGeometry x="130" y="720" width="160" height="70" as="geometry" />
+        </mxCell>
+
+        <!-- DB: wish_tags table -->
+        <mxCell id="n33" value="wish_tags テーブル&#xa;INSERT IGNORE&#xa;(wish_id, tag_id)" style="shape=cylinder3;whiteSpace=wrap;boundedLbl=1;backgroundOutline=1;size=15;fillColor=#FFE0B2;strokeColor=#E65100;" vertex="1" parent="lane_db">
+          <mxGeometry x="130" y="820" width="160" height="70" as="geometry" />
+        </mxCell>
+
+        <!-- Edges: FE -->
+        <mxCell id="e1" edge="1" source="n1" target="n2" parent="lane_fe">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e2" edge="1" source="n2" target="n3" parent="lane_fe">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e3" value="空" style="fontStyle=1;fontColor=#C62828;" edge="1" source="n3" target="n4" parent="lane_fe">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e4" value="OK" style="fontStyle=1;fontColor=#2E7D32;" edge="1" source="n3" target="n5" parent="lane_fe">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e20" edge="1" source="n20" target="n21" parent="lane_fe">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e21" value="あり" style="fontStyle=1;fontColor=#E65100;" edge="1" source="n21" target="n22" parent="lane_fe">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e22" value="なし" style="fontStyle=1;fontColor=#2E7D32;" edge="1" source="n21" target="n23" parent="lane_fe">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- Edges: FE -> BE (cross-lane) -->
+        <mxCell id="e5" edge="1" source="n5" target="n6" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- Edges: BE -->
+        <mxCell id="e6" value="未認証" style="fontStyle=1;fontColor=#C62828;" edge="1" source="n6" target="n7" parent="lane_be">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e7" value="認証OK" style="fontStyle=1;fontColor=#2E7D32;" edge="1" source="n6" target="n8" parent="lane_be">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e8" value="NG" style="fontStyle=1;fontColor=#C62828;" edge="1" source="n8" target="n9" parent="lane_be">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e9" value="OK" style="fontStyle=1;fontColor=#2E7D32;" edge="1" source="n8" target="n10" parent="lane_be">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e10" edge="1" source="n10" target="n11" parent="lane_be">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e11" value="あり" style="fontStyle=1;fontColor=#E65100;" edge="1" source="n11" target="n12" parent="lane_be">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e15" edge="1" source="n16" target="n17" parent="lane_be">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- Edges: BE -> DB (cross-lane) -->
+        <mxCell id="e30" edge="1" source="n10" target="n30" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e31" edge="1" source="n12" target="n31" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e32" edge="1" source="n31" target="n32" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e33" edge="1" source="n32" target="n33" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- Edge: BE -> FE response (cross-lane) -->
+        <mxCell id="e17" edge="1" source="n17" target="n20" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- Edge: Tag skip -->
+        <mxCell id="e12" value="なし" style="fontStyle=1;fontColor=#2E7D32;" edge="1" source="n11" target="n16" parent="lane_be">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="400" y="635" />
+              <mxPoint x="400" y="855" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+
+        <!-- Edge: Tag loop back to select result -->
+        <mxCell id="e34" edge="1" source="n33" target="n16" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

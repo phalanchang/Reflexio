@@ -1,6 +1,8 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import WishForm from './WishForm';
 import WishFilter from './WishFilter';
+import ImageModal from './ImageModal';
+import { useToast } from './Toast';
 import './WishList.css';
 
 const API_URL = process.env.REACT_APP_API_URL || `http://${window.location.hostname}:3002`;
@@ -20,17 +22,13 @@ const PRIORITY_MAP = {
 function WishList() {
   const [wishes, setWishes] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [message, setMessage] = useState({ text: '', type: '' });
   const [showForm, setShowForm] = useState(false);
   const [editingWish, setEditingWish] = useState(null);
   const [allTags, setAllTags] = useState([]);
   const [selectedTags, setSelectedTags] = useState([]);
   const [selectedPriorities, setSelectedPriorities] = useState([]);
-
-  const showMessage = useCallback((text, type = 'success') => {
-    setMessage({ text, type });
-    setTimeout(() => setMessage({ text: '', type: '' }), 3000);
-  }, []);
+  const [modalImage, setModalImage] = useState(null);
+  const { showToast } = useToast();
 
   const fetchWishes = useCallback(async () => {
     try {
@@ -42,14 +40,14 @@ function WishList() {
         const data = await response.json();
         setWishes(data.wishes);
       } else {
-        showMessage('データの取得に失敗しました', 'error');
+        showToast('データの取得に失敗しました', 'error');
       }
     } catch (err) {
-      showMessage('接続エラーが発生しました', 'error');
+      showToast('接続エラーが発生しました', 'error');
     } finally {
       setLoading(false);
     }
-  }, [showMessage]);
+  }, [showToast]);
 
   const fetchTags = useCallback(async () => {
     try {
@@ -91,27 +89,27 @@ function WishList() {
 
       if (response.ok) {
         setWishes(prev => prev.filter(w => w.id !== wish.id));
-        showMessage('削除しました');
+        showToast('削除しました', 'success');
       } else {
         const data = await response.json();
-        showMessage(data.error || '削除に失敗しました', 'error');
+        showToast(data.error || '削除に失敗しました', 'error');
       }
     } catch (err) {
-      showMessage('接続エラーが発生しました', 'error');
+      showToast('接続エラーが発生しました', 'error');
     }
   };
 
   const handleSave = (savedWish) => {
     if (editingWish) {
-      setWishes(prev => prev.map(w => w.id === savedWish.id ? savedWish : w));
-      showMessage('更新しました');
+      showToast('更新しました', 'success');
     } else {
-      setWishes(prev => [savedWish, ...prev]);
-      showMessage('追加しました');
+      showToast('追加しました', 'success');
     }
     setShowForm(false);
     setEditingWish(null);
     fetchTags();
+    // 画像情報を含むデータを再取得
+    fetchWishes();
   };
 
   const handleCancel = () => {
@@ -123,6 +121,14 @@ function WishList() {
     if (!dateString) return '';
     const date = new Date(dateString);
     return date.toLocaleDateString('ja-JP');
+  };
+
+  const openImageModal = (img) => {
+    setModalImage(img);
+  };
+
+  const closeImageModal = () => {
+    setModalImage(null);
   };
 
   // フィルタリング（クライアントサイド）
@@ -157,16 +163,10 @@ function WishList() {
         <h2>やりたいこと</h2>
         {!showForm && (
           <button className="btn btn-primary" onClick={handleAdd}>
-            ＋ 追加
+            + 追加
           </button>
         )}
       </div>
-
-      {message.text && (
-        <div className={`message message-${message.type}`}>
-          {message.text}
-        </div>
-      )}
 
       <WishFilter
         tags={allTags}
@@ -223,6 +223,19 @@ function WishList() {
               {wish.description && (
                 <div className="wish-item-description">{wish.description}</div>
               )}
+              {wish.images && wish.images.length > 0 && (
+                <div className="wish-item-images">
+                  {wish.images.map(img => (
+                    <img
+                      key={img.id}
+                      src={`${API_URL}/api/wishes/images/${img.id}`}
+                      alt={img.original_name}
+                      className="wish-item-thumbnail"
+                      onClick={() => openImageModal(img)}
+                    />
+                  ))}
+                </div>
+              )}
               <div className="wish-item-actions">
                 <button className="btn-action btn-edit" onClick={() => handleEdit(wish)}>
                   編集
@@ -234,6 +247,10 @@ function WishList() {
             </div>
           ))}
         </div>
+      )}
+
+      {modalImage && (
+        <ImageModal image={modalImage} onClose={closeImageModal} />
       )}
     </div>
   );

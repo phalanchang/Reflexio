@@ -19,6 +19,7 @@ router.post('/login', async (req, res) => {
     );
 
     if (rows.length === 0) {
+      console.log(`[auth] ログイン失敗 - username: ${username}`);
       return res.status(401).json({ error: 'Invalid username or password' });
     }
 
@@ -26,12 +27,15 @@ router.post('/login', async (req, res) => {
     const isMatch = await bcrypt.compare(password, user.password_hash);
 
     if (!isMatch) {
+      console.log(`[auth] ログイン失敗 - username: ${username}`);
       return res.status(401).json({ error: 'Invalid username or password' });
     }
 
     req.session.userId = user.id;
     req.session.username = user.username;
     req.session.displayName = user.display_name;
+
+    console.log(`[auth] ログイン成功 - userId: ${user.id}, username: ${user.username}`);
 
     res.json({
       message: 'Login successful',

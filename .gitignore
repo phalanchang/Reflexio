@@ -36,6 +36,10 @@ Thumbs.db
 # Docker
 docker-compose.override.yml
 
+# ユーザーアップロードファイル
+backend/uploads/
+!backend/uploads/.gitkeep
+
 # Agent system (ephemeral files)
 .agent/messages/*.yaml
 .agent/.tmp_prompt_*

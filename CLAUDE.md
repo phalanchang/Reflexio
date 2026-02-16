@@ -23,7 +23,43 @@
 - Sprint 1 完了: ログイン/ログアウト/メインレイアウト
 - Sprint 2 完了: 「やりたいこと」CRUD管理（wishes テーブル、REST API、一覧/追加/編集/削除UI）
 - Sprint 3 完了: タグ機能（多対多、自動作成）、フィルタリング機能（タグOR/優先度OR/組合せAND）
-- シードユーザー: admin / password123
+- Sprint 4 完了: Google カレンダー連携 + ダッシュボード棒グラフ
+  - 4a: Google OAuth基盤、google_tokens テーブル、/api/google/*, /api/calendar/*
+  - 4b: Recharts 積み上げ棒グラフ（TimeChart）、期間切替UI（7日/週/月）、5状態分岐
+  - コンポーネント: Dashboard（リニューアル済）, GoogleConnect, GoogleCallback, TimeChart
+  - summary API: 全日付埋め対応
+  - recharts, googleapis パッケージ追加
+- Sprint 5 完了: ユーザーごとの Google OAuth 設定 + 新規ユーザー
+  - 新テーブル: google_oauth_settings（ユーザーごとのClient ID/Secret保存）
+  - 新API: /api/google/settings（CRUD、secretマスク処理）
+  - 新コンポーネント: Settings.js（OAuth設定画面）
+  - createOAuth2Client: ユーザー設定優先 + 環境変数フォールバック
+  - Dashboard 3状態分岐、GoogleConnect 設定未登録時案内
+  - SPA遷移修正（`<a>` → `<Link>`）
+- Sprint 6 完了: カテゴリ分類機能（イベント色ベースの分類、Settings カテゴリ設定UI）
+  - 新テーブル: category_mappings（ユーザーごとの色→カテゴリ名マッピング）
+  - 新API: /api/category-mappings（GET/PUT/DELETE CRUD）
+  - GOOGLE_EVENT_COLORS 定数（colorId 1-11 の日本語名+HEX）
+  - calendar.js summary: colorId ベースのカテゴリ分類（カスタム名 or デフォルト色名）
+  - Settings.js: カテゴリ設定セクション追加（11色マッピングテーブル）
+- Sprint 7 完了: 画像貼り付け機能（Ctrl+Vペースト、ファイル選択、サムネイル、全画面モーダル）
+  - 新テーブル: wish_images（wish_id + CASCADE DELETE、ファイルメタ情報）
+  - 新API: POST /api/wishes/:wishId/images, GET/DELETE /api/wishes/images/:imageId
+  - multer によるファイルアップロード（5MB上限、JPEG/PNG/GIF/WebP、5枚/wish上限）
+  - 保存先: backend/uploads/{user_id}/（バインドマウントで永続化）
+  - 認証付き画像配信（所有権チェック）、wish 削除時のファイル自動クリーンアップ
+  - 新コンポーネント: ImageModal.js（全画面画像ビューア）
+  - WishForm.js: ペーストハンドラ + プレビュー + アップロード統合
+  - WishList.js: サムネイル表示 + モーダル連携
+  - multer パッケージ追加
+- バグ対応: wishes 保存失敗対策（コードバグなし、運用要因対策）
+  - requireAuth エラーメッセージ日本語化
+  - wishes/auth のリクエストログ強化（`[wishes]`/`[auth]` プレフィックス）
+- トースト通知システム追加
+  - Toast.js / Toast.css 新規（ToastProvider + useToast フック）
+  - 画面右上固定、成功4秒/エラー8秒自動消去、複数スタック
+  - WishList.js の旧 showMessage を完全置換
+- シードユーザー: admin / password123, phalanchang / password123
 - セッションベース認証（express-session、メモリストア）
 
 ## 開発ルール

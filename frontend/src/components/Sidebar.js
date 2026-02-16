@@ -9,6 +9,7 @@ const menuItems = [
   { path: '/notes', label: 'Notes' },
   { path: '/active-recall', label: 'ActiveRecall' },
   { path: '/tasks', label: 'Task Management' },
+  { path: '/settings', label: '⚙️ 設定' },
 ];
 
 function Sidebar() {

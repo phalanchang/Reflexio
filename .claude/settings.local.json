@@ -17,7 +17,10 @@
       "Bash(git fetch:*)",
       "Bash(git merge:*)",
       "Bash(tmux:*)",
-      "Bash(chmod:*)"
+      "Bash(chmod:*)",
+      "WebSearch",
+      "mcp__drawio__open_drawio_mermaid",
+      "mcp__drawio__open_drawio_xml"
     ]
   }
 }

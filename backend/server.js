@@ -6,6 +6,11 @@ require('dotenv').config();
 const authRoutes = require('./routes/auth');
 const wishesRoutes = require('./routes/wishes');
 const tagsRoutes = require('./routes/tags');
+const googleSettingsRoutes = require('./routes/googleSettings');
+const googleRoutes = require('./routes/google');
+const calendarRoutes = require('./routes/calendar');
+const categoryMappingsRoutes = require('./routes/categoryMappings');
+const wishImagesRoutes = require('./routes/wishImages');
 const pool = require('./config/database');
 
 const app = express();
@@ -50,7 +55,12 @@ app.get('/', (req, res) => {
 // API routes
 app.use('/api/auth', authRoutes);
 app.use('/api/wishes', wishesRoutes);
+app.use('/api/wishes', wishImagesRoutes);
 app.use('/api/tags', tagsRoutes);
+app.use('/api/google/settings', googleSettingsRoutes);
+app.use('/api/google', googleRoutes);
+app.use('/api/calendar', calendarRoutes);
+app.use('/api/category-mappings', categoryMappingsRoutes);
 
 app.listen(PORT, '0.0.0.0', () => {
   console.log(`Server is running on port ${PORT}`);

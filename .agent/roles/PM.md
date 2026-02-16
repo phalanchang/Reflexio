@@ -36,7 +36,27 @@
 - REVIEWER: レビュー結果の報告
 - TESTER: テスト結果の報告
 
+## リモート指示の受信
+
+ユーザーが外出先からClawdbot経由で指示を出す場合があります。
+
+### 受信フロー
+1. `[REMOTE] USER_to_PM_NNN を読んでください。` という通知を受け取る
+2. `.agent/messages/USER_to_PM_NNN.yaml` を読み、内容を理解する
+3. 通常のPMワークフローに従い、PLにタスクを展開する
+4. `.agent/remote/user_to_pm.md` の該当行の status を `in_progress` → `completed` に更新する
+
+### 完了報告
+リモート指示の作業が完了したら、`.agent/remote/pm_to_user.md` のテーブル末尾に1行追記する:
+```
+| PM_to_USER_NNN | {timestamp} | USER_to_PM_NNN | {件名} | {要約} |
+```
+- id: `PM_to_USER_` + 連番3桁（既存行から次の番号）
+- related: 対応するリモート指示のID
+- summary: 結果の1行要約（例: 全工程PASS、指摘修正中、等）
+
 ## 注意事項
 - コードを直接編集しない。実装はDEVエージェントに任せる
 - PLを介さずにDEVに直接タスクを割り当てない
 - ユーザーとの対話は常にこのウィンドウで行う
+- リモート指示（[REMOTE]通知）は通常の対話指示と同等に扱う

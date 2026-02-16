@@ -1,11 +1,13 @@
 #!/bin/bash
 # Reflexio Multi-Agent Message Watcher
-# Polls board.md for new entries and notifies target agents via tmux send-keys
+# Polls board.md and remote/user_to_pm.md for new entries
+# and notifies target agents via tmux send-keys
 
 set -uo pipefail
 
 PROJECT_ROOT="$(cd "$(dirname "$0")/../.." && pwd)"
 BOARD_FILE="${PROJECT_ROOT}/.agent/board.md"
+REMOTE_FILE="${PROJECT_ROOT}/.agent/remote/user_to_pm.md"
 SESSION_NAME="reflexio-agents"
 POLL_INTERVAL=1
 
@@ -19,18 +21,24 @@ fi
 # shellcheck source=/dev/null
 source "${PANE_MAP_FILE}"
 
-# Initialize line count
+# Initialize line counts
 LAST_LINE_COUNT=0
 if [ -f "${BOARD_FILE}" ]; then
     LAST_LINE_COUNT=$(wc -l < "${BOARD_FILE}")
 fi
 
+LAST_REMOTE_LINE_COUNT=0
+if [ -f "${REMOTE_FILE}" ]; then
+    LAST_REMOTE_LINE_COUNT=$(wc -l < "${REMOTE_FILE}")
+fi
+
 echo "================================================"
 echo " Reflexio Message Watcher"
 echo "================================================"
-echo " 監視対象: ${BOARD_FILE}"
+echo " 監視対象1: ${BOARD_FILE}"
+echo " 監視対象2: ${REMOTE_FILE}"
 echo " ポーリング間隔: ${POLL_INTERVAL}秒"
-echo " 初期行数: ${LAST_LINE_COUNT}"
+echo " 初期行数: board=${LAST_LINE_COUNT}, remote=${LAST_REMOTE_LINE_COUNT}"
 echo " 新しいメッセージを監視中..."
 echo ""
 
@@ -91,5 +99,55 @@ while true; do
         done <<< "${NEW_LINES}"
 
         LAST_LINE_COUNT="${CURRENT_LINE_COUNT}"
+    fi
+
+    # --- Remote instruction file monitoring (user_to_pm.md) ---
+    [ -f "${REMOTE_FILE}" ] || continue
+
+    CURRENT_REMOTE_LINE_COUNT=$(wc -l < "${REMOTE_FILE}")
+
+    if [ "${CURRENT_REMOTE_LINE_COUNT}" -gt "${LAST_REMOTE_LINE_COUNT}" ]; then
+        NEW_REMOTE_START=$((LAST_REMOTE_LINE_COUNT + 1))
+        NEW_REMOTE_LINES=$(tail -n +"${NEW_REMOTE_START}" "${REMOTE_FILE}")
+
+        while IFS= read -r line; do
+            # Skip empty lines, header, separator
+            [[ -z "${line}" ]] && continue
+            [[ "${line}" == "|---"* ]] && continue
+            [[ "${line}" == "| id"* ]] && continue
+            [[ "${line}" != "|"* ]] && continue
+
+            # Parse: | id | timestamp | subject | status |
+            remote_id=$(echo "${line}" | awk -F'|' '{gsub(/^[ \t]+|[ \t]+$/, "", $2); print $2}')
+            remote_subject=$(echo "${line}" | awk -F'|' '{gsub(/^[ \t]+|[ \t]+$/, "", $4); print $4}')
+
+            [[ -z "${remote_id}" ]] && continue
+            [[ "${remote_id}" == "id" ]] && continue
+
+            echo "[$(date '+%H:%M:%S')] リモート指示: ${remote_id} (USER → PM)"
+
+            # Send to PM pane
+            local_pane="${AGENT_PANES[PM]:-}"
+            if [ -z "${local_pane}" ]; then
+                echo "  WARNING: PMペインが見つかりません - スキップ"
+                continue
+            fi
+
+            local_window="${local_pane%%.*}"
+            if ! tmux list-windows -t "${SESSION_NAME}" -F '#{window_name}' 2>/dev/null | grep -q "^${local_window}$"; then
+                echo "  WARNING: ウィンドウ '${local_window}' が見つかりません - スキップ"
+                continue
+            fi
+
+            NOTIFICATION="[REMOTE] ${remote_id} を読んでください。ファイル: .agent/messages/${remote_id}.yaml (送信元: USER, 件名: ${remote_subject})"
+            tmux send-keys -t "${SESSION_NAME}:${local_pane}" "${NOTIFICATION}"
+            sleep 0.5
+            tmux send-keys -t "${SESSION_NAME}:${local_pane}" Enter
+
+            echo "  → PM に通知送信完了"
+
+        done <<< "${NEW_REMOTE_LINES}"
+
+        LAST_REMOTE_LINE_COUNT="${CURRENT_REMOTE_LINE_COUNT}"
     fi
 done
