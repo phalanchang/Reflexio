@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Reflexio Dashboard</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    body { background: #0f172a; }
+    .status-working { color: #22c55e; }
+    .status-idle { color: #9ca3af; }
+    .status-blocked { color: #ef4444; }
+    .status-reviewing { color: #eab308; }
+    .status-testing { color: #3b82f6; }
+    .priority-low { border-left: 4px solid #9ca3af; }
+    .priority-medium { border-left: 4px solid #3b82f6; }
+    .priority-high { border-left: 4px solid #f59e0b; }
+    .priority-critical { border-left: 4px solid #ef4444; }
+    .fade-in { animation: fadeIn 0.3s ease-in; }
+    @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+    @keyframes pulse-dot { 0%, 100% { opacity: 1; } 50% { opacity: 0.4; } }
+    .pulse-dot { animation: pulse-dot 1.5s ease-in-out infinite; }
+  </style>
+</head>
+<body class="text-gray-100 min-h-screen">
+
+  <!-- ヘッダー -->
+  <header class="bg-slate-800/80 border-b border-slate-700 px-6 py-4 flex items-center justify-between">
+    <div class="flex items-center gap-3">
+      <span class="text-2xl">🤖</span>
+      <h1 class="text-xl font-bold text-white">Reflexio Agent Dashboard</h1>
+    </div>
+    <div class="flex items-center gap-4 text-sm text-gray-400">
+      <span id="auto-refresh-indicator" class="flex items-center gap-1">
+        <span class="w-2 h-2 bg-green-500 rounded-full pulse-dot"></span>
+        自動更新 ON
+      </span>
+      <span id="last-updated">最終更新: --</span>
+    </div>
+  </header>
+
+  <main class="max-w-7xl mx-auto px-4 py-6 space-y-6">
+
+    <!-- サマリーカード -->
+    <section id="summary-section" class="grid grid-cols-2 md:grid-cols-4 gap-4">
+      <div class="bg-slate-800 rounded-lg p-4 border border-slate-700">
+        <div class="text-sm text-gray-400">依頼総数</div>
+        <div id="count-total" class="text-3xl font-bold text-white mt-1">--</div>
+      </div>
+      <div class="bg-slate-800 rounded-lg p-4 border border-green-900/50">
+        <div class="text-sm text-green-400">完了</div>
+        <div id="count-completed" class="text-3xl font-bold text-green-400 mt-1">--</div>
+      </div>
+      <div class="bg-slate-800 rounded-lg p-4 border border-blue-900/50">
+        <div class="text-sm text-blue-400">進行中</div>
+        <div id="count-in-progress" class="text-3xl font-bold text-blue-400 mt-1">--</div>
+      </div>
+      <div class="bg-slate-800 rounded-lg p-4 border border-yellow-900/50">
+        <div class="text-sm text-yellow-400">未読</div>
+        <div id="count-unread" class="text-3xl font-bold text-yellow-400 mt-1">--</div>
+      </div>
+    </section>
+
+    <!-- エージェント状況パネル -->
+    <section>
+      <h2 class="text-lg font-semibold text-white mb-3 flex items-center gap-2">
+        <span>👥</span> エージェント状況
+      </h2>
+      <div id="agents-grid" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-3">
+        <!-- JS で描画 -->
+      </div>
+    </section>
+
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+
+      <!-- 進捗タイムライン -->
+      <section>
+        <div class="flex items-center justify-between mb-3">
+          <h2 class="text-lg font-semibold text-white flex items-center gap-2">
+            <span>📋</span> 進捗タイムライン
+          </h2>
+          <div class="flex gap-1">
+            <button onclick="setFilter('all')" data-filter="all"
+              class="filter-btn px-2 py-1 text-xs rounded bg-slate-700 text-gray-300 hover:bg-slate-600">全て</button>
+            <button onclick="setFilter('unread')" data-filter="unread"
+              class="filter-btn px-2 py-1 text-xs rounded bg-slate-700 text-gray-300 hover:bg-slate-600">未読</button>
+            <button onclick="setFilter('in_progress')" data-filter="in_progress"
+              class="filter-btn px-2 py-1 text-xs rounded bg-slate-700 text-gray-300 hover:bg-slate-600">進行中</button>
+            <button onclick="setFilter('completed')" data-filter="completed"
+              class="filter-btn px-2 py-1 text-xs rounded bg-slate-700 text-gray-300 hover:bg-slate-600">完了</button>
+          </div>
+        </div>
+        <div id="timeline-list" class="space-y-2 max-h-96 overflow-y-auto pr-1">
+          <!-- JS で描画 -->
+        </div>
+      </section>
+
+      <!-- 最新レポート & 通知 -->
+      <section>
+        <h2 class="text-lg font-semibold text-white mb-3 flex items-center gap-2">
+          <span>📝</span> 最新レポート & 通知
+        </h2>
+        <div class="space-y-4">
+          <div>
+            <h3 class="text-sm font-medium text-gray-400 mb-2">レポート</h3>
+            <div id="reports-list" class="space-y-2">
+              <!-- JS で描画 -->
+            </div>
+          </div>
+          <div>
+            <h3 class="text-sm font-medium text-gray-400 mb-2">通知ログ</h3>
+            <div id="notifications-list" class="space-y-2">
+              <!-- JS で描画 -->
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+
+  </main>
+
+  <!-- フッター -->
+  <footer class="text-center text-gray-500 text-xs py-4 border-t border-slate-800 mt-8">
+    Reflexio Agent Dashboard v1.0 | 10秒ごと自動更新
+  </footer>
+
+  <script>
+    // --- 状態 ---
+    let currentFilter = 'all';
+    let timelineData = [];
+
+    // --- ステータス設定 ---
+    const STATUS_CONFIG = {
+      working:   { icon: '🟢', label: '作業中',   className: 'status-working' },
+      idle:      { icon: '⚪', label: '待機中',   className: 'status-idle' },
+      blocked:   { icon: '🔴', label: 'ブロック', className: 'status-blocked' },
+      reviewing: { icon: '🟡', label: 'レビュー', className: 'status-reviewing' },
+      testing:   { icon: '🔵', label: 'テスト中', className: 'status-testing' }
+    };
+
+    const TIMELINE_STATUS = {
+      completed:   { color: 'bg-green-900/30 text-green-400 border-green-800/50', badge: '完了' },
+      in_progress: { color: 'bg-blue-900/30 text-blue-400 border-blue-800/50', badge: '進行中' },
+      unread:      { color: 'bg-yellow-900/30 text-yellow-400 border-yellow-800/50', badge: '未読' }
+    };
+
+    // --- データ取得 ---
+    async function fetchAgents() {
+      try {
+        const res = await fetch('/api/agents');
+        return await res.json();
+      } catch (e) { return { agents: [], lastUpdated: '' }; }
+    }
+
+    async function fetchTimeline() {
+      try {
+        const res = await fetch('/api/timeline');
+        return await res.json();
+      } catch (e) { return []; }
+    }
+
+    async function fetchSummary() {
+      try {
+        const res = await fetch('/api/summary');
+        return await res.json();
+      } catch (e) { return { counts: {}, recentReports: [], recentNotifications: [] }; }
+    }
+
+    // --- 描画: エージェントカード ---
+    function renderAgents(data) {
+      const grid = document.getElementById('agents-grid');
+      if (!data.agents || data.agents.length === 0) {
+        grid.innerHTML = '<div class="col-span-full text-gray-500 text-center py-8">データなし</div>';
+        return;
+      }
+
+      grid.innerHTML = data.agents.map(agent => {
+        const cfg = STATUS_CONFIG[agent.status] || STATUS_CONFIG.idle;
+        const isActive = agent.status === 'working' || agent.status === 'reviewing' || agent.status === 'testing';
+        const borderClass = isActive ? 'border-green-700/50' : 'border-slate-700';
+
+        return `
+          <div class="bg-slate-800 rounded-lg p-3 border ${borderClass} fade-in">
+            <div class="flex items-center justify-between mb-2">
+              <span class="font-mono font-bold text-sm text-white">${agent.id}</span>
+              <span class="${cfg.className} text-xs flex items-center gap-1">
+                ${cfg.icon} ${cfg.label}
+              </span>
+            </div>
+            <div class="text-xs text-gray-400 mb-1">${agent.role}</div>
+            <div class="text-xs text-gray-300 truncate" title="${escapeHtml(agent.currentTask)}">
+              ${agent.currentTask === '-' ? '<span class="text-gray-600">タスクなし</span>' : escapeHtml(agent.currentTask)}
+            </div>
+            ${agent.lastUpdated && agent.lastUpdated !== '-'
+              ? `<div class="text-xs text-gray-500 mt-2">${formatTime(agent.lastUpdated)}</div>`
+              : ''}
+          </div>
+        `;
+      }).join('');
+    }
+
+    // --- 描画: タイムライン ---
+    function renderTimeline(data) {
+      timelineData = data || [];
+      applyFilter();
+    }
+
+    function applyFilter() {
+      const list = document.getElementById('timeline-list');
+      const filtered = currentFilter === 'all'
+        ? timelineData
+        : timelineData.filter(t => t.status === currentFilter);
+
+      if (filtered.length === 0) {
+        list.innerHTML = '<div class="text-gray-500 text-center py-8">該当する依頼なし</div>';
+        return;
+      }
+
+      list.innerHTML = filtered.map(item => {
+        const cfg = TIMELINE_STATUS[item.status] || TIMELINE_STATUS.unread;
+        return `
+          <div class="bg-slate-800 rounded-lg p-3 border border-slate-700 fade-in">
+            <div class="flex items-center justify-between mb-1">
+              <span class="font-mono text-xs text-gray-500">${escapeHtml(item.id)}</span>
+              <span class="text-xs px-2 py-0.5 rounded-full border ${cfg.color}">${cfg.badge}</span>
+            </div>
+            <div class="text-sm text-white">${escapeHtml(item.subject)}</div>
+            <div class="text-xs text-gray-500 mt-1">${formatTime(item.timestamp)}</div>
+          </div>
+        `;
+      }).join('');
+    }
+
+    function setFilter(filter) {
+      currentFilter = filter;
+      // アクティブボタンのスタイル更新
+      document.querySelectorAll('.filter-btn').forEach(btn => {
+        if (btn.dataset.filter === filter) {
+          btn.classList.remove('bg-slate-700', 'text-gray-300');
+          btn.classList.add('bg-blue-600', 'text-white');
+        } else {
+          btn.classList.remove('bg-blue-600', 'text-white');
+          btn.classList.add('bg-slate-700', 'text-gray-300');
+        }
+      });
+      applyFilter();
+    }
+
+    // --- 描画: サマリー ---
+    function renderSummary(data) {
+      const c = data.counts || {};
+      document.getElementById('count-total').textContent = c.total ?? '--';
+      document.getElementById('count-completed').textContent = c.completed ?? '--';
+      document.getElementById('count-in-progress').textContent = c.in_progress ?? '--';
+      document.getElementById('count-unread').textContent = c.unread ?? '--';
+
+      // レポート
+      const reportsList = document.getElementById('reports-list');
+      const reports = data.recentReports || [];
+      if (reports.length === 0) {
+        reportsList.innerHTML = '<div class="text-gray-600 text-sm">レポートなし</div>';
+      } else {
+        reportsList.innerHTML = reports.map(r => `
+          <div class="bg-slate-800/50 rounded p-2 border border-slate-700 text-sm fade-in">
+            <div class="flex items-center gap-2 mb-1">
+              <span class="font-mono text-xs text-blue-400">${escapeHtml(r.agentId)}</span>
+              <span class="text-gray-500 text-xs">${escapeHtml(r.filename)}</span>
+            </div>
+            <div class="text-gray-300 text-xs">${escapeHtml(r.summary || '(内容なし)')}</div>
+          </div>
+        `).join('');
+      }
+
+      // 通知ログ
+      const notifList = document.getElementById('notifications-list');
+      const notifs = data.recentNotifications || [];
+      if (notifs.length === 0) {
+        notifList.innerHTML = '<div class="text-gray-600 text-sm">通知なし</div>';
+      } else {
+        notifList.innerHTML = notifs.map(n => `
+          <div class="bg-slate-800/50 rounded p-2 border border-slate-700 text-sm fade-in">
+            <div class="flex items-center gap-2">
+              <span class="font-mono text-xs text-purple-400">${escapeHtml(n.agentId)}</span>
+              <span class="text-gray-300 text-xs flex-1 truncate">${escapeHtml(n.summary)}</span>
+              <span class="text-gray-500 text-xs whitespace-nowrap">${formatTime(n.timestamp)}</span>
+            </div>
+          </div>
+        `).join('');
+      }
+    }
+
+    // --- ユーティリティ ---
+    function escapeHtml(str) {
+      if (!str) return '';
+      const div = document.createElement('div');
+      div.textContent = str;
+      return div.innerHTML;
+    }
+
+    function formatTime(isoStr) {
+      if (!isoStr) return '';
+      try {
+        const d = new Date(isoStr);
+        if (isNaN(d.getTime())) return isoStr;
+        return d.toLocaleString('ja-JP', {
+          month: '2-digit', day: '2-digit',
+          hour: '2-digit', minute: '2-digit'
+        });
+      } catch (e) {
+        return isoStr;
+      }
+    }
+
+    // --- 全データ更新 ---
+    async function fetchAll() {
+      const [agents, timeline, summary] = await Promise.all([
+        fetchAgents(),
+        fetchTimeline(),
+        fetchSummary()
+      ]);
+
+      renderAgents(agents);
+      renderTimeline(timeline);
+      renderSummary(summary);
+
+      // 最終更新時刻
+      const now = new Date().toLocaleString('ja-JP', {
+        month: '2-digit', day: '2-digit',
+        hour: '2-digit', minute: '2-digit', second: '2-digit'
+      });
+      document.getElementById('last-updated').textContent = `最終更新: ${now}`;
+    }
+
+    // --- 初期化 ---
+    (async function init() {
+      setFilter('all');
+      await fetchAll();
+      // 10秒ごと自動更新
+      setInterval(fetchAll, 10000);
+    })();
+  </script>
+
+</body>
+</html>

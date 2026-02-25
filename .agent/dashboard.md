@@ -1,21 +1,21 @@
 # Agent Dashboard
 
-最終更新: 2026-02-17T03:10:00+09:00
+最終更新: 2026-02-25T11:15:00+09:00
 
 ## エージェント状況
 
 | ID | ロール | ステータス | 現在のタスク | 対象メッセージID | 最終更新 |
 |---|---|---|---|---|---|
-| PM | Project Manager | idle | - | - | 2026-02-17T03:10:00+09:00 |
-| PL | Project Lead | idle | - | - | 2026-02-17T03:05:00+09:00 |
-| DEV1 | Developer | idle | - | - | 2026-02-17T03:00:00+09:00 |
-| DEV2 | Developer | idle | - | - | 2026-02-15T20:35:00+09:00 |
+| PM | Project Manager | idle | - | - | 2026-02-25T11:15:00+09:00 |
+| PL | Project Lead | idle | - | - | 2026-02-25T11:10:00+09:00 |
+| DEV1 | Developer | idle | - | - | 2026-02-25T10:10:00+09:00 |
+| DEV2 | Developer | idle | - | - | 2026-02-25T09:15:00+09:00 |
 | DEV3 | Developer | idle | - | - | - |
 | DEV4 | Developer | idle | - | - | - |
 | DEV5 | Developer | idle | - | - | - |
-| LIBRARIAN | Librarian | idle | - | - | 2026-02-15T21:42:00+09:00 |
-| TESTER | Tester | idle | - | - | 2026-02-15T21:30:00+09:00 |
-| REVIEWER | Reviewer | idle | - | - | 2026-02-15T20:55:00+09:00 |
+| LIBRARIAN | Librarian | idle | - | - | 2026-02-17T09:25:00+09:00 |
+| TESTER | Tester | idle | - | - | 2026-02-25T11:05:00+09:00 |
+| REVIEWER | Reviewer | idle | - | - | 2026-02-25T10:35:00+09:00 |
 
 ### ステータス凡例
 - **idle**: 待機中（タスクなし）
@@ -107,3 +107,53 @@
 | 2026-02-17T03:00:00+09:00 | DEV1 | ホワイトボード→draw.io図整理（XML生成） | PL_to_DEV1_013 |
 | 2026-02-17T03:05:00+09:00 | PL | ホワイトボード→draw.io図 全工程完了（PM報告済み） | PM_to_PL_013 |
 | 2026-02-17T03:10:00+09:00 | PM | ホワイトボード→draw.io図 完了確認・ユーザー報告 | PL_to_PM_013 |
+| 2026-02-17T03:45:00+09:00 | DEV2 | Sprint 8: Clawdbot Skills Display UI（サイドバー+バッジ+モーダル） | PL_to_DEV2_013 |
+| 2026-02-17T04:10:00+09:00 | REVIEWER | Sprint 8 コードレビュー（APPROVE・SHOULD 1件） | PL_to_REVIEWER_009 |
+| 2026-02-17T04:25:00+09:00 | DEV2 | レビュー指摘修正: SkillBadge.js キーボードアクセシビリティ | PL_to_DEV2_014 |
+| 2026-02-17T04:40:00+09:00 | TESTER | Sprint 8 Clawdbot Skills Display テスト（全41項目PASS） | PL_to_TESTER_011 |
+| 2026-02-17T04:45:00+09:00 | PL | Sprint 8 全工程完了（PM報告済み） | PM_to_PL_014 |
+| 2026-02-17T04:55:00+09:00 | PM | Sprint 8 Clawdbot Skills Display 完了確認・ユーザー報告 | PL_to_PM_014 |
+| 2026-02-17T04:52:00+09:00 | LIBRARIAN | Sprint 8 ドキュメント更新（CLAUDE.md + project-guide.md） | PL_to_LIBRARIAN_012 |
+| 2026-02-17T05:25:00+09:00 | DEV2 | Sprint 8改修: メイン画面ページ化+ラベル+D&D | PL_to_DEV2_015 |
+| 2026-02-17T05:40:00+09:00 | REVIEWER | Sprint 8改修 コードレビュー（APPROVE・指摘なし） | PL_to_REVIEWER_010 |
+| 2026-02-17T05:55:00+09:00 | TESTER | Sprint 8改修 メイン画面+ラベル+D&D テスト（全42項目PASS） | PL_to_TESTER_012 |
+| 2026-02-17T06:00:00+09:00 | PL | Sprint 8改修 全工程完了（PM報告済み） | PM_to_PL_015 |
+| 2026-02-17T06:05:00+09:00 | PM | Sprint 8改修 完了確認・ユーザー報告 | PL_to_PM_015 |
+| 2026-02-17T06:15:00+09:00 | LIBRARIAN | Sprint 8改修 ドキュメント更新（メイン画面ページ化+ラベル+D&D） | PL_to_LIBRARIAN_013 |
+| 2026-02-17T06:45:00+09:00 | DEV2 | Sprint 8改修2: バッジPNG表示+ティアランダム選択 | PL_to_DEV2_016 |
+| 2026-02-17T07:00:00+09:00 | REVIEWER | Sprint 8改修2 コードレビュー（APPROVE・指摘なし） | PL_to_REVIEWER_011 |
+| 2026-02-17T07:15:00+09:00 | TESTER | Sprint 8改修2 バッジPNG表示切替テスト（全39項目PASS） | PL_to_TESTER_013 |
+| 2026-02-17T07:20:00+09:00 | PL | Sprint 8改修2 全工程完了（PM報告済み） | PM_to_PL_016 |
+| 2026-02-17T07:25:00+09:00 | PM | Sprint 8改修2 完了確認・ユーザー報告 | PL_to_PM_016 |
+| 2026-02-17T07:35:00+09:00 | LIBRARIAN | Sprint 8改修2 ドキュメント更新（バッジPNG画像表示切替） | PL_to_LIBRARIAN_014 |
+| 2026-02-17T07:45:00+09:00 | DEV2 | Sprint 8改修3: clawdhub+notion-integration バッジ画像追加 | PL_to_DEV2_017 |
+| 2026-02-17T07:55:00+09:00 | REVIEWER | Sprint 8改修3 コードレビュー（APPROVE・指摘なし） | PL_to_REVIEWER_012 |
+| 2026-02-17T08:10:00+09:00 | TESTER | Sprint 8改修3 残り2スキルバッジ画像追加テスト（全28項目PASS） | PL_to_TESTER_014 |
+| 2026-02-17T08:15:00+09:00 | PL | Sprint 8改修3 全工程完了（PM報告済み） | PM_to_PL_017 |
+| 2026-02-17T08:20:00+09:00 | PM | Sprint 8改修3 完了確認・ユーザー報告 | PL_to_PM_017 |
+| 2026-02-17T08:25:00+09:00 | LIBRARIAN | Sprint 8改修3 ドキュメント更新（残り2スキルバッジ画像→全11スキルPNG統一） | PL_to_LIBRARIAN_015 |
+| 2026-02-17T08:45:00+09:00 | DEV2 | Sprint 8改修4: バッジサイズ2倍化（48→96px） | PL_to_DEV2_018 |
+| 2026-02-17T08:55:00+09:00 | REVIEWER | Sprint 8改修4 コードレビュー（APPROVE・指摘なし） | PL_to_REVIEWER_013 |
+| 2026-02-17T09:10:00+09:00 | TESTER | Sprint 8改修4 バッジサイズ2倍化テスト（全23項目PASS） | PL_to_TESTER_015 |
+| 2026-02-17T09:15:00+09:00 | PL | Sprint 8改修4 全工程完了（PM報告済み） | PM_to_PL_018 |
+| 2026-02-17T09:20:00+09:00 | PM | Sprint 8改修4 完了確認・ユーザー報告 | PL_to_PM_018 |
+| 2026-02-17T09:25:00+09:00 | LIBRARIAN | Sprint 8改修4 ドキュメント更新（バッジサイズ2倍化 48→96px） | PL_to_LIBRARIAN_016 |
+| 2026-02-23T06:30:00+09:00 | PL | ActiveRecall要件検討・設計ドキュメント3件作成（PM報告済み） | PM_to_PL_019 |
+| 2026-02-23T06:35:00+09:00 | PM | USER_to_PM_006 学習支援機能 要件検討・設計 完了確認・ユーザー報告 | PL_to_PM_019 |
+| 2026-02-23T11:50:00+09:00 | PM | USER_to_PM_007 agent_notify.log 記録機能追加（プロトコル更新完了） | USER_to_PM_007 |
+| 2026-02-25T09:15:00+09:00 | DEV2 | Reflexio Dashboard ビューア構築（Express+Tailwind） | PL_to_DEV2_019 |
+| 2026-02-25T09:40:00+09:00 | REVIEWER | Dashboard ビューア コードレビュー（APPROVE・SHOULD 1件） | PL_to_REVIEWER_014 |
+| 2026-02-25T09:20:00+09:00 | DEV1 | Notion MCP サーバー実装（4ツール、stdio） | PL_to_DEV1_014 |
+| 2026-02-25T09:50:00+09:00 | DEV2 | レビュー指摘修正: parseReports タイムスタンプ変換バグ | PL_to_DEV2_020 |
+| 2026-02-25T10:05:00+09:00 | REVIEWER | Notion MCP サーバー コードレビュー（APPROVE・NICE 3件） | PL_to_REVIEWER_015 |
+| 2026-02-25T10:10:00+09:00 | DEV1 | Notion Sync Tool 実装（バッチ・テンプレート・Upsert・レート制限） | PL_to_DEV1_015 |
+| 2026-02-25T10:35:00+09:00 | REVIEWER | Notion Sync Tool コードレビュー（APPROVE・SHOULD 2件） | PL_to_REVIEWER_016 |
+| 2026-02-25T10:35:00+09:00 | TESTER | Notion MCP + Dashboard ビューア テスト（全35項目PASS） | PL_to_TESTER_016 |
+| 2026-02-25T10:40:00+09:00 | PL | Notion MCP サーバー 全工程完了（PM報告済み） | PM_to_PL_020 |
+| 2026-02-25T10:40:00+09:00 | PL | Dashboard ビューア 全工程完了（PM報告済み） | PM_to_PL_021 |
+| 2026-02-25T10:45:00+09:00 | PM | USER_to_PM_008 Notion MCP サーバー完了確認・ユーザー報告 | PL_to_PM_020 |
+| 2026-02-25T10:45:00+09:00 | PM | USER_to_PM_009 Dashboard ビューア完了確認・ユーザー報告 | PL_to_PM_021 |
+| 2026-02-25T10:45:00+09:00 | DEV1 | レビュー指摘修正: Notion Sync Tool SHOULD 2件 | PL_to_DEV1_016 |
+| 2026-02-25T11:05:00+09:00 | TESTER | Notion Sync Tool テスト（全30項目PASS） | PL_to_TESTER_017 |
+| 2026-02-25T11:10:00+09:00 | PL | Notion Sync Tool + 3タスク全完了（PM報告済み） | PM_to_PL_022 |
+| 2026-02-25T11:15:00+09:00 | PM | USER_to_PM_008-010 全3件完了確認・ユーザー最終報告 | PL_to_PM_022 |

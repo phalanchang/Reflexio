@@ -7,6 +7,7 @@ import Dashboard from './components/Dashboard';
 import WishList from './components/WishList';
 import GoogleCallback from './components/GoogleCallback';
 import Settings from './components/Settings';
+import ClawdbotSkills from './components/ClawdbotSkills';
 import { ToastProvider } from './components/Toast';
 import './App.css';
 
@@ -73,6 +74,7 @@ function App() {
                   <Route path="/dashboard" element={<Dashboard />} />
                   <Route path="/wishes" element={<WishList />} />
                   <Route path="/settings" element={<Settings />} />
+                  <Route path="/clawdbot" element={<ClawdbotSkills />} />
                   <Route path="/auth/google/callback" element={<GoogleCallback />} />
                   <Route path="*" element={<Navigate to="/" replace />} />
                 </Routes>

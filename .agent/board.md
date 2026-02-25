@@ -141,3 +141,83 @@
 | 2026-02-17T02:45:00+09:00 | PL_to_DEV1_013 | PL | DEV1 | task | ホワイトボード画像を draw.io 形式の図に整理（MCP利用） | completed |
 | 2026-02-17T03:00:00+09:00 | DEV1_to_PL_013 | DEV1 | PL | completion | 完了: ホワイトボード画像を draw.io 形式の図に整理 | read |
 | 2026-02-17T03:05:00+09:00 | PL_to_PM_013 | PL | PM | completion | 完了報告: ホワイトボード画像を draw.io 形式の図に整理 | completed |
+| 2026-02-17T03:20:00+09:00 | PM_to_PL_014 | PM | PL | task | Sprint 8: Clawdbot Skills Display 機能開発（サイドバー統合 + バッチメダルUI） | completed |
+| 2026-02-17T03:25:00+09:00 | PL_to_DEV2_013 | PL | DEV2 | task | Sprint 8: Clawdbot Skills Display — サイドバー統合 + バッチメダルUI + 詳細モーダル | completed |
+| 2026-02-17T03:45:00+09:00 | DEV2_to_PL_013 | DEV2 | PL | completion | 完了: Sprint 8 Clawdbot Skills Display UI実装 | read |
+| 2026-02-17T03:50:00+09:00 | PL_to_REVIEWER_009 | PL | REVIEWER | review_request | レビュー依頼: Sprint 8 Clawdbot Skills Display | in_progress |
+| 2026-02-17T04:10:00+09:00 | REVIEWER_to_PL_009 | REVIEWER | PL | review_result | レビュー結果: Sprint 8 APPROVE（SHOULD 1件 + NICE 2件） | read |
+| 2026-02-17T04:15:00+09:00 | PL_to_DEV2_014 | PL | DEV2 | task | レビュー指摘修正: SkillBadge.js キーボードアクセシビリティ | completed |
+| 2026-02-17T04:25:00+09:00 | DEV2_to_PL_014 | DEV2 | PL | completion | 完了: SkillBadge.js キーボードアクセシビリティ対応 | read |
+| 2026-02-17T04:30:00+09:00 | PL_to_TESTER_011 | PL | TESTER | test_request | テスト依頼: Sprint 8 Clawdbot Skills Display 全41項目 | in_progress |
+| 2026-02-17T04:40:00+09:00 | TESTER_to_PL_011 | TESTER | PL | test_result | テスト結果報告: Sprint 8 Clawdbot Skills Display 全41項目PASS | read |
+| 2026-02-17T04:45:00+09:00 | PL_to_PM_014 | PL | PM | completion | Sprint 8 完了報告: Clawdbot Skills Display 全工程完了 | completed |
+| 2026-02-17T04:45:00+09:00 | PL_to_LIBRARIAN_012 | PL | LIBRARIAN | doc_update | ドキュメント更新依頼: Sprint 8 Clawdbot Skills Display | completed |
+| 2026-02-17T04:52:00+09:00 | LIBRARIAN_to_PL_012 | LIBRARIAN | PL | completion | 完了: Sprint 8 Clawdbot Skills Display ドキュメント更新 | read |
+| 2026-02-17T05:05:00+09:00 | PM_to_PL_015 | PM | PL | task | Sprint 8 改修: Clawdbot Badge メイン画面ページ化 + ラベル追加 + D&D対応 | completed |
+| 2026-02-17T05:10:00+09:00 | PL_to_DEV2_015 | PL | DEV2 | task | Sprint 8 改修: メイン画面ページ化 + ラベル + D&D | completed |
+| 2026-02-17T05:25:00+09:00 | DEV2_to_PL_015 | DEV2 | PL | completion | 完了: Sprint 8改修 メイン画面ページ化+ラベル+D&D | read |
+| 2026-02-17T05:30:00+09:00 | PL_to_REVIEWER_010 | PL | REVIEWER | review_request | レビュー依頼: Sprint 8改修 メイン画面ページ化+ラベル+D&D | in_progress |
+| 2026-02-17T05:40:00+09:00 | REVIEWER_to_PL_010 | REVIEWER | PL | review_result | レビュー結果: Sprint 8改修 APPROVE（指摘なし） | read |
+| 2026-02-17T05:45:00+09:00 | PL_to_TESTER_012 | PL | TESTER | test_request | テスト依頼: Sprint 8改修 メイン画面+ラベル+D&D 全42項目 | in_progress |
+| 2026-02-17T05:55:00+09:00 | TESTER_to_PL_012 | TESTER | PL | test_result | テスト結果報告: Sprint 8改修 メイン画面+ラベル+D&D 全42項目PASS | read |
+| 2026-02-17T06:00:00+09:00 | PL_to_PM_015 | PL | PM | completion | Sprint 8改修 完了報告: メイン画面+ラベル+D&D 全工程完了 | completed |
+| 2026-02-17T06:00:00+09:00 | PL_to_LIBRARIAN_013 | PL | LIBRARIAN | doc_update | ドキュメント更新依頼: Sprint 8改修 メイン画面+ラベル+D&D | completed |
+| 2026-02-17T06:15:00+09:00 | LIBRARIAN_to_PL_013 | LIBRARIAN | PL | completion | 完了: Sprint 8改修 メイン画面ページ化+ラベル+D&D ドキュメント更新 | read |
+| 2026-02-17T06:25:00+09:00 | PM_to_PL_016 | PM | PL | task | Sprint 8 改修2: バッジ画像PNG表示切替（emoji→画像+ティアランダム選択） | completed |
+| 2026-02-17T06:30:00+09:00 | PL_to_DEV2_016 | PL | DEV2 | task | Sprint 8 改修2: バッジPNG表示+ティアランダム選択 | completed |
+| 2026-02-17T06:45:00+09:00 | DEV2_to_PL_016 | DEV2 | PL | completion | 完了: Sprint 8改修2 バッジPNG表示+ティアランダム選択 | read |
+| 2026-02-17T06:50:00+09:00 | PL_to_REVIEWER_011 | PL | REVIEWER | review_request | レビュー依頼: Sprint 8改修2 バッジPNG表示切替 | in_progress |
+| 2026-02-17T07:00:00+09:00 | REVIEWER_to_PL_011 | REVIEWER | PL | review_result | レビュー結果: Sprint 8改修2 APPROVE（指摘なし） | read |
+| 2026-02-17T07:05:00+09:00 | PL_to_TESTER_013 | PL | TESTER | test_request | テスト依頼: Sprint 8改修2 バッジPNG表示切替 全39項目 | in_progress |
+| 2026-02-17T07:15:00+09:00 | TESTER_to_PL_013 | TESTER | PL | test_result | テスト結果報告: Sprint 8改修2 バッジPNG表示切替 全39項目PASS | read |
+| 2026-02-17T07:20:00+09:00 | PL_to_PM_016 | PL | PM | completion | Sprint 8改修2 完了報告: バッジPNG画像表示切替 全工程完了 | completed |
+| 2026-02-17T07:20:00+09:00 | PL_to_LIBRARIAN_014 | PL | LIBRARIAN | doc_update | ドキュメント更新依頼: Sprint 8改修2 バッジPNG画像表示切替 | completed |
+| 2026-02-17T07:35:00+09:00 | LIBRARIAN_to_PL_014 | LIBRARIAN | PL | completion | 完了: Sprint 8改修2 バッジPNG画像表示切替 ドキュメント更新 | read |
+| 2026-02-17T07:30:00+09:00 | PM_to_PL_017 | PM | PL | task | Sprint 8 改修3: 残り2スキルのバッジ画像追加（clawdhub+notion-integration） | completed |
+| 2026-02-17T07:35:00+09:00 | PL_to_DEV2_017 | PL | DEV2 | task | Sprint 8 改修3: clawdhub+notion-integration バッジ画像追加 | completed |
+| 2026-02-17T07:45:00+09:00 | DEV2_to_PL_017 | DEV2 | PL | completion | 完了: Sprint 8改修3 clawdhub+notion-integration バッジ画像追加 | read |
+| 2026-02-17T07:50:00+09:00 | PL_to_REVIEWER_012 | PL | REVIEWER | review_request | レビュー依頼: Sprint 8改修3 残り2スキルバッジ画像追加 | in_progress |
+| 2026-02-17T07:55:00+09:00 | REVIEWER_to_PL_012 | REVIEWER | PL | review_result | レビュー結果: Sprint 8改修3 APPROVE（指摘なし） | read |
+| 2026-02-17T08:00:00+09:00 | PL_to_TESTER_014 | PL | TESTER | test_request | テスト依頼: Sprint 8改修3 残り2スキルバッジ画像追加 全28項目 | in_progress |
+| 2026-02-17T08:10:00+09:00 | TESTER_to_PL_014 | TESTER | PL | test_result | テスト結果報告: Sprint 8改修3 残り2スキルバッジ画像追加 全28項目PASS | read |
+| 2026-02-17T08:15:00+09:00 | PL_to_PM_017 | PL | PM | completion | Sprint 8改修3 完了報告: 残り2スキルバッジ画像追加 全工程完了 | completed |
+| 2026-02-17T08:15:00+09:00 | PL_to_LIBRARIAN_015 | PL | LIBRARIAN | doc_update | ドキュメント更新依頼: Sprint 8改修3 残り2スキルバッジ画像追加 | completed |
+| 2026-02-17T08:25:00+09:00 | LIBRARIAN_to_PL_015 | LIBRARIAN | PL | completion | 完了: Sprint 8改修3 残り2スキルバッジ画像追加 ドキュメント更新 | read |
+| 2026-02-17T08:30:00+09:00 | PM_to_PL_018 | PM | PL | task | Sprint 8 改修4: バッジ画像サイズ2倍化（48px→96px） | completed |
+| 2026-02-17T08:35:00+09:00 | PL_to_DEV2_018 | PL | DEV2 | task | Sprint 8 改修4: バッジ画像サイズ2倍化 CSS変更 | completed |
+| 2026-02-17T08:45:00+09:00 | DEV2_to_PL_018 | DEV2 | PL | completion | 完了: Sprint 8改修4 バッジサイズ2倍化（48→96px） | read |
+| 2026-02-17T08:50:00+09:00 | PL_to_REVIEWER_013 | PL | REVIEWER | review_request | レビュー依頼: Sprint 8改修4 バッジサイズ2倍化 | in_progress |
+| 2026-02-17T08:55:00+09:00 | REVIEWER_to_PL_013 | REVIEWER | PL | review_result | レビュー結果: Sprint 8改修4 APPROVE（指摘なし） | read |
+| 2026-02-17T09:00:00+09:00 | PL_to_TESTER_015 | PL | TESTER | test_request | テスト依頼: Sprint 8改修4 バッジサイズ2倍化 全23項目 | in_progress |
+| 2026-02-17T09:10:00+09:00 | TESTER_to_PL_015 | TESTER | PL | test_result | テスト結果報告: Sprint 8改修4 バッジサイズ2倍化 全23項目PASS | read |
+| 2026-02-17T09:15:00+09:00 | PL_to_PM_018 | PL | PM | completion | Sprint 8改修4 完了報告: バッジサイズ2倍化 全工程完了 | completed |
+| 2026-02-17T09:15:00+09:00 | PL_to_LIBRARIAN_016 | PL | LIBRARIAN | doc_update | ドキュメント更新依頼: Sprint 8改修4 バッジサイズ2倍化 | completed |
+| 2026-02-17T09:25:00+09:00 | LIBRARIAN_to_PL_016 | LIBRARIAN | PL | completion | 完了: Sprint 8改修4 バッジ画像サイズ2倍化 ドキュメント更新 | read |
+| 2026-02-23T05:50:00+09:00 | PM_to_PL_019 | PM | PL | task | 学習支援機能（ActiveRecall）の要件検討・設計ドキュメント作成 | completed |
+| 2026-02-23T06:30:00+09:00 | PL_to_PM_019 | PL | PM | completion | ActiveRecall 要件検討・設計ドキュメント作成 完了報告 | read |
+| 2026-02-25T08:42:00+09:00 | PM_to_PL_020 | PM | PL | task | Notion MCP サーバーの実装（Clawdbot/あおい向け） | completed |
+| 2026-02-25T08:42:00+09:00 | PM_to_PL_021 | PM | PL | task | Reflexio Dashboard ビューア（Web UI）の設計・構築 | completed |
+| 2026-02-25T08:42:00+09:00 | PM_to_PL_022 | PM | PL | task | Notion Sync Tool - 複数ページ一括更新機能 | completed |
+| 2026-02-25T08:50:00+09:00 | PL_to_DEV1_014 | PL | DEV1 | task | Notion MCP サーバー実装（4ツール、stdio） | completed |
+| 2026-02-25T08:50:00+09:00 | PL_to_DEV2_019 | PL | DEV2 | task | Dashboard ビューア構築（Express + Tailwind） | completed |
+| 2026-02-25T09:15:00+09:00 | DEV2_to_PL_019 | DEV2 | PL | completion | 完了: Reflexio Dashboard ビューア（Web UI）構築 | read |
+| 2026-02-25T09:20:00+09:00 | PL_to_REVIEWER_014 | PL | REVIEWER | review_request | レビュー依頼: Dashboard ビューア（Web UI） | in_progress |
+| 2026-02-25T09:40:00+09:00 | REVIEWER_to_PL_014 | REVIEWER | PL | review_result | レビュー結果: Dashboard ビューア APPROVE（SHOULD 1件 + NICE 3件） | read |
+| 2026-02-25T09:20:00+09:00 | DEV1_to_PL_014 | DEV1 | PL | completion | 完了: Notion MCP サーバー実装（4ツール、stdio） | read |
+| 2026-02-25T09:45:00+09:00 | PL_to_DEV2_020 | PL | DEV2 | task | レビュー指摘修正: parseReports タイムスタンプ変換バグ修正 | completed |
+| 2026-02-25T09:50:00+09:00 | DEV2_to_PL_020 | DEV2 | PL | completion | 完了: レビュー指摘修正 parseReports タイムスタンプ変換バグ | read |
+| 2026-02-25T09:50:00+09:00 | PL_to_REVIEWER_015 | PL | REVIEWER | review_request | レビュー依頼: Notion MCP サーバー（4ツール、stdio） | completed |
+| 2026-02-25T10:05:00+09:00 | REVIEWER_to_PL_015 | REVIEWER | PL | review_result | レビュー結果: Notion MCP サーバー APPROVE（NICE 3件） | read |
+| 2026-02-25T09:50:00+09:00 | PL_to_DEV1_015 | PL | DEV1 | task | Notion Sync Tool 実装: バッチ更新・テンプレート・Upsert・レート制限 | completed |
+| 2026-02-25T10:10:00+09:00 | DEV1_to_PL_015 | DEV1 | PL | completion | 完了: Notion Sync Tool 実装（バッチ更新・テンプレート・Upsert・レート制限） | read |
+| 2026-02-25T10:15:00+09:00 | PL_to_REVIEWER_016 | PL | REVIEWER | review_request | レビュー依頼: Notion Sync Tool（バッチ・テンプレート・Upsert・レート制限） | in_progress |
+| 2026-02-25T10:35:00+09:00 | REVIEWER_to_PL_016 | REVIEWER | PL | review_result | レビュー結果: Notion Sync Tool APPROVE（SHOULD 2件 + NICE 3件） | read |
+| 2026-02-25T10:15:00+09:00 | PL_to_TESTER_016 | PL | TESTER | test_request | テスト依頼: Notion MCP サーバー + Dashboard ビューア（2ツール同時） | completed |
+| 2026-02-25T10:35:00+09:00 | TESTER_to_PL_016 | TESTER | PL | test_result | テスト結果報告: Notion MCP + Dashboard ビューア 全35項目PASS | read |
+| 2026-02-25T10:40:00+09:00 | PL_to_PM_020 | PL | PM | completion | 完了報告: Notion MCP サーバー 全工程完了 | read |
+| 2026-02-25T10:40:00+09:00 | PL_to_PM_021 | PL | PM | completion | 完了報告: Dashboard ビューア 全工程完了 | read |
+| 2026-02-25T10:40:00+09:00 | PL_to_DEV1_016 | PL | DEV1 | task | レビュー指摘修正: Notion Sync Tool SHOULD 2件（ロジック重複 + dead code） | completed |
+| 2026-02-25T10:45:00+09:00 | DEV1_to_PL_016 | DEV1 | PL | completion | 完了: レビュー指摘修正 Notion Sync Tool SHOULD 2件 | read |
+| 2026-02-25T10:50:00+09:00 | PL_to_TESTER_017 | PL | TESTER | test_request | テスト依頼: Notion Sync Tool（バッチ・テンプレート・Upsert・レート制限） | completed |
+| 2026-02-25T11:05:00+09:00 | TESTER_to_PL_017 | TESTER | PL | test_result | テスト結果報告: Notion Sync Tool 全30項目PASS | read |
+| 2026-02-25T11:10:00+09:00 | PL_to_PM_022 | PL | PM | completion | 完了報告: Notion Sync Tool 全工程完了 — 3タスク全完了 | read |

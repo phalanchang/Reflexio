@@ -1,0 +1,30 @@
+.clawdbot-skills {
+  padding: 24px;
+  max-width: 900px;
+}
+
+.clawdbot-section-header {
+  font-size: 24px;
+  font-weight: 700;
+  color: #2c3e50;
+  margin-bottom: 24px;
+}
+
+.clawdbot-category {
+  margin-bottom: 24px;
+}
+
+.clawdbot-category-label {
+  font-size: 14px;
+  color: #7f8c8d;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 12px;
+  font-weight: 600;
+}
+
+.clawdbot-badge-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+}

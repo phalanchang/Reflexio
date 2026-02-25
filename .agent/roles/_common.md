@@ -5,6 +5,7 @@
 - メッセージディレクトリ: .agent/messages/
 - ボードファイル: .agent/board.md
 - ダッシュボード: .agent/dashboard.md
+- 通知ログ: .agent/reports/agent_notify.log
 - 設定ファイル: .agent/config.yaml
 - 開発ドキュメント: CLAUDE.md および docs/project-guide.md を参照
 
@@ -67,6 +68,16 @@ related_files: []
 3. ファイル名: `agent_report_{自分のID}_{タイムスタンプ}.md`
    - タイムスタンプ形式: `YYYY-MM-DDTHH-MM-SS`（コロンをハイフンに置換）
    - 例: `agent_report_PM_2026-02-23T01-45-00.md`
+4. **【必須】** `.agent/reports/agent_notify.log` の末尾に通知行を1行追記する
+   - フォーマット（タブ区切り）:
+     ```
+     {ISO8601タイムスタンプ}\t{エージェントID}\t{レポートファイル名}\t{1行サマリー}
+     ```
+   - 例:
+     ```
+     2026-02-23T06:35:00+09:00	PM	agent_report_PM_2026-02-23T06-35-00.md	学習支援機能の要件検討完了
+     ```
+   - この追記により Monitor が即座に新レポートを検知し、Discord/Notion に通知する
 
 #### 報告ファイルのフォーマット
 ```markdown
@@ -102,10 +113,12 @@ related_files: []
 - **LIBRARIAN**: ドキュメント更新完了時
 
 #### あおいさんの処理
-- あおいさん（Clawdbot Monitor）が `.agent/reports/` を定期的にポーリングする
-- 新しい報告ファイルを検出したら:
+- あおいさん（Clawdbot Monitor）が `.agent/reports/agent_notify.log` をテーリング監視する
+- 新しい行が追記されたら:
+  - 対応する `.agent/reports/` のレポートファイルを読み取る
   - Discord #reflexio-progress チャンネルに投稿
   - Notion Progress Log DB に記録
+- フォールバック: `.agent/reports/` ディレクトリのポーリング監視も併用する
 
 ### 重要なルール
 - 通知を受けたら**必ず**YAMLファイルを読むこと。無視してはならない

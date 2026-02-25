@@ -59,6 +59,25 @@
   - Toast.js / Toast.css 新規（ToastProvider + useToast フック）
   - 画面右上固定、成功4秒/エラー8秒自動消去、複数スタック
   - WishList.js の旧 showMessage を完全置換
+- Sprint 8 完了: Clawdbot Skills Display（メイン画面ページ化 + D&D対応）
+  - 新コンポーネント: ClawdbotSkills, SkillBadge, SkillModal, clawdbotSkillsData
+  - メイン画面 `/clawdbot` ページ（サイドバーにNavLink追加）
+  - バッジメダル: 六角形(hexagon)/八角形(octagon) の CSS clip-path
+  - バッジラベル: スキル名テキスト表示（13px、max-width 120px）
+  - ドラッグ&ドロップ: HTML5 D&D API、同カテゴリ内並び替え
+  - 3カテゴリ: Skills(7件・青), MCP(1件・紫), Integrations(3件・緑)
+  - 詳細モーダル: ESCキー + オーバーレイクリック（ImageModal準拠）
+  - キーボードアクセシビリティ: tabIndex, role="button", onKeyDown
+  - z-index階層: ImageModal(1000) < SkillModal(1500) < Toast(2000)
+  - 将来拡張: usage_frequency, last_used, update_frequency, heat_level
+  - 改修2+3: バッジ emoji → PNG 画像表示切替（全11スキル PNG 統一）
+    - clawdbotSkillsData.js: badges 配列（14画像→11スキル全件）+ tier フィールド追加
+    - SkillBadge.js: useState ランダム選択 + 画像/emoji 条件分岐
+    - SkillModal.js: モーダル内画像表示（120x120px）+ emoji フォールバック
+    - 画像ファイル: frontend/public/images/badges/ に PNG 14ファイル（全参照済み）
+    - ティア定義: bronz, sliver, gold, platinum, diamond, hihiirokane
+  - 改修4: バッジ画像サイズ2倍化（48→96px、wrapper 72→120px、ラベル 11→13px）
+  - フロントエンドのみ（バックエンド変更なし）
 - シードユーザー: admin / password123, phalanchang / password123
 - セッションベース認証（express-session、メモリストア）
 

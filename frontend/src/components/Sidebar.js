@@ -10,6 +10,7 @@ const menuItems = [
   { path: '/active-recall', label: 'ActiveRecall' },
   { path: '/tasks', label: 'Task Management' },
   { path: '/settings', label: '⚙️ 設定' },
+  { path: '/clawdbot', label: '🤖 Clawdbot Badge' },
 ];
 
 function Sidebar() {

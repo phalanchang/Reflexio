@@ -1,0 +1,143 @@
+.skill-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 1500;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  animation: skillModalFadeIn 0.2s ease-out;
+}
+
+.skill-modal-content {
+  background: white;
+  border-radius: 12px;
+  padding: 24px;
+  max-width: 400px;
+  width: 90%;
+  position: relative;
+  cursor: default;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+  animation: skillModalSlideIn 0.2s ease-out;
+}
+
+.skill-modal-close {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: #f0f0f0;
+  border: none;
+  cursor: pointer;
+  font-size: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #666;
+}
+
+.skill-modal-close:hover {
+  background: #e0e0e0;
+  color: #333;
+}
+
+.skill-modal-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.skill-modal-icon {
+  font-size: 36px;
+  line-height: 1;
+}
+
+.skill-modal-name {
+  font-size: 20px;
+  font-weight: 600;
+  color: #333;
+  margin: 0;
+}
+
+.skill-modal-category {
+  display: inline-block;
+  padding: 3px 12px;
+  border-radius: 12px;
+  font-size: 12px;
+  font-weight: 500;
+  margin-bottom: 12px;
+}
+
+.skill-modal-cat-blue {
+  background: #E3F2FD;
+  color: #1565C0;
+}
+
+.skill-modal-cat-purple {
+  background: #F3E5F5;
+  color: #7B1FA2;
+}
+
+.skill-modal-cat-green {
+  background: #E8F5E9;
+  color: #2E7D32;
+}
+
+.skill-modal-description {
+  font-size: 14px;
+  color: #555;
+  line-height: 1.6;
+  margin-bottom: 16px;
+}
+
+.skill-modal-examples {
+  border-top: 1px solid #f0f0f0;
+  padding-top: 12px;
+}
+
+.skill-modal-examples-title {
+  font-size: 13px;
+  font-weight: 600;
+  color: #666;
+  margin: 0 0 8px 0;
+}
+
+.skill-modal-examples-list {
+  margin: 0;
+  padding-left: 20px;
+}
+
+.skill-modal-examples-list li {
+  font-size: 13px;
+  color: #666;
+  line-height: 1.8;
+}
+
+.skill-modal-badge-img {
+  width: 120px;
+  height: 120px;
+  object-fit: contain;
+}
+
+@keyframes skillModalFadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes skillModalSlideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

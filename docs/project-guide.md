@@ -59,7 +59,7 @@ Reflexio/
 │   │   └── components/
 │   │       ├── LoginForm.js   # ログインフォーム
 │   │       ├── Header.js      # ヘッダー（40px、ログアウトボタン）
-│   │       ├── Sidebar.js     # サイドバー（250px、ナビゲーション、⚙️ 設定メニュー）
+│   │       ├── Sidebar.js     # サイドバー（250px、ナビ、⚙️ 設定、🤖 Clawdbot Badge）
 │   │       ├── MainLayout.js  # Header+Sidebar+Content配置
 │   │       ├── ProtectedRoute.js  # 未認証→/loginリダイレクト
 │   │       ├── Dashboard.js   # ダッシュボード（棒グラフ+期間切替+3状態分岐）
@@ -83,7 +83,16 @@ Reflexio/
 │   │       ├── TagInput.js    # タグ入力コンポーネント（カンマ/Enter確定、バッジ表示）
 │   │       ├── TagInput.css   # TagInput用スタイル
 │   │       ├── WishFilter.js  # フィルタリングコンポーネント（タグOR/優先度OR/組合せAND）
-│   │       └── WishFilter.css # WishFilter用スタイル
+│   │       ├── WishFilter.css # WishFilter用スタイル
+│   │       ├── ClawdbotSkills.js   # Clawdbot Skills メインページ（3カテゴリ分類 + D&D並び替え）
+│   │       ├── ClawdbotSkills.css  # ClawdbotSkills用スタイル
+│   │       ├── SkillBadge.js  # バッジメダル（PNG画像/emoji切替 + ラベル + D&D + ティアランダム選択）
+│   │       ├── SkillBadge.css # SkillBadge用スタイル（画像バッジ+カテゴリ別配色+ホバー）
+│   │       ├── SkillModal.js  # スキル詳細モーダル（画像表示120px + ESC/オーバーレイクリック閉じ）
+│   │       ├── SkillModal.css # SkillModal用スタイル（z-index: 1500、モーダル内画像120px）
+│   │       └── clawdbotSkillsData.js # スキルデータ定義（11件、badges配列+tier、将来拡張フィールド付き）
+│   ├── public/
+│   │   └── images/badges/        # バッジPNG画像（14ファイル、全11スキルにマッピング）
 │   ├── package.json
 │   └── Dockerfile
 └── docs/                      # ドキュメント
@@ -384,6 +393,7 @@ docker compose logs -f [backend|frontend|db]
 | `/wishes` | WishList | 必要 |
 | `/auth/google/callback` | GoogleCallback | 必要 |
 | `/settings` | Settings | 必要 |
+| `/clawdbot` | ClawdbotSkills | 必要 |
 | その他 | `/` へリダイレクト | 必要 |
 
 ### 認証フロー
@@ -489,6 +499,30 @@ docker compose logs -f [backend|frontend|db]
 - [x] WishList.js の旧 showMessage を useToast に完全置換
 - [x] App.js に ToastProvider ラップ追加
 
+### Sprint 8（完了）— Clawdbot Skills Display（メイン画面ページ化 + D&D対応）
+- [x] clawdbotSkillsData.js: スキルデータ定義（11件、3カテゴリ、将来拡張フィールド）
+- [x] SkillBadge.js: バッジメダルUI（hexagon/octagon CSS clip-path、カテゴリ別配色）
+- [x] SkillBadge.js: バッジラベル追加（スキル名テキスト表示、13px、max-width 120px）
+- [x] SkillBadge.js: HTML5 D&D API 対応（draggable, onDragStart/Over/Drop/End props）
+- [x] SkillModal.js: スキル詳細モーダル（ESCキー + オーバーレイクリック閉じ、z-index: 1500）
+- [x] ClawdbotSkills.js: メイン画面ページコンポーネント（Skills/MCP/Integrations 3カテゴリ分類表示）
+- [x] ClawdbotSkills.js: ドラッグ&ドロップ並び替え（同カテゴリ内のみ、useState で状態管理）
+- [x] App.js: `/clawdbot` ルート追加（ClawdbotSkills をメインコンテンツ表示）
+- [x] Sidebar.js: ClawdbotSkills埋め込み削除 → NavLink「🤖 Clawdbot Badge」追加
+- [x] キーボードアクセシビリティ対応（tabIndex, role="button", onKeyDown）
+- [x] z-index階層整理: ImageModal(1000) < SkillModal(1500) < Toast(2000)
+- [x] 改修2+3: バッジ emoji → PNG 画像表示切替（全11スキル PNG 統一）
+  - [x] clawdbotSkillsData.js: badges 配列追加（14画像→全11スキルにマッピング）+ tier フィールド追加
+  - [x] SkillBadge.js: useState lazy initializer でランダムバッジ選択（tier 設定時は優先）
+  - [x] SkillBadge.js: 画像バッジ / emoji フォールバック条件分岐
+  - [x] SkillModal.js: モーダル内画像表示（120x120px）+ emoji フォールバック
+  - [x] PNG 画像14ファイル（frontend/public/images/badges/、全参照済み）
+  - [x] 複数ティア対応: tmux（4ティア: bronz/sliver/gold/platinum）はランダム選択
+  - [x] ティア定義: bronz, sliver, gold, platinum, diamond, hihiirokane
+- [x] 改修4: バッジ画像サイズ2倍化（SkillBadge.css 5プロパティ変更）
+  - [x] バッジサイズ: 48→96px、ラッパー幅: 72→120px、ラベル: 11→13px / max-width 120px
+- [x] フロントエンドのみ（バックエンド変更なし）
+
 ### 今後の予定（優先順）
 1. タスク管理機能
 2. ノート管理機能
@@ -529,3 +563,6 @@ docker compose logs -f [backend|frontend|db]
 - **カード型ウィジェット**: Dashboard のセクション単位でカードUIを使用
 - **5状態分岐パターン**: 未接続 → ローディング → エラー → データあり → データなし（Dashboard で採用）
 - **トースト通知**: ToastProvider + useToast フック。成功(緑)/エラー(赤)/情報(青)、画面右上固定、自動消去（success=4秒, error=8秒）、スライドイン/フェードアウトアニメーション
+- **バッジメダル**: CSS clip-path で hexagon（六角形・Skills）/ octagon（八角形・MCP/Integrations）。カテゴリ別配色（青/紫/緑）+ ホバーエフェクト。バッジラベル（スキル名テキスト、13px、max-width 120px）。バッジサイズ96px、ラッパー120px。PNG画像バッジ対応（useState lazy initializer でティアランダム選択、画像なし→emojiフォールバック）
+- **ドラッグ&ドロップ**: HTML5 D&D API（dragStart/dragOver/drop/dragEnd）。同カテゴリ内のみ並び替え可能。useState で各カテゴリリストを個別管理
+- **z-index階層**: ImageModal(1000) < SkillModal(1500) < Toast(2000) — モーダル・通知の重なり順を統一管理
