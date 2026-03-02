@@ -1,0 +1,77 @@
+# Multi-Agent Orchestration Configuration for Reflexio
+
+session_name: reflexio-agents
+project_root: /mnt/c/code/20251124_Reflexio
+message_dir: .agent/messages
+board_file: .agent/board.md
+
+watcher:
+  poll_interval_seconds: 1
+
+# Developer agent count (configurable)
+developer_count: 5
+
+# Agent definitions
+agents:
+  PM:
+    display_name: "Project Manager"
+    role_file: .agent/roles/PM.md
+    description: "ユーザーとの対話、高レベルタスク作成"
+
+  PL:
+    display_name: "Project Lead"
+    role_file: .agent/roles/PL.md
+    description: "タスク分解、エージェントへの割り当て"
+
+  DEV1:
+    display_name: "Developer 1"
+    role_file: .agent/roles/DEV.md
+    description: "実装担当"
+
+  DEV2:
+    display_name: "Developer 2"
+    role_file: .agent/roles/DEV.md
+    description: "実装担当"
+
+  DEV3:
+    display_name: "Developer 3"
+    role_file: .agent/roles/DEV.md
+    description: "実装担当"
+
+  DEV4:
+    display_name: "Developer 4"
+    role_file: .agent/roles/DEV.md
+    description: "実装担当"
+
+  DEV5:
+    display_name: "Developer 5"
+    role_file: .agent/roles/DEV.md
+    description: "実装担当"
+
+  LIBRARIAN:
+    display_name: "Librarian"
+    role_file: .agent/roles/LIBRARIAN.md
+    description: "ドキュメント整合性管理"
+
+  TESTER:
+    display_name: "Tester"
+    role_file: .agent/roles/TESTER.md
+    description: "テスト実行・品質保証"
+
+  REVIEWER:
+    display_name: "Reviewer"
+    role_file: .agent/roles/REVIEWER.md
+    description: "コードレビュー"
+
+# Message types
+message_types:
+  - task
+  - question
+  - response
+  - review_request
+  - review_result
+  - test_request
+  - test_result
+  - doc_update
+  - status_update
+  - completion

@@ -4,6 +4,8 @@ const session = require('express-session');
 require('dotenv').config();
 
 const authRoutes = require('./routes/auth');
+const wishesRoutes = require('./routes/wishes');
+const tagsRoutes = require('./routes/tags');
 const pool = require('./config/database');
 
 const app = express();
@@ -47,6 +49,8 @@ app.get('/', (req, res) => {
 
 // API routes
 app.use('/api/auth', authRoutes);
+app.use('/api/wishes', wishesRoutes);
+app.use('/api/tags', tagsRoutes);
 
 app.listen(PORT, '0.0.0.0', () => {
   console.log(`Server is running on port ${PORT}`);

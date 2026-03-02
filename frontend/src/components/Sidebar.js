@@ -4,6 +4,7 @@ import './Sidebar.css';
 
 const menuItems = [
   { path: '/dashboard', label: 'Dashboard' },
+  { path: '/wishes', label: 'やりたいこと' },
   { path: '/accounting', label: 'Accounting' },
   { path: '/notes', label: 'Notes' },
   { path: '/active-recall', label: 'ActiveRecall' },

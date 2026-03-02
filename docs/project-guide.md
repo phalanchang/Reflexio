@@ -27,11 +27,14 @@ Reflexio/
 ├── docker-compose.yml         # サービス定義（DB, Backend, Frontend）
 ├── docker/
 │   └── mysql/init/            # MySQL初期化SQL（テーブル作成・シードデータ）
+│       └── 005_create_tags_tables.sql  # タグ・wish_tags テーブル
 ├── backend/
 │   ├── server.js              # Expressエントリーポイント
 │   ├── config/database.js     # MySQL接続プール
 │   ├── middleware/auth.js     # 認証ミドルウェア (requireAuth)
 │   ├── routes/auth.js         # 認証API (/api/auth/*)
+│   ├── routes/wishes.js       # やりたいことAPI (/api/wishes/*)
+│   ├── routes/tags.js         # タグAPI (/api/tags/*)
 │   ├── package.json
 │   └── Dockerfile
 ├── frontend/
@@ -44,7 +47,15 @@ Reflexio/
 │   │       ├── Sidebar.js     # サイドバー（250px、ナビゲーション）
 │   │       ├── MainLayout.js  # Header+Sidebar+Content配置
 │   │       ├── ProtectedRoute.js  # 未認証→/loginリダイレクト
-│   │       └── Dashboard.js   # ダッシュボード（プレースホルダー）
+│   │       ├── Dashboard.js   # ダッシュボード（プレースホルダー）
+│   │       ├── WishList.js    # やりたいこと一覧・管理画面（フィルタ統合）
+│   │       ├── WishList.css   # WishList用スタイル
+│   │       ├── WishForm.js    # やりたいこと追加・編集フォーム（タグ入力統合）
+│   │       ├── WishForm.css   # WishForm用スタイル
+│   │       ├── TagInput.js    # タグ入力コンポーネント（カンマ/Enter確定、バッジ表示）
+│   │       ├── TagInput.css   # TagInput用スタイル
+│   │       ├── WishFilter.js  # フィルタリングコンポーネント（タグOR/優先度OR/組合せAND）
+│   │       └── WishFilter.css # WishFilter用スタイル
 │   ├── package.json
 │   └── Dockerfile
 └── docs/                      # ドキュメント
@@ -101,6 +112,29 @@ docker compose logs -f [backend|frontend|db]
 - セッションCookieは `httpOnly: true`, `sameSite: 'lax'`
 - フロントエンドの全fetchに `credentials: 'include'` が必要
 
+### やりたいことAPI (`/api/wishes`)
+
+| Method | Path | 認証 | Request Body | Response |
+|--------|------|------|-------------|----------|
+| GET | `/api/wishes` | 必要 | - | `{wishes: [...]}` （各wishに `tags` 配列含む） |
+| POST | `/api/wishes` | 必要 | `{title, description?, status?, priority?, due_date?, tags?}` | `{message, wish}` (201) |
+| PUT | `/api/wishes/:id` | 必要 | `{title, description?, status?, priority?, due_date?, tags?}` | `{message, wish}` |
+| DELETE | `/api/wishes/:id` | 必要 | - | `{message}` （CASCADE で wish_tags も削除） |
+
+- status: `not_started` / `in_progress` / `completed`（デフォルト: not_started）
+- priority: `high` / `medium` / `low`（デフォルト: medium）
+- 所有権チェック: 自分のデータのみ操作可能
+- tags: 文字列配列。POST/PUT時に `INSERT IGNORE` で自動作成、PUT時は全置換方式（DELETE+INSERT）
+- GET時のtags取得: N+1回避のため一括取得
+
+### タグAPI (`/api/tags`)
+
+| Method | Path | 認証 | Request Body | Response |
+|--------|------|------|-------------|----------|
+| GET | `/api/tags` | 必要 | - | `{tags: [...]}` |
+
+- ログインユーザーのタグ一覧を取得
+
 ### ヘルスチェック
 
 | Method | Path | Response |
@@ -121,6 +155,41 @@ docker compose logs -f [backend|frontend|db]
 | updated_at | TIMESTAMP | 自動更新 |
 
 **シードデータ**: `admin` / `password123`
+
+### wishes テーブル
+
+| カラム | 型 | 備考 |
+|-------|---|------|
+| id | INT AUTO_INCREMENT | PK |
+| user_id | INT NOT NULL | FK → users(id) ON DELETE CASCADE |
+| title | VARCHAR(255) NOT NULL | やりたいことの名前 |
+| description | TEXT | メモ（任意） |
+| status | ENUM('not_started','in_progress','completed') | デフォルト: not_started |
+| priority | ENUM('high','medium','low') | デフォルト: medium |
+| due_date | DATE | 期限（任意） |
+| created_at | TIMESTAMP | 自動設定 |
+| updated_at | TIMESTAMP | 自動更新 |
+
+### tags テーブル
+
+| カラム | 型 | 備考 |
+|-------|---|------|
+| id | INT AUTO_INCREMENT | PK |
+| user_id | INT NOT NULL | FK → users(id) ON DELETE CASCADE |
+| name | VARCHAR(50) NOT NULL | タグ名 |
+| created_at | TIMESTAMP | 自動設定 |
+
+- UNIQUE KEY: `(user_id, name)` — 同一ユーザー内でタグ名重複不可
+
+### wish_tags テーブル（中間テーブル）
+
+| カラム | 型 | 備考 |
+|-------|---|------|
+| wish_id | INT NOT NULL | FK → wishes(id) ON DELETE CASCADE |
+| tag_id | INT NOT NULL | FK → tags(id) ON DELETE CASCADE |
+
+- 複合主キー: `(wish_id, tag_id)`
+- 初期化SQL: `docker/mysql/init/005_create_tags_tables.sql`
 
 ## フロントエンド設計
 
@@ -144,6 +213,7 @@ docker compose logs -f [backend|frontend|db]
 | `/login` | LoginForm | 不要（認証済みなら `/` へリダイレクト）|
 | `/` | Dashboard | 必要 |
 | `/dashboard` | Dashboard | 必要 |
+| `/wishes` | WishList | 必要 |
 | その他 | `/` へリダイレクト | 必要 |
 
 ### 認証フロー
@@ -176,6 +246,21 @@ docker compose logs -f [backend|frontend|db]
 - [x] ログイン機能
 - [x] ログアウト機能
 - [x] メインレイアウト（Header / Sidebar / Main Content）
+
+### Sprint 2（完了）
+- [x] 「やりたいこと」(wishes) DB設計・テーブル作成
+- [x] CRUD API実装（GET/POST/PUT/DELETE /api/wishes）
+- [x] 一覧画面・追加/編集フォームUI
+- [x] サイドバー・ルーティング追加
+- [x] ステータス/優先度管理
+
+### Sprint 3（完了）
+- [x] タグ機能（tags/wish_tags DB設計・多対多リレーション）
+- [x] タグCRUD（INSERT IGNORE自動作成、DELETE CASCADE連動）
+- [x] タグAPI実装（GET /api/tags）
+- [x] wishes API拡張（tags配列対応、N+1回避の一括取得）
+- [x] タグ入力UI（TagInput: カンマ/Enter確定、重複防止、✕削除、バッジ表示）
+- [x] フィルタリングUI（WishFilter: タグOR/優先度OR/組合せAND、リセット機能）
 
 ### 今後の予定（優先順）
 1. ダッシュボード機能

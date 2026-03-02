@@ -35,3 +35,8 @@ Thumbs.db
 
 # Docker
 docker-compose.override.yml
+
+# Agent system (ephemeral files)
+.agent/messages/*.yaml
+.agent/.tmp_prompt_*
+.agent/.pane_map.sh

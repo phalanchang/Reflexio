@@ -71,18 +71,87 @@ Reflexio/
 │   └── mysql/init/        # MySQL初期化SQL
 ├── backend/               # Express バックエンド
 ├── frontend/              # React フロントエンド
+├── .agent/                # マルチエージェントシステム
+│   ├── scripts/           # 起動・監視スクリプト
+│   ├── roles/             # エージェントロール定義
+│   ├── messages/          # YAML通信ファイル
+│   ├── dashboard.md       # エージェント状況ダッシュボード
+│   └── board.md           # メッセージ通知ログ
 └── docs/                  # ドキュメント
     ├── project-guide.md   # プロジェクト詳細ガイド（AIエージェント向け）
     ├── 01_agile/          # アジャイル開発プロセス
     └── 02_waterfall/      # ウォーターフォール成果物
 ```
 
-## AIエージェント向けドキュメント
+## マルチエージェント開発
 
-複数のAIエージェントで開発する場合は以下を参照してください:
+tmux + Claude Code で複数のAIエージェントが協調して開発を行うシステムを搭載しています。
 
-- **[CLAUDE.md](./CLAUDE.md)** — Claude Code が自動読み込みするコンテキスト。環境情報・開発ルールの概要
-- **[docs/project-guide.md](./docs/project-guide.md)** — プロジェクトの詳細ガイド。アーキテクチャ、API設計、DB設計、新機能追加パターンなど
+### 前提条件
+
+- tmux (`sudo apt install tmux`)
+- Claude Code CLI (`claude` コマンド)
+
+### 起動
+
+```bash
+# DEV5人（デフォルト）で全エージェント一括起動
+bash .agent/scripts/setup-tmux.sh
+
+# DEV数を指定する場合
+bash .agent/scripts/setup-tmux.sh 3
+```
+
+1コマンドで以下が自動実行されます:
+- tmux セッション作成（1ウィンドウに全ペイン tiled 配置）
+- 各ペインで Claude Code がロール定義付きで起動
+- 各ペインの枠線にエージェント名を表示
+- メッセージ監視スクリプト（watcher）がバックグラウンドで起動
+
+### エージェント構成
+
+1つのウィンドウに全エージェントが tiled レイアウトで配置されます（DEV5人の場合 = 11ペイン）:
+
+PM, PL, DEV1〜DEV5, LIBRARIAN, TESTER, REVIEWER, WATCHER
+
+各ペインの枠線にエージェント名が表示されるので、誰が何をしているか一目で分かります。
+
+### 操作方法
+
+```bash
+# ペイン操作
+Ctrl+b → o           # 次のペインに移動
+Ctrl+b → 矢印キー     # 矢印方向のペインに移動
+Ctrl+b → z           # ペインを最大化/復帰（重要！個別の詳細確認に使用）
+
+# セッション操作
+Ctrl+b → d           # デタッチ（エージェントは動き続ける）
+tmux attach -t reflexio-agents   # 再接続
+tmux kill-session -t reflexio-agents  # 全終了
+```
+
+### 使い方
+
+1. **PMペインに移動**して（起動時は自動選択）、やりたいことを伝える
+2. PM → PL → DEV の順でタスクが自動的に流れる
+3. エージェント間の通信は `.agent/messages/` 内の YAML ファイルで行われる
+4. watcher が新メッセージを検出し、宛先エージェントに自動通知する
+
+### 進捗確認
+
+```bash
+# エージェント全体の状況を確認
+cat .agent/dashboard.md
+
+# メッセージログを確認
+cat .agent/board.md
+```
+
+### 関連ドキュメント
+
+- **[CLAUDE.md](./CLAUDE.md)** — Claude Code が自動読み込みするコンテキスト
+- **[docs/project-guide.md](./docs/project-guide.md)** — プロジェクト詳細ガイド（アーキテクチャ、API設計など）
+- **[.agent/roles/](./agent/roles/)** — 各エージェントのロール定義
 
 ## 機能
 

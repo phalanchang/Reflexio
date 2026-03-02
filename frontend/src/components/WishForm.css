@@ -1,0 +1,112 @@
+.wish-form-container {
+  background: white;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  padding: 24px;
+  margin-bottom: 20px;
+}
+
+.wish-form-title {
+  color: #333;
+  margin-bottom: 20px;
+  font-size: 18px;
+}
+
+.wish-form .form-group {
+  margin-bottom: 16px;
+  flex: 1;
+}
+
+.wish-form .form-group label {
+  display: block;
+  margin-bottom: 5px;
+  color: #555;
+  font-weight: 500;
+  font-size: 14px;
+}
+
+.wish-form .required {
+  color: #c33;
+}
+
+.wish-form .form-group input,
+.wish-form .form-group select,
+.wish-form .form-group textarea {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 14px;
+  box-sizing: border-box;
+  font-family: inherit;
+}
+
+.wish-form .form-group input:focus,
+.wish-form .form-group select:focus,
+.wish-form .form-group textarea:focus {
+  outline: none;
+  border-color: #4a90d9;
+  box-shadow: 0 0 0 2px rgba(74, 144, 217, 0.2);
+}
+
+.wish-form .form-row {
+  display: flex;
+  gap: 16px;
+}
+
+.wish-form .form-group textarea {
+  resize: vertical;
+  min-height: 60px;
+}
+
+.wish-form .error-message {
+  background-color: #fee;
+  color: #c33;
+  padding: 10px;
+  border-radius: 4px;
+  margin-bottom: 15px;
+  font-size: 14px;
+}
+
+.form-actions {
+  display: flex;
+  gap: 12px;
+  margin-top: 8px;
+}
+
+.btn {
+  padding: 10px 24px;
+  border: none;
+  border-radius: 4px;
+  font-size: 14px;
+  cursor: pointer;
+  font-weight: 500;
+}
+
+.btn-primary {
+  background-color: #4a90d9;
+  color: white;
+}
+
+.btn-primary:hover {
+  background-color: #357abd;
+}
+
+.btn-primary:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+.btn-secondary {
+  background-color: #f0f0f0;
+  color: #555;
+}
+
+.btn-secondary:hover {
+  background-color: #e0e0e0;
+}
+
+.btn-secondary:disabled {
+  color: #aaa;
+  cursor: not-allowed;
+}
