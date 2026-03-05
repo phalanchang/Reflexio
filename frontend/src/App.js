@@ -5,6 +5,10 @@ import MainLayout from './components/MainLayout';
 import ProtectedRoute from './components/ProtectedRoute';
 import Dashboard from './components/Dashboard';
 import WishList from './components/WishList';
+import GoogleCallback from './components/GoogleCallback';
+import Settings from './components/Settings';
+import ClawdbotSkills from './components/ClawdbotSkills';
+import { ToastProvider } from './components/Toast';
 import './App.css';
 
 const API_URL = process.env.REACT_APP_API_URL || `http://${window.location.hostname}:3002`;
@@ -53,6 +57,7 @@ function App() {
   }
 
   return (
+    <ToastProvider>
     <div className="App">
       <Routes>
         <Route
@@ -68,6 +73,9 @@ function App() {
                   <Route path="/" element={<Dashboard />} />
                   <Route path="/dashboard" element={<Dashboard />} />
                   <Route path="/wishes" element={<WishList />} />
+                  <Route path="/settings" element={<Settings />} />
+                  <Route path="/clawdbot" element={<ClawdbotSkills />} />
+                  <Route path="/auth/google/callback" element={<GoogleCallback />} />
                   <Route path="*" element={<Navigate to="/" replace />} />
                 </Routes>
               </MainLayout>
@@ -76,6 +84,7 @@ function App() {
         />
       </Routes>
     </div>
+    </ToastProvider>
   );
 }
 

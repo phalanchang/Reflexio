@@ -1,0 +1,17 @@
+{
+  "name": "reflexio-notion-mcp",
+  "version": "1.0.0",
+  "description": "Reflexio 用 Notion MCP サーバー（Clawdbot 連携）",
+  "type": "module",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.27.0",
+    "@notionhq/client": "^2.2.0",
+    "zod": "^3.25.0"
+  },
+  "private": true,
+  "license": "UNLICENSED"
+}

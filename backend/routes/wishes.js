@@ -1,5 +1,7 @@
 const express = require('express');
 const router = express.Router();
+const fs = require('fs');
+const path = require('path');
 const pool = require('../config/database');
 const { requireAuth } = require('../middleware/auth');
 
@@ -35,8 +37,30 @@ router.get('/', async (req, res) => {
       wishes.forEach(wish => {
         wish.tags = tagMap[wish.id] || [];
       });
+
+      // 画像情報をまとめて取得（N+1回避）
+      const [imageRows] = await pool.execute(
+        `SELECT id, wish_id, filename, original_name, mime_type, size, created_at FROM wish_images WHERE wish_id IN (${placeholders})`,
+        wishIds
+      );
+
+      const imageMap = {};
+      imageRows.forEach(row => {
+        if (!imageMap[row.wish_id]) imageMap[row.wish_id] = [];
+        imageMap[row.wish_id].push({
+          id: row.id,
+          filename: row.filename,
+          original_name: row.original_name,
+          mime_type: row.mime_type,
+          size: row.size,
+          created_at: row.created_at
+        });
+      });
+      wishes.forEach(wish => {
+        wish.images = imageMap[wish.id] || [];
+      });
     } else {
-      wishes.forEach(wish => { wish.tags = []; });
+      wishes.forEach(wish => { wish.tags = []; wish.images = []; });
     }
 
     res.json({ wishes });
@@ -48,6 +72,7 @@ router.get('/', async (req, res) => {
 
 // POST /api/wishes - 新規作成（タグ対応）
 router.post('/', async (req, res) => {
+  console.log(`[wishes] POST / - userId: ${req.session.userId}, title: ${req.body.title}`);
   try {
     const { title, description, status, priority, due_date, tags } = req.body;
 
@@ -118,13 +143,14 @@ router.post('/', async (req, res) => {
 
     res.status(201).json({ message: 'やりたいことを作成しました', wish: createdWish });
   } catch (error) {
-    console.error('wish作成エラー:', error);
+    console.error('wish作成エラー:', error, '- userId:', req.session.userId);
     res.status(500).json({ error: 'Internal server error' });
   }
 });
 
 // PUT /api/wishes/:id - 更新（自分のアイテムのみ、タグ全置換対応）
 router.put('/:id', async (req, res) => {
+  console.log(`[wishes] PUT /${req.params.id} - userId: ${req.session.userId}`);
   try {
     const { id } = req.params;
     const { title, description, status, priority, due_date, tags } = req.body;
@@ -202,29 +228,43 @@ router.put('/:id', async (req, res) => {
 
     res.json({ message: 'やりたいことを更新しました', wish: updatedWish });
   } catch (error) {
-    console.error('wish更新エラー:', error);
+    console.error('wish更新エラー:', error, '- userId:', req.session.userId, '- wishId:', req.params.id);
     res.status(500).json({ error: 'Internal server error' });
   }
 });
 
-// DELETE /api/wishes/:id - 削除（自分のアイテムのみ）
+// DELETE /api/wishes/:id - 削除（自分のアイテムのみ、画像ファイルクリーンアップ付き）
 router.delete('/:id', async (req, res) => {
+  console.log(`[wishes] DELETE /${req.params.id} - userId: ${req.session.userId}`);
   try {
     const { id } = req.params;
+    const userId = req.session.userId;
 
-    // 所有権チェック付きで削除
+    // 削除前に紐づく画像一覧を取得（ファイル物理削除用）
+    const [images] = await pool.execute(
+      'SELECT filename FROM wish_images WHERE wish_id = ? AND user_id = ?',
+      [id, userId]
+    );
+
+    // 所有権チェック付きで削除（CASCADE で wish_images レコードも自動削除）
     const [result] = await pool.execute(
       'DELETE FROM wishes WHERE id = ? AND user_id = ?',
-      [id, req.session.userId]
+      [id, userId]
     );
 
     if (result.affectedRows === 0) {
       return res.status(404).json({ error: '対象のやりたいことが見つかりません' });
     }
 
+    // 画像ファイルを物理削除
+    images.forEach(img => {
+      const filePath = path.join(__dirname, '..', 'uploads', String(userId), img.filename);
+      try { fs.unlinkSync(filePath); } catch (e) { /* ファイルがなくても無視 */ }
+    });
+
     res.json({ message: 'やりたいことを削除しました' });
   } catch (error) {
-    console.error('wish削除エラー:', error);
+    console.error('wish削除エラー:', error, '- userId:', req.session.userId, '- wishId:', req.params.id);
     res.status(500).json({ error: 'Internal server error' });
   }
 });

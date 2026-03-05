@@ -16,6 +16,9 @@
 | バックエンド | Express (Node.js) | 4.x (Node 18) |
 | データベース | MySQL | 8.0 |
 | 認証 | express-session + bcrypt | セッションベース |
+| 外部連携 | Google OAuth 2.0 + googleapis | カレンダー連携 |
+| ファイルアップロード | multer | バックエンド |
+| チャート | recharts | フロントエンド |
 | インフラ | Docker Compose | - |
 | 開発環境 | Windows + WSL2 | - |
 
@@ -27,35 +30,78 @@ Reflexio/
 ├── docker-compose.yml         # サービス定義（DB, Backend, Frontend）
 ├── docker/
 │   └── mysql/init/            # MySQL初期化SQL（テーブル作成・シードデータ）
-│       └── 005_create_tags_tables.sql  # タグ・wish_tags テーブル
+│       ├── 005_create_tags_tables.sql  # タグ・wish_tags テーブル
+│       ├── 006_create_google_tokens_table.sql  # Google OAuth トークン
+│       ├── 007_create_google_oauth_settings_table.sql  # ユーザーごとのOAuth設定
+│       ├── 008_seed_user_phalanchang.sql  # 新規ユーザー phalanchang
+│       ├── 009_create_category_mappings_table.sql  # カテゴリマッピング
+│       └── 010_create_wish_images_table.sql  # 画像メタ情報
 ├── backend/
 │   ├── server.js              # Expressエントリーポイント
 │   ├── config/database.js     # MySQL接続プール
-│   ├── middleware/auth.js     # 認証ミドルウェア (requireAuth)
-│   ├── routes/auth.js         # 認証API (/api/auth/*)
-│   ├── routes/wishes.js       # やりたいことAPI (/api/wishes/*)
+│   ├── config/google.js       # Google OAuth 設定（Client ID/Secret、スコープ）
+│   ├── middleware/auth.js     # 認証ミドルウェア (requireAuth、日本語エラーメッセージ)
+│   ├── routes/auth.js         # 認証API (/api/auth/*、ログイン成功/失敗ログ出力)
+│   ├── routes/wishes.js       # やりたいことAPI (/api/wishes/*、リクエストログ強化)
 │   ├── routes/tags.js         # タグAPI (/api/tags/*)
+│   ├── routes/google.js       # Google OAuth API (/api/google/*)
+│   ├── routes/googleSettings.js  # OAuth設定 CRUD API (/api/google/settings)
+│   ├── routes/calendar.js     # カレンダーAPI (/api/calendar/*)
+│   ├── routes/categoryMappings.js  # カテゴリマッピングAPI (/api/category-mappings/*)
+│   ├── routes/wishImages.js  # 画像API (/api/wishes/:wishId/images, /api/wishes/images/:imageId)
+│   ├── uploads/              # 画像保存ディレクトリ（{user_id}/配下、バインドマウントで永続化）
 │   ├── package.json
 │   └── Dockerfile
 ├── frontend/
 │   ├── src/
-│   │   ├── App.js             # ルーティング・認証状態管理
+│   │   ├── App.js             # ルーティング・認証状態管理・ToastProviderラップ
+│   │   ├── App.css            # グローバルCSS変数定義（:root 73+ / [data-theme="dark"] 57変数）
 │   │   ├── index.js           # BrowserRouterラッパー
 │   │   └── components/
 │   │       ├── LoginForm.js   # ログインフォーム
-│   │       ├── Header.js      # ヘッダー（40px、ログアウトボタン）
-│   │       ├── Sidebar.js     # サイドバー（250px、ナビゲーション）
-│   │       ├── MainLayout.js  # Header+Sidebar+Content配置
+│   │       ├── Header.js      # ヘッダー（40px、ログアウトボタン、🌙/☀️テーマ切替ボタン）
+│   │       ├── Header.css     # Header用スタイル（CSS変数化、テーマ切替ボタン）
+│   │       ├── Sidebar.js     # サイドバー（250px/40px折りたたみ、◀/▶トグル、ナビ、⚙️ 設定、🤖 Clawdbot Badge）
+│   │       ├── Sidebar.css    # Sidebar用スタイル（collapsed、transition、toggle、CSS変数化）
+│   │       ├── MainLayout.js  # Header+Sidebar+Content配置（sidebarCollapsed + theme state、data-theme属性管理）
+│   │       ├── MainLayout.css # MainLayout用スタイル（CSS変数化）
 │   │       ├── ProtectedRoute.js  # 未認証→/loginリダイレクト
-│   │       ├── Dashboard.js   # ダッシュボード（プレースホルダー）
-│   │       ├── WishList.js    # やりたいこと一覧・管理画面（フィルタ統合）
-│   │       ├── WishList.css   # WishList用スタイル
-│   │       ├── WishForm.js    # やりたいこと追加・編集フォーム（タグ入力統合）
-│   │       ├── WishForm.css   # WishForm用スタイル
+│   │       ├── Dashboard.js   # ダッシュボード（棒グラフ+期間切替+3状態分岐）
+│   │       ├── Dashboard.css  # Dashboard用スタイル（期間切替タブ含む）
+│   │       ├── TimeChart.js   # Recharts 積み上げ棒グラフ（カスタムツールチップ付き）
+│   │       ├── TimeChart.css  # TimeChart用スタイル
+│   │       ├── GoogleConnect.js   # Google カレンダー接続管理（設定未登録時案内付き）
+│   │       ├── GoogleConnect.css  # GoogleConnect用スタイル
+│   │       ├── GoogleCallback.js  # OAuth コールバックハンドラ
+│   │       ├── GoogleCallback.css # GoogleCallback用スタイル
+│   │       ├── Settings.js    # 設定画面（OAuth設定CRUD + カテゴリマッピング11色テーブル）
+│   │       ├── Settings.css   # Settings用スタイル
+│   │       ├── Toast.js       # トースト通知（ToastProvider + useToast フック）
+│   │       ├── Toast.css      # Toast用スタイル（右上固定、スライドイン/フェードアウト）
+│   │       ├── WishList.js    # やりたいこと一覧（カード/テーブル切替+サマリーバー+検索/ソート+フィルタ+サムネイル+モーダル+トースト+期限色）
+│   │       ├── WishList.css   # WishList用スタイル（サマリーバー+テーブルCSS+期限色CSS+ビュー切替CSS+サムネイル）
+│   │       ├── WishForm.js    # やりたいこと追加・編集（タグ入力+画像ペースト/選択/プレビュー）
+│   │       ├── WishForm.css   # WishForm用スタイル（画像プレビュースタイル含む）
+│   │       ├── ImageModal.js  # 全画面画像ビューア（モーダル）
+│   │       ├── ImageModal.css # ImageModal用スタイル
 │   │       ├── TagInput.js    # タグ入力コンポーネント（カンマ/Enter確定、バッジ表示）
 │   │       ├── TagInput.css   # TagInput用スタイル
-│   │       ├── WishFilter.js  # フィルタリングコンポーネント（タグOR/優先度OR/組合せAND）
-│   │       └── WishFilter.css # WishFilter用スタイル
+│   │       ├── WishFilter.js  # 統合ツールバー（タグOR/優先度OR/組合せAND+テキスト検索+6種ソート+1行flex）
+│   │       ├── WishFilter.css # WishFilter用スタイル（検索フィールド+ソートドロップダウン+1行化）
+│   │       ├── ActionMenu.js # コンテキストメニュー（⋯ドロップダウン、ステータス変更サブメニュー、外側クリック閉じ）
+│   │       ├── ActionMenu.css # ActionMenu用スタイル（z-index: 100、ドロップダウン+サブメニュー）
+│   │       ├── useKeyboardShortcuts.js # キーボードショートカット カスタムフック（9キー、3層ガード）
+│   │       ├── ShortcutHelp.js  # ショートカットヘルプモーダル（?キーで表示、キー一覧テーブル）
+│   │       ├── ShortcutHelp.css # ShortcutHelp用スタイル（z-index: 1500、モーダル）
+│   │       ├── ClawdbotSkills.js   # Clawdbot Skills メインページ（3カテゴリ分類 + D&D並び替え）
+│   │       ├── ClawdbotSkills.css  # ClawdbotSkills用スタイル
+│   │       ├── SkillBadge.js  # バッジメダル（PNG画像/emoji切替 + ラベル + D&D + ティアランダム選択）
+│   │       ├── SkillBadge.css # SkillBadge用スタイル（画像バッジ+カテゴリ別配色+ホバー）
+│   │       ├── SkillModal.js  # スキル詳細モーダル（画像表示120px + ESC/オーバーレイクリック閉じ）
+│   │       ├── SkillModal.css # SkillModal用スタイル（z-index: 1500、モーダル内画像120px）
+│   │       └── clawdbotSkillsData.js # スキルデータ定義（11件、badges配列+tier、将来拡張フィールド付き）
+│   ├── public/
+│   │   └── images/badges/        # バッジPNG画像（14ファイル、全11スキルにマッピング）
 │   ├── package.json
 │   └── Dockerfile
 └── docs/                      # ドキュメント
@@ -96,6 +142,7 @@ docker compose logs -f [backend|frontend|db]
 - MySQL initスクリプト (`docker/mysql/init/`) は**ボリューム初回作成時のみ**実行される。テーブル定義やシードデータを変更した場合は `docker compose down -v` が必要
 - WSL2環境では `localhost` が使えない場合がある。`ip addr show eth0` でWSL2のIPを確認し、そのIPでアクセスする
 - フロントエンドのAPI接続先は `window.location.hostname` から動的に決定される（localhost でも WSL2 IP でも自動対応）
+- `backend/uploads/` は Docker バインドマウントで永続化（`docker compose down -v` でも画像データは保持される）
 
 ## API設計
 
@@ -116,10 +163,10 @@ docker compose logs -f [backend|frontend|db]
 
 | Method | Path | 認証 | Request Body | Response |
 |--------|------|------|-------------|----------|
-| GET | `/api/wishes` | 必要 | - | `{wishes: [...]}` （各wishに `tags` 配列含む） |
+| GET | `/api/wishes` | 必要 | - | `{wishes: [...]}` （各wishに `tags` 配列 + `images` 配列含む） |
 | POST | `/api/wishes` | 必要 | `{title, description?, status?, priority?, due_date?, tags?}` | `{message, wish}` (201) |
 | PUT | `/api/wishes/:id` | 必要 | `{title, description?, status?, priority?, due_date?, tags?}` | `{message, wish}` |
-| DELETE | `/api/wishes/:id` | 必要 | - | `{message}` （CASCADE で wish_tags も削除） |
+| DELETE | `/api/wishes/:id` | 必要 | - | `{message}` （CASCADE で wish_tags/wish_images 削除 + ファイルクリーンアップ） |
 
 - status: `not_started` / `in_progress` / `completed`（デフォルト: not_started）
 - priority: `high` / `medium` / `low`（デフォルト: medium）
@@ -134,6 +181,81 @@ docker compose logs -f [backend|frontend|db]
 | GET | `/api/tags` | 必要 | - | `{tags: [...]}` |
 
 - ログインユーザーのタグ一覧を取得
+
+### Google OAuth API (`/api/google`)
+
+| Method | Path | 認証 | Request Body | Response |
+|--------|------|------|-------------|----------|
+| GET | `/api/google/auth/url` | 必要 | - | `{url}` （OAuth 同意画面URL） |
+| POST | `/api/google/auth/callback` | 必要 | `{code, state}` | `{message, google_email}` |
+| GET | `/api/google/auth/status` | 必要 | - | `{connected, google_email?, hasSettings, hasEnvConfig}` |
+| POST | `/api/google/auth/disconnect` | 必要 | - | `{message}` |
+
+- Authorization Code Grant（サーバーサイドフロー）
+- CSRF防止: state パラメータ（crypto.randomBytes）
+- access_token はバックエンドDB限定保持（フロントエンドに返さない）
+- スコープ: `calendar.readonly`
+- トークン自動リフレッシュ（有効期限5分前バッファ）
+- 環境変数: `GOOGLE_CLIENT_ID`, `GOOGLE_CLIENT_SECRET`, `GOOGLE_REDIRECT_URI`
+- createOAuth2Client: ユーザーDB設定優先 → 環境変数フォールバック
+
+### OAuth設定API (`/api/google/settings`)
+
+| Method | Path | 認証 | Request Body | Response |
+|--------|------|------|-------------|----------|
+| GET | `/api/google/settings` | 必要 | - | `{settings: {client_id, client_secret(マスク)}}` |
+| POST | `/api/google/settings` | 必要 | `{client_id, client_secret}` | `{message, settings}` (201) |
+| PUT | `/api/google/settings` | 必要 | `{client_id, client_secret}` | `{message, settings}` （トークン自動リセット） |
+| DELETE | `/api/google/settings` | 必要 | - | `{message}` （トークン削除+revoke付き） |
+
+- ユーザーごとの Google OAuth Client ID/Secret を保存
+- client_secret マスク処理: `'****' + secret.slice(-4)`（4文字以下は `'****'` のみ）
+- PUT時: 既存トークンを自動リセット（再接続が必要）
+- DELETE時: Google トークン revoke + トークン/設定の両方削除
+
+### カレンダーAPI (`/api/calendar`)
+
+| Method | Path | 認証 | Query Params | Response |
+|--------|------|------|-------------|----------|
+| GET | `/api/calendar/calendars` | 必要 | - | `{calendars: [...]}` |
+| GET | `/api/calendar/events` | 必要 | `period=7days\|week\|month` | `{events: [...]}` |
+| GET | `/api/calendar/summary` | 必要 | `period=7days\|week\|month` | `{summary: [...]}` （日別集計） |
+
+- Google 接続済みユーザーのみ利用可能
+- period パラメータ: `7days`（直近7日）/ `week`（今週）/ `month`（今月）
+- summary API 全日付埋め: 期間内のイベントのない日も `{ date, categories: [], total: 0 }` で返却（グラフの日付軸連続性を保証）
+
+### 画像API (`/api/wishes/.../images`)
+
+| Method | Path | 認証 | Request Body | Response |
+|--------|------|------|-------------|----------|
+| POST | `/api/wishes/:wishId/images` | 必要 | FormData (`image` フィールド) | `{message, image}` (201) |
+| GET | `/api/wishes/images/:imageId` | 必要 | - | 画像バイナリ（Content-Type: mime_type） |
+| DELETE | `/api/wishes/images/:imageId` | 必要 | - | `{message}` |
+
+- multer による multipart/form-data アップロード
+- ファイル制限: 5MB上限、JPEG/PNG/GIF/WebP のみ許可
+- 枚数制限: 1 wish あたり最大5枚
+- ファイル保存先: `backend/uploads/{user_id}/`（ユーザーごとにディレクトリ分離）
+- ファイル名: `{timestamp}_{randomHex}.{ext}` で一意性保証
+- 所有権チェック: 画像配信・削除時に user_id を検証
+- DELETE: DB レコード + 物理ファイルの両方を削除
+- wish 削除時: CASCADE で DB レコード削除 + ファイル自動クリーンアップ
+
+### カテゴリマッピングAPI (`/api/category-mappings`)
+
+| Method | Path | 認証 | Request Body | Response |
+|--------|------|------|-------------|----------|
+| GET | `/api/category-mappings` | 必要 | - | `{mappings: [...], defaults: GOOGLE_EVENT_COLORS}` |
+| PUT | `/api/category-mappings` | 必要 | `{mappings: [{google_color_id, category_name, display_color}, ...]}` | `{message, count}` |
+| DELETE | `/api/category-mappings/:colorId` | 必要 | - | `{message}` |
+
+- Google Event Colors（colorId 1-11）に対してユーザー独自のカテゴリ名を割り当て
+- GET: ユーザーのカスタムマッピング一覧 + GOOGLE_EVENT_COLORS デフォルト定義を同時返却
+- PUT: トランザクションで全削除→INSERT の一括アップサート方式
+- DELETE: 単一マッピング削除（colorId 1-11 のバリデーション付き）
+- GOOGLE_EVENT_COLORS: `backend/config/google.js` に定義（11色の日本語名+HEXカラー）
+- calendar.js summary: ユーザーのカスタム名 → デフォルト色名のフォールバックでカテゴリ分類
 
 ### ヘルスチェック
 
@@ -154,7 +276,7 @@ docker compose logs -f [backend|frontend|db]
 | created_at | TIMESTAMP | 自動設定 |
 | updated_at | TIMESTAMP | 自動更新 |
 
-**シードデータ**: `admin` / `password123`
+**シードデータ**: `admin` / `password123`, `phalanchang` / `password123`
 
 ### wishes テーブル
 
@@ -191,6 +313,70 @@ docker compose logs -f [backend|frontend|db]
 - 複合主キー: `(wish_id, tag_id)`
 - 初期化SQL: `docker/mysql/init/005_create_tags_tables.sql`
 
+### google_tokens テーブル
+
+| カラム | 型 | 備考 |
+|-------|---|------|
+| id | INT AUTO_INCREMENT | PK |
+| user_id | INT NOT NULL UNIQUE | FK → users(id) ON DELETE CASCADE |
+| access_token | TEXT NOT NULL | Google アクセストークン |
+| refresh_token | TEXT | Google リフレッシュトークン |
+| scope | VARCHAR(500) | 許可されたスコープ |
+| google_email | VARCHAR(255) | 接続先 Google アカウント |
+| expires_at | DATETIME | トークン有効期限 |
+| created_at | TIMESTAMP | 自動設定 |
+| updated_at | TIMESTAMP | 自動更新 |
+
+- user_id は UNIQUE — 1ユーザー1トークン
+- 初期化SQL: `docker/mysql/init/006_create_google_tokens_table.sql`
+
+### google_oauth_settings テーブル
+
+| カラム | 型 | 備考 |
+|-------|---|------|
+| id | INT AUTO_INCREMENT | PK |
+| user_id | INT NOT NULL UNIQUE | FK → users(id) ON DELETE CASCADE |
+| client_id | VARCHAR(255) NOT NULL | Google OAuth Client ID |
+| client_secret | VARCHAR(255) NOT NULL | Google OAuth Client Secret |
+| created_at | TIMESTAMP | 自動設定 |
+| updated_at | TIMESTAMP | 自動更新 |
+
+- user_id は UNIQUE — 1ユーザー1設定
+- 用途: ユーザーごとの Google OAuth 認証情報を保存（環境変数のフォールバックあり）
+- 初期化SQL: `docker/mysql/init/007_create_google_oauth_settings_table.sql`
+
+### wish_images テーブル
+
+| カラム | 型 | 備考 |
+|-------|---|------|
+| id | INT AUTO_INCREMENT | PK |
+| wish_id | INT NOT NULL | FK → wishes(id) ON DELETE CASCADE |
+| user_id | INT NOT NULL | FK → users(id) ON DELETE CASCADE |
+| filename | VARCHAR(255) NOT NULL | サーバー上のファイル名（{timestamp}_{hex}.{ext}） |
+| original_name | VARCHAR(255) NOT NULL | アップロード時の元ファイル名 |
+| mime_type | VARCHAR(100) NOT NULL | MIMEタイプ（image/jpeg, image/png 等） |
+| size | INT NOT NULL | ファイルサイズ（バイト） |
+| created_at | TIMESTAMP | 自動設定 |
+
+- wish 削除時に CASCADE で自動削除
+- 初期化SQL: `docker/mysql/init/010_create_wish_images_table.sql`
+
+### category_mappings テーブル
+
+| カラム | 型 | 備考 |
+|-------|---|------|
+| id | INT AUTO_INCREMENT | PK |
+| user_id | INT NOT NULL | FK → users(id) ON DELETE CASCADE |
+| google_color_id | INT NOT NULL | Google Event Color ID（1-11） |
+| category_name | VARCHAR(100) NOT NULL | ユーザー定義のカテゴリ名 |
+| display_color | VARCHAR(7) NOT NULL | 表示色（HEX形式 例: #7986cb） |
+| created_at | TIMESTAMP | 自動設定 |
+| updated_at | TIMESTAMP | 自動更新 |
+
+- UNIQUE KEY: `(user_id, google_color_id)` — 同一ユーザー内でcolorId重複不可
+- 用途: Google カレンダーイベントの色（colorId 1-11）にユーザー独自のカテゴリ名を割り当て
+- 初期化SQL: `docker/mysql/init/009_create_category_mappings_table.sql`
+
 ## フロントエンド設計
 
 ### 画面構成
@@ -201,10 +387,14 @@ docker compose logs -f [backend|frontend|db]
 ├──────────┬──────────────────────────────┤
 │          │                              │
 │ Sidebar  │     Main Content             │  ← 選択された機能のコンテンツ
-│ (250px)  │                              │
-│          │                              │
+│(250/40px)│     （全幅レイアウト）          │
+│ ◀/▶     │                              │
 └──────────┴──────────────────────────────┘
 ```
+
+- サイドバーは折りたたみ可能（◀/▶トグル、展開250px / 折りたたみ40px）
+- 折りたたみ状態は localStorage で永続化
+- メインコンテンツは全幅レイアウト（max-width 制限なし）
 
 ### ルーティング
 
@@ -214,6 +404,9 @@ docker compose logs -f [backend|frontend|db]
 | `/` | Dashboard | 必要 |
 | `/dashboard` | Dashboard | 必要 |
 | `/wishes` | WishList | 必要 |
+| `/auth/google/callback` | GoogleCallback | 必要 |
+| `/settings` | Settings | 必要 |
+| `/clawdbot` | ClawdbotSkills | 必要 |
 | その他 | `/` へリダイレクト | 必要 |
 
 ### 認証フロー
@@ -262,22 +455,172 @@ docker compose logs -f [backend|frontend|db]
 - [x] タグ入力UI（TagInput: カンマ/Enter確定、重複防止、✕削除、バッジ表示）
 - [x] フィルタリングUI（WishFilter: タグOR/優先度OR/組合せAND、リセット機能）
 
+### Sprint 4（完了）— Google カレンダー連携 + ダッシュボード棒グラフ
+
+#### Sprint 4a: OAuth基盤 + ダッシュボードレイアウト
+- [x] Google OAuth 2.0 基盤（Authorization Code Grant、サーバーサイドフロー）
+- [x] google_tokens テーブル設計（トークン保存、自動リフレッシュ）
+- [x] Google OAuth API（/api/google/auth/*: URL取得・コールバック・状態確認・解除）
+- [x] カレンダーAPI（/api/calendar/*: カレンダー一覧・イベント取得・日別集計）
+- [x] ダッシュボードUIリニューアル（カード型ウィジェットレイアウト、時間の使い方カード）
+- [x] Google接続UI（GoogleConnect: 接続/解除管理、GoogleCallback: OAuthハンドラ）
+- [x] npmパッケージ追加（googleapis, recharts）
+
+#### Sprint 4b: Recharts 棒グラフ + 期間切替UI
+- [x] Recharts 積み上げ棒グラフ（TimeChart: カテゴリ別色分け、カスタムツールチップで合計時間表示）
+- [x] 期間切替UI（7日/週/月のタブ切替、ピル型デザイン `.period-tab`）
+- [x] カスタムツールチップ + 凡例
+- [x] ローディング/エラー/空データ状態管理（5状態分岐: 未接続/ローディング/エラー/データあり/データなし）
+- [x] summary API 全日付埋め改善（期間内の全日付を保証）
+
+### Sprint 5（完了）— ユーザーごとの Google OAuth 設定 + 新規ユーザー
+- [x] google_oauth_settings テーブル作成
+- [x] 新規ユーザー phalanchang 追加（シードデータ）
+- [x] OAuth設定 CRUD API（GET/POST/PUT/DELETE /api/google/settings）
+- [x] createOAuth2Client ユーザー設定優先 + 環境変数フォールバック
+- [x] Settings ページ（入力・表示・編集・削除、バリデーション、エラー/成功メッセージ）
+- [x] サイドバー「⚙️ 設定」メニュー追加
+- [x] Dashboard 3状態分岐（設定なし→案内 / 設定あり+未接続→接続 / 接続済み→棒グラフ）
+- [x] GoogleConnect 設定未登録時案内
+- [x] SPA遷移修正（`<a>` → React Router `<Link>`）
+
+### Sprint 6（完了）— カテゴリ分類機能（イベント色ベース）
+- [x] category_mappings テーブル作成（ユーザーごとの colorId→カテゴリ名マッピング）
+- [x] GOOGLE_EVENT_COLORS 定数定義（colorId 1-11 の日本語名+HEXカラー）
+- [x] カテゴリマッピング CRUD API（GET/PUT/DELETE /api/category-mappings）
+- [x] calendar.js summary 集計ロジック変更（colorId ベースのカテゴリ分類、カスタム名→デフォルト色名フォールバック）
+- [x] Settings.js カテゴリ設定セクション追加（11色マッピングテーブルUI）
+- [x] Settings.css テーブルスタイル追加
+
+### Sprint 7（完了）— 画像貼り付け機能
+- [x] wish_images テーブル作成（wish_id + user_id + ファイルメタ情報、CASCADE DELETE）
+- [x] 画像アップロード API（POST /api/wishes/:wishId/images、multer + FormData）
+- [x] 認証付き画像配信 API（GET /api/wishes/images/:imageId、所有権チェック）
+- [x] 画像削除 API（DELETE /api/wishes/images/:imageId、DB + ファイル削除）
+- [x] wish 削除時のファイル自動クリーンアップ
+- [x] WishForm: Ctrl+V ペーストハンドラ + ファイル選択 + プレビュー + アップロード
+- [x] WishList: サムネイル表示
+- [x] ImageModal: 全画面画像ビューア（モーダル）
+- [x] multer パッケージ追加、backend/uploads/ バインドマウント永続化
+
+### バグ対応 + トースト通知システム（完了）
+- [x] requireAuth エラーメッセージ日本語化（「ログインが必要です。再度ログインしてください。」）
+- [x] wishes/auth のリクエストログ強化（`[wishes]`/`[auth]` プレフィックス付きログ出力）
+- [x] トースト通知システム新規実装（Toast.js: ToastProvider + useToast フック）
+- [x] 成功(緑)/エラー(赤)/情報(青) の3タイプ、成功4秒・エラー8秒の自動消去
+- [x] スライドイン/フェードアウトアニメーション、複数同時スタック表示
+- [x] WishList.js の旧 showMessage を useToast に完全置換
+- [x] App.js に ToastProvider ラップ追加
+
+### Sprint 8（完了）— Clawdbot Skills Display（メイン画面ページ化 + D&D対応）
+- [x] clawdbotSkillsData.js: スキルデータ定義（11件、3カテゴリ、将来拡張フィールド）
+- [x] SkillBadge.js: バッジメダルUI（hexagon/octagon CSS clip-path、カテゴリ別配色）
+- [x] SkillBadge.js: バッジラベル追加（スキル名テキスト表示、13px、max-width 120px）
+- [x] SkillBadge.js: HTML5 D&D API 対応（draggable, onDragStart/Over/Drop/End props）
+- [x] SkillModal.js: スキル詳細モーダル（ESCキー + オーバーレイクリック閉じ、z-index: 1500）
+- [x] ClawdbotSkills.js: メイン画面ページコンポーネント（Skills/MCP/Integrations 3カテゴリ分類表示）
+- [x] ClawdbotSkills.js: ドラッグ&ドロップ並び替え（同カテゴリ内のみ、useState で状態管理）
+- [x] App.js: `/clawdbot` ルート追加（ClawdbotSkills をメインコンテンツ表示）
+- [x] Sidebar.js: ClawdbotSkills埋め込み削除 → NavLink「🤖 Clawdbot Badge」追加
+- [x] キーボードアクセシビリティ対応（tabIndex, role="button", onKeyDown）
+- [x] z-index階層整理: ImageModal(1000) < SkillModal(1500) < Toast(2000)
+- [x] 改修2+3: バッジ emoji → PNG 画像表示切替（全11スキル PNG 統一）
+  - [x] clawdbotSkillsData.js: badges 配列追加（14画像→全11スキルにマッピング）+ tier フィールド追加
+  - [x] SkillBadge.js: useState lazy initializer でランダムバッジ選択（tier 設定時は優先）
+  - [x] SkillBadge.js: 画像バッジ / emoji フォールバック条件分岐
+  - [x] SkillModal.js: モーダル内画像表示（120x120px）+ emoji フォールバック
+  - [x] PNG 画像14ファイル（frontend/public/images/badges/、全参照済み）
+  - [x] 複数ティア対応: tmux（4ティア: bronz/sliver/gold/platinum）はランダム選択
+  - [x] ティア定義: bronz, sliver, gold, platinum, diamond, hihiirokane
+- [x] 改修4: バッジ画像サイズ2倍化（SkillBadge.css 5プロパティ変更）
+  - [x] バッジサイズ: 48→96px、ラッパー幅: 72→120px、ラベル: 11→13px / max-width 120px
+- [x] フロントエンドのみ（バックエンド変更なし）
+
+### Sprint 9a（完了）— やりたいこと画面 UI改善
+- [x] 改善1: テーブルビュー（カード→テーブル切替、情報密度3倍、6カラム、ゼブラストライプ）
+  - [x] WishList.js: viewMode state（`card`/`table`、localStorage 永続化）
+  - [x] WishList.js: テーブルビュー描画（タイトル・ステータス・優先度・期限・タグ・操作の6カラム）
+  - [x] WishList.css: テーブルCSS + ビュー切替ボタンCSS（☰テーブル / ▦カード）
+- [x] 改善3: サイドバー折りたたみ + 全幅レイアウト
+  - [x] MainLayout.js: sidebarCollapsed state（localStorage 永続化）、toggleSidebar 関数
+  - [x] Sidebar.js: collapsed/onToggle props 対応、◀/▶トグルボタン、short 表示モード
+  - [x] Sidebar.css: collapsed スタイル（250px→40px transition）、トグルボタンスタイル
+  - [x] WishList.css: max-width 削除（全幅レイアウト対応）
+  - [x] MainLayout.css: dead CSS 削除
+- [x] 改善5: 期限視覚強調（5段階色分け）
+  - [x] WishList.js: getDueDateClass 関数（期限日からの残り日数で CSS クラスを決定）
+  - [x] WishList.css: 赤太字（期限切れ）/ オレンジ太字（3日以内）/ 黄色（7日以内）/ グレー（8日以上）/ 薄グレー（期限なし）
+- [x] フロントエンドのみ（バックエンド変更なし）
+
+### Sprint 9b（完了）— ダークモード実装 + サイドバートグル改善
+- [x] CSS変数（Custom Properties）でテーマシステム構築
+  - [x] App.css: `:root` に73+変数定義（ライトテーマ）、`[data-theme="dark"]` に57変数定義（ダークテーマ）
+  - [x] CSS変数カテゴリ: Header, Sidebar, Main, Card/Table, Text, Border, Filter, Form, Buttons, Empty, Toast, Toggle, Image
+  - [x] 全CSSファイル（10ファイル）のハードコード色をCSS変数に置換
+  - [x] ステータス/優先度/期限/タグバッジ色は意図的にハードコード維持（テーマに依存しない固定色）
+- [x] テーマ切替機能
+  - [x] MainLayout.js: theme state（useState + localStorage永続化 + OS設定自動検出 matchMedia）
+  - [x] MainLayout.js: `document.documentElement.setAttribute('data-theme', theme)` でテーマ切替
+  - [x] Header.js: 🌙/☀️テーマ切替ボタン（toggleTheme props、Header右側配置）
+  - [x] Header.css: テーマ切替ボタンスタイル（背景なし・ボーダーなし・ホバー効果）
+- [x] サイドバートグル改善
+  - [x] 展開時: 24x24px 右上角に配置（position: absolute）
+  - [x] 折りたたみ時: 上部100%幅に配置（position: static）
+  - [x] Sidebar.css: CSS変数化 + トグルボタン position 切替パターン
+- [x] CSS変数化対象ファイル一覧
+  - [x] App.css（変数定義）、MainLayout.css、Header.css、Sidebar.css、WishList.css、WishFilter.css、WishForm.css、Toast.css
+- [x] フロントエンドのみ（バックエンド変更なし）
+
+### Sprint 9c（完了）— サマリーバー + 統合ツールバー（検索・ソート・ステータスフィルタ）
+- [x] 改善2: ステータスサマリーバー
+  - [x] WishList.js: selectedStatuses state（Set で OR フィルタ管理）
+  - [x] WishList.js: ステータス別件数計算 + クリックでフィルタトグル
+  - [x] WishList.css: .summary-bar / .summary-badge（ステータス別セマンティックカラー: 未着手=グレー、進行中=青、完了=緑）
+- [x] 改善4: 統合ツールバー（検索 + ソート + コンパクト化）
+  - [x] WishList.js: searchQuery / debouncedSearch state（300ms デバウンス、タイトル・説明・タグ名を検索対象）
+  - [x] WishList.js: sortOrder state（localStorage 永続化）、PRIORITY_ORDER 定数、sortWishes 関数
+  - [x] WishFilter.js: SORT_OPTIONS 定数（6種: 作成日降順/昇順、優先度高→低/低→高、期限昇順/降順）
+  - [x] WishFilter.js: 検索フィールド（🔍プレースホルダ + × クリアボタン）+ ソートドロップダウン
+  - [x] WishFilter.css: 1行 flex 化（.filter-toolbar）、.filter-search / .filter-sort スタイル
+- [x] フロントエンドのみ（バックエンド変更なし）
+
+### Sprint 9d（完了）— コンテキストメニュー + 一括操作 + キーボードショートカット
+- [x] 改善6: コンテキストメニュー（ActionMenu）
+  - [x] ActionMenu.js: ⋯ボタンでドロップダウン表示（編集/削除/ステータス変更サブメニュー）
+  - [x] ActionMenu.js: props（wish, onEdit, onDelete, onStatusChange）、外側クリックで閉じ（useEffect + mousedown）
+  - [x] ActionMenu.css: z-index: 100、ドロップダウン + サブメニュースタイル
+  - [x] WishList.js: handleStatusChange 関数（既存 PUT API でステータス即時変更 + トースト通知）
+- [x] 改善7: 一括操作
+  - [x] WishList.js: selectedIds state（Set）、全選択/個別選択チェックボックス
+  - [x] WishList.js: handleBulkStatusChange / handleBulkDelete（Promise.all で一括処理）
+  - [x] WishList.css: フローティングアクションバー（.bulk-action-bar、z-index: 50、画面下部固定）
+  - [x] テーブルビュー: チェックボックス列追加（7カラム化）
+- [x] 改善8: キーボードショートカット
+  - [x] useKeyboardShortcuts.js: カスタムフック（11パラメータ: 9コールバック + isDisabled + isTableView）
+  - [x] ShortcutHelp.js: ショートカットヘルプモーダル（props: isOpen, onClose、z-index: 1500）
+  - [x] キー一覧: N(新規), E(編集), Delete(削除), ↑↓(移動), Space(選択), /(検索), Escape(解除), ?(ヘルプ)
+  - [x] 3層ガード: テキスト入力無効化（input/textarea/select）+ isDisabled + テーブル専用キー制御（↑↓/Space）
+  - [x] focusedIndex: useEffect でクランプ（リスト件数変動時の範囲外防止）
+- [x] z-index階層更新: bulk-action-bar(50) < ActionMenu(100) < ImageModal(1000) < ShortcutHelp(1500) < Toast(2000)
+- [x] フロントエンドのみ（バックエンド変更なし、既存 PUT/DELETE API 利用）
+
 ### 今後の予定（優先順）
-1. ダッシュボード機能
-2. タスク管理機能
-3. ノート管理機能
-4. 家計簿機能
-5. ActiveRecall機能
+1. タスク管理機能
+2. ノート管理機能
+3. 家計簿機能
+4. ActiveRecall機能
 
 ## コーディング規約
 
 - **言語**: ドキュメントは日本語、コード・コミットメッセージは日本語
 - **フロントエンド**: 関数コンポーネント + React Hooks（クラスコンポーネント不使用）
 - **バックエンド**: CommonJS (`require`/`module.exports`)
-- **CSS**: コンポーネントごとに個別CSSファイル（CSS Modules未使用）
+- **CSS**: コンポーネントごとに個別CSSファイル（CSS Modules未使用）。色はCSS変数（`var(--xxx)`）を使用（App.css で定義、ダークモード対応）
 - **状態管理**: React useState/useEffect（Redux未使用）
 - **DB操作**: mysql2/promise のパラメータ化クエリ（SQLインジェクション防止）
 - **認証チェック**: バックエンドは `requireAuth` ミドルウェア、フロントエンドは `ProtectedRoute` コンポーネント
+- **ユーザー分離**: 全APIで `user_id = req.session.userId` を使用（他ユーザーのデータにアクセス不可）
+- **シークレットマスク**: API応答でsecretを返す際は `'****' + secret.slice(-4)` でマスク処理
 
 ## 新機能追加時のパターン
 
@@ -294,3 +637,22 @@ docker compose logs -f [backend|frontend|db]
 2. `frontend/src/App.js` の `<Routes>` 内にルート追加
 3. `frontend/src/components/Sidebar.js` の `menuItems` にナビゲーション追加
 4. API呼び出しには必ず `credentials: 'include'` を付与
+
+### UIデザインパターン
+
+- **ピル型タブ**: `.period-tab` / `.period-tab-active`（border-radius: 14px）— 期間切替、WishFilter の `.filter-chip` と同じデザイン
+- **カード型ウィジェット**: Dashboard のセクション単位でカードUIを使用
+- **5状態分岐パターン**: 未接続 → ローディング → エラー → データあり → データなし（Dashboard で採用）
+- **トースト通知**: ToastProvider + useToast フック。成功(緑)/エラー(赤)/情報(青)、画面右上固定、自動消去（success=4秒, error=8秒）、スライドイン/フェードアウトアニメーション
+- **バッジメダル**: CSS clip-path で hexagon（六角形・Skills）/ octagon（八角形・MCP/Integrations）。カテゴリ別配色（青/紫/緑）+ ホバーエフェクト。バッジラベル（スキル名テキスト、13px、max-width 120px）。バッジサイズ96px、ラッパー120px。PNG画像バッジ対応（useState lazy initializer でティアランダム選択、画像なし→emojiフォールバック）
+- **ドラッグ&ドロップ**: HTML5 D&D API（dragStart/dragOver/drop/dragEnd）。同カテゴリ内のみ並び替え可能。useState で各カテゴリリストを個別管理
+- **z-index階層**: bulk-action-bar(50) < ActionMenu(100) < ImageModal(1000) < SkillModal/ShortcutHelp(1500) < Toast(2000) — モーダル・通知の重なり順を統一管理
+- **サイドバー折りたたみ**: ◀/▶トグルボタン。展開250px / 折りたたみ40px。CSS transition でスムーズアニメーション。localStorage で状態永続化
+- **ビュー切替**: ☰テーブル / ▦カードの切替ボタン。localStorage で選択状態永続化。テーブルビューはゼブラストライプ + 6カラム情報表示
+- **期限視覚強調**: getDueDateClass 関数で5段階色分け。赤太字（期限切れ）/ オレンジ太字（3日以内）/ 黄色（7日以内）/ グレー（8日以上）/ 薄グレー（期限なし）
+- **ダークモード（テーマシステム）**: CSS変数ベース。App.css に `:root`（ライト73+変数）と `[data-theme="dark"]`（ダーク57変数）を定義。MainLayout.js で theme state 管理（localStorage永続化 + OS設定自動検出 `matchMedia('prefers-color-scheme: dark')`）。Header.js に 🌙/☀️ 切替ボタン。新規色追加時は App.css の両テーマに変数追加が必要。ステータス/優先度/期限色はテーマ非依存のハードコード維持
+- **サマリーバー**: ステータス別件数バッジ（全て/未着手/進行中/完了）。クリックで OR フィルタ。セマンティックカラー（未着手=グレー、進行中=青、完了=緑）。Set で複数ステータス同時選択
+- **統合ツールバー**: テキスト検索（300ms デバウンス、タイトル・説明・タグ名を対象）+ 6種ソート（作成日/優先度/期限の昇順・降順）+ 1行 flex レイアウト。ソート順は localStorage 永続化。🔍検索フィールド + × クリアボタン
+- **コンテキストメニュー（ActionMenu）**: ⋯ボタンでドロップダウン表示。編集/削除/ステータス変更サブメニュー。外側クリックで閉じ（mousedown イベント）。z-index: 100
+- **一括操作**: チェックボックス列（テーブルビュー7カラム化）。selectedIds（Set）で選択管理。フローティングアクションバー（画面下部固定、z-index: 50）。Promise.all で一括ステータス変更/一括削除
+- **キーボードショートカット**: useKeyboardShortcuts カスタムフック（9キー: N/E/Delete/↑↓/Space///Escape/?）。3層ガード: テキスト入力無効化（input/textarea/select）+ isDisabled + テーブル専用キー制御。ShortcutHelp モーダル（?キーで表示、z-index: 1500）

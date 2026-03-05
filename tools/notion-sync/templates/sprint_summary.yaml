@@ -1,0 +1,62 @@
+name: sprint_summary
+description: スプリント完了サマリー
+database_id: "{{database_id}}"
+title: "Sprint {{sprint_number}} 完了サマリー - {{date}}"
+properties:
+  Status:
+    select:
+      name: "完了"
+  Sprint:
+    rich_text:
+      - text:
+          content: "Sprint {{sprint_number}}"
+  Date:
+    date:
+      start: "{{date}}"
+content: |
+  # Sprint {{sprint_number}} 完了サマリー
+
+  ## 概要
+  {{summary}}
+
+  ## 完了タスク
+  {{completed_tasks}}
+
+  ## 参加エージェント
+  {{agents}}
+
+  ## 次スプリントの予定
+  {{next_sprint}}
+
+  ## 課題・ブロッカー
+  {{blockers}}
+variables:
+  - name: database_id
+    required: true
+    description: "対象 Database ID"
+  - name: sprint_number
+    required: true
+    description: "スプリント番号"
+  - name: date
+    required: false
+    default: "today"
+    description: "完了日（デフォルト: 今日）"
+  - name: summary
+    required: true
+    description: "スプリント概要"
+  - name: completed_tasks
+    required: false
+    default: "-"
+    description: "完了タスク一覧"
+  - name: agents
+    required: false
+    default: "PM, PL, DEV1, DEV2, REVIEWER, TESTER, LIBRARIAN"
+    description: "参加エージェント一覧"
+  - name: next_sprint
+    required: false
+    default: "未定"
+    description: "次スプリントの予定"
+  - name: blockers
+    required: false
+    default: "なし"
+    description: "課題・ブロッカー"

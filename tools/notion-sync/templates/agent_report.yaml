@@ -1,0 +1,43 @@
+name: agent_report
+description: エージェント進捗報告
+database_id: "{{database_id}}"
+title: "{{agent}} 報告 - {{date}}"
+properties:
+  Status:
+    select:
+      name: "{{status}}"
+  Agent:
+    rich_text:
+      - text:
+          content: "{{agent}}"
+  Date:
+    date:
+      start: "{{date}}"
+content: |
+  ## 完了内容
+  {{summary}}
+
+  ## 詳細
+  {{details}}
+variables:
+  - name: database_id
+    required: true
+    description: "対象 Database ID"
+  - name: agent
+    required: true
+    description: "エージェント名（PM, PL, DEV1 等）"
+  - name: date
+    required: false
+    default: "today"
+    description: "日付（デフォルト: 今日）"
+  - name: status
+    required: false
+    default: "完了"
+    description: "ステータス（完了, 進行中, ブロック中 等）"
+  - name: summary
+    required: true
+    description: "完了内容サマリー"
+  - name: details
+    required: false
+    default: ""
+    description: "詳細情報（任意）"

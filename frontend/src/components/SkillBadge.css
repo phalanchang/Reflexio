@@ -1,0 +1,96 @@
+/* バッジラッパー */
+.skill-badge-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 120px;
+  cursor: grab;
+}
+
+.skill-badge-wrapper:active {
+  cursor: grabbing;
+}
+
+.skill-badge-wrapper.dragging {
+  opacity: 0.4;
+}
+
+/* バッジラベル */
+.skill-badge-label {
+  font-size: 13px;
+  color: #555;
+  text-align: center;
+  margin-top: 4px;
+  line-height: 1.2;
+  word-break: break-word;
+  max-width: 120px;
+}
+
+/* 共通バッジスタイル */
+.skill-badge {
+  width: 96px;
+  height: 96px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: transform 0.2s, filter 0.2s;
+  font-size: 40px;
+  flex-shrink: 0;
+}
+
+.skill-badge:hover {
+  transform: scale(1.2);
+}
+
+.skill-badge-icon {
+  line-height: 1;
+}
+
+/* 六角形 */
+.skill-badge-hexagon {
+  clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+}
+
+/* 八角形 */
+.skill-badge-octagon {
+  clip-path: polygon(30% 0%, 70% 0%, 100% 30%, 100% 70%, 70% 100%, 30% 100%, 0% 70%, 0% 30%);
+}
+
+/* 青系 (Skills) */
+.skill-badge-blue {
+  background-color: #E3F2FD;
+}
+
+.skill-badge-blue:hover {
+  filter: drop-shadow(0 0 6px #2196F3);
+}
+
+/* 紫系 (MCP) */
+.skill-badge-purple {
+  background-color: #F3E5F5;
+}
+
+.skill-badge-purple:hover {
+  filter: drop-shadow(0 0 6px #9C27B0);
+}
+
+/* 緑系 (Integrations) */
+.skill-badge-green {
+  background-color: #E8F5E9;
+}
+
+.skill-badge-green:hover {
+  filter: drop-shadow(0 0 6px #4CAF50);
+}
+
+/* 画像バッジ（clip-path なし） */
+.skill-badge-image {
+  background-color: transparent;
+}
+
+.skill-badge-img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}

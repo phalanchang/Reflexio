@@ -7,7 +7,27 @@ const PRIORITY_OPTIONS = [
   { value: 'low', label: '低', className: 'filter-priority-low' }
 ];
 
-function WishFilter({ tags, selectedTags, onTagsChange, selectedPriorities, onPrioritiesChange, onReset }) {
+const SORT_OPTIONS = [
+  { value: 'created_desc', label: '作成日（新しい順）' },
+  { value: 'created_asc', label: '作成日（古い順）' },
+  { value: 'due_asc', label: '期限（近い順）' },
+  { value: 'due_desc', label: '期限（遠い順）' },
+  { value: 'priority_desc', label: '優先度（高→低）' },
+  { value: 'priority_asc', label: '優先度（低→高）' },
+];
+
+function WishFilter({
+  tags,
+  selectedTags,
+  onTagsChange,
+  selectedPriorities,
+  onPrioritiesChange,
+  onReset,
+  searchQuery,
+  onSearchChange,
+  sortOrder,
+  onSortChange,
+}) {
   const toggleTag = (tagName) => {
     if (selectedTags.includes(tagName)) {
       onTagsChange(selectedTags.filter(t => t !== tagName));
@@ -24,12 +44,35 @@ function WishFilter({ tags, selectedTags, onTagsChange, selectedPriorities, onPr
     }
   };
 
-  const hasActiveFilters = selectedTags.length > 0 || selectedPriorities.length > 0;
+  const hasActiveFilters = selectedTags.length > 0
+    || selectedPriorities.length > 0
+    || searchQuery !== '';
 
   return (
     <div className="wish-filter">
+      {/* 検索 */}
+      <div className="filter-search">
+        <span className="filter-search-icon">🔍</span>
+        <input
+          type="text"
+          className="filter-search-input"
+          placeholder="検索..."
+          value={searchQuery}
+          onChange={(e) => onSearchChange(e.target.value)}
+        />
+        {searchQuery && (
+          <button
+            type="button"
+            className="filter-search-clear"
+            onClick={() => onSearchChange('')}
+            title="検索をクリア"
+          >×</button>
+        )}
+      </div>
+
+      {/* タグ */}
       {tags.length > 0 && (
-        <div className="filter-row">
+        <div className="filter-group">
           <span className="filter-label">タグ:</span>
           <div className="filter-options">
             {tags.map(tag => (
@@ -45,7 +88,9 @@ function WishFilter({ tags, selectedTags, onTagsChange, selectedPriorities, onPr
           </div>
         </div>
       )}
-      <div className="filter-row">
+
+      {/* 優先度 */}
+      <div className="filter-group">
         <span className="filter-label">優先度:</span>
         <div className="filter-options">
           {PRIORITY_OPTIONS.map(opt => (
@@ -59,12 +104,27 @@ function WishFilter({ tags, selectedTags, onTagsChange, selectedPriorities, onPr
             </button>
           ))}
         </div>
-        {hasActiveFilters && (
-          <button type="button" className="filter-reset" onClick={onReset}>
-            リセット
-          </button>
-        )}
       </div>
+
+      {/* ソート */}
+      <div className="filter-sort">
+        <select
+          className="filter-sort-select"
+          value={sortOrder}
+          onChange={(e) => onSortChange(e.target.value)}
+        >
+          {SORT_OPTIONS.map(opt => (
+            <option key={opt.value} value={opt.value}>{opt.label}</option>
+          ))}
+        </select>
+      </div>
+
+      {/* リセット */}
+      {hasActiveFilters && (
+        <button type="button" className="filter-reset" onClick={onReset}>
+          リセット
+        </button>
+      )}
     </div>
   );
 }

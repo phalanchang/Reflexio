@@ -1,0 +1,85 @@
+/* ショートカットヘルプモーダル */
+.shortcut-help-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1500;
+}
+
+.shortcut-help-modal {
+  background: var(--card-bg);
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  padding: 24px;
+  min-width: 360px;
+  max-width: 480px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+}
+
+.shortcut-help-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+}
+.shortcut-help-header h3 {
+  margin: 0;
+  font-size: 18px;
+  color: var(--text-primary);
+}
+
+.shortcut-help-close {
+  background: none;
+  border: none;
+  font-size: 20px;
+  cursor: pointer;
+  color: var(--text-muted);
+  padding: 4px 8px;
+  border-radius: 4px;
+  transition: all 0.2s;
+}
+.shortcut-help-close:hover {
+  background: var(--table-hover-bg);
+  color: var(--text-primary);
+}
+
+.shortcut-help-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+.shortcut-help-table tr {
+  border-bottom: 1px solid var(--border-color);
+}
+.shortcut-help-table tr:last-child {
+  border-bottom: none;
+}
+.shortcut-help-table td {
+  padding: 10px 8px;
+}
+
+.shortcut-help-key {
+  width: 100px;
+  text-align: center;
+}
+.shortcut-help-key kbd {
+  display: inline-block;
+  padding: 4px 10px;
+  font-family: 'SFMono-Regular', 'Consolas', monospace;
+  font-size: 13px;
+  background: var(--main-bg);
+  border: 1px solid var(--border-color);
+  border-radius: 4px;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+  color: var(--text-primary);
+}
+
+.shortcut-help-desc {
+  color: var(--text-secondary);
+  font-size: 14px;
+}

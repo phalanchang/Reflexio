@@ -1,3 +1,177 @@
+/* ===== テーマ変数 ===== */
+:root {
+  /* Header */
+  --header-bg: #2c3e50;
+  --header-text: white;
+  --header-logout-border: rgba(255, 255, 255, 0.3);
+  --header-logout-hover-bg: rgba(255, 255, 255, 0.1);
+
+  /* Sidebar（DEV1が Sidebar.css で使用） */
+  --sidebar-bg: #34495e;
+  --sidebar-link-color: rgba(255, 255, 255, 0.8);
+  --sidebar-link-hover-bg: rgba(255, 255, 255, 0.1);
+  --sidebar-link-active-bg: rgba(255, 255, 255, 0.15);
+  --sidebar-link-active-border: #3498db;
+  --sidebar-toggle-color: rgba(255, 255, 255, 0.6);
+  --sidebar-toggle-hover-bg: rgba(255, 255, 255, 0.15);
+
+  /* Main Content */
+  --main-bg: #f5f5f5;
+
+  /* Card / Table */
+  --card-bg: #fff;
+  --card-border: #e0e0e0;
+  --card-hover-shadow: rgba(0, 0, 0, 0.08);
+  --table-even-bg: #fafafa;
+  --table-hover-bg: #f0f7ff;
+  --table-header-border: #e0e0e0;
+
+  /* Text */
+  --text-primary: #333;
+  --text-secondary: #666;
+  --text-muted: #888;
+  --text-light: #ccc;
+
+  /* Border */
+  --border-color: #e0e0e0;
+  --border-light: #f0f0f0;
+
+  /* Filter */
+  --filter-bg: #fafafa;
+  --filter-chip-bg: white;
+  --filter-chip-border: #ccc;
+  --filter-chip-color: #666;
+
+  /* Form */
+  --form-bg: white;
+  --form-input-border: #ddd;
+  --form-input-bg: white;
+  --form-label-color: #555;
+
+  /* Buttons */
+  --btn-primary-bg: #4a90d9;
+  --btn-primary-hover-bg: #357abd;
+  --btn-secondary-bg: #f0f0f0;
+  --btn-secondary-color: #555;
+  --btn-secondary-hover-bg: #e0e0e0;
+  --btn-edit-hover-bg: #e3f2fd;
+  --btn-delete-hover-bg: #ffebee;
+  --image-add-hover-bg: #e3f2fd;
+
+  /* Empty State */
+  --empty-bg: #fafafa;
+  --empty-border: #ddd;
+
+  /* Toast */
+  --toast-shadow: rgba(0, 0, 0, 0.15);
+  --toast-success-bg: #d4edda;
+  --toast-success-border: #28a745;
+  --toast-success-color: #155724;
+  --toast-error-bg: #f8d7da;
+  --toast-error-border: #dc3545;
+  --toast-error-color: #721c24;
+  --toast-info-bg: #d1ecf1;
+  --toast-info-border: #17a2b8;
+  --toast-info-color: #0c5460;
+
+  /* View Toggle */
+  --toggle-bg: #f0f0f0;
+  --toggle-border: #ddd;
+  --toggle-color: #888;
+  --toggle-hover-bg: #e0e0e0;
+  --toggle-active-bg: #4a90d9;
+  --toggle-active-color: white;
+
+  /* Image */
+  --image-border: #e0e0e0;
+  --image-remove-bg: rgba(0, 0, 0, 0.6);
+}
+
+[data-theme="dark"] {
+  /* Header */
+  --header-bg: #1a1a2e;
+
+  /* Sidebar */
+  --sidebar-bg: #16213e;
+  --sidebar-link-color: rgba(255, 255, 255, 0.7);
+  --sidebar-link-hover-bg: rgba(255, 255, 255, 0.08);
+  --sidebar-link-active-bg: rgba(255, 255, 255, 0.12);
+  --sidebar-link-active-border: #5a9fd9;
+  --sidebar-toggle-color: rgba(255, 255, 255, 0.5);
+  --sidebar-toggle-hover-bg: rgba(255, 255, 255, 0.1);
+
+  /* Main Content */
+  --main-bg: #1e1e2e;
+
+  /* Card / Table */
+  --card-bg: #2a2a3e;
+  --card-border: #3a3a50;
+  --card-hover-shadow: rgba(0, 0, 0, 0.3);
+  --table-even-bg: #252538;
+  --table-hover-bg: #303050;
+  --table-header-border: #3a3a50;
+
+  /* Text */
+  --text-primary: #e0e0e0;
+  --text-secondary: #aaa;
+  --text-muted: #888;
+  --text-light: #555;
+
+  /* Border */
+  --border-color: #3a3a50;
+  --border-light: #333348;
+
+  /* Filter */
+  --filter-bg: #252538;
+  --filter-chip-bg: #2a2a3e;
+  --filter-chip-border: #4a4a60;
+  --filter-chip-color: #aaa;
+
+  /* Form */
+  --form-bg: #2a2a3e;
+  --form-input-border: #4a4a60;
+  --form-input-bg: #1e1e2e;
+  --form-label-color: #ccc;
+
+  /* Buttons */
+  --btn-primary-bg: #5a9fd9;
+  --btn-primary-hover-bg: #4a90d9;
+  --btn-secondary-bg: #3a3a50;
+  --btn-secondary-color: #ccc;
+  --btn-secondary-hover-bg: #4a4a60;
+  --btn-edit-hover-bg: rgba(74, 144, 217, 0.15);
+  --btn-delete-hover-bg: rgba(204, 51, 51, 0.15);
+  --image-add-hover-bg: rgba(74, 144, 217, 0.15);
+
+  /* Empty State */
+  --empty-bg: #252538;
+  --empty-border: #3a3a50;
+
+  /* Toast */
+  --toast-shadow: rgba(0, 0, 0, 0.4);
+  --toast-success-bg: #1b3d2a;
+  --toast-success-border: #28a745;
+  --toast-success-color: #a3d9b1;
+  --toast-error-bg: #3d1b1b;
+  --toast-error-border: #dc3545;
+  --toast-error-color: #e8a0a0;
+  --toast-info-bg: #1b2d3d;
+  --toast-info-border: #17a2b8;
+  --toast-info-color: #a0d1e8;
+
+  /* View Toggle */
+  --toggle-bg: #3a3a50;
+  --toggle-border: #4a4a60;
+  --toggle-color: #888;
+  --toggle-hover-bg: #4a4a60;
+  --toggle-active-bg: #5a9fd9;
+  --toggle-active-color: white;
+
+  /* Image */
+  --image-border: #3a3a50;
+  --image-remove-bg: rgba(0, 0, 0, 0.7);
+}
+
 * {
   margin: 0;
   padding: 0;
@@ -18,5 +192,5 @@ html, body, #root {
   align-items: center;
   height: 100vh;
   font-size: 18px;
-  color: #666;
+  color: var(--text-secondary);
 }

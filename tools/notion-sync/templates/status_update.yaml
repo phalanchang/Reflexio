@@ -1,0 +1,42 @@
+name: status_update
+description: ステータス更新（既存ページの状態変更用）
+database_id: "{{database_id}}"
+title: "{{title}} - {{date}}"
+properties:
+  Status:
+    select:
+      name: "{{status}}"
+  Date:
+    date:
+      start: "{{date}}"
+content: |
+  ## ステータス更新
+  - 更新者: {{agent}}
+  - ステータス: {{status}}
+  - 更新日時: {{date}}
+
+  ## メモ
+  {{memo}}
+variables:
+  - name: database_id
+    required: true
+    description: "対象 Database ID"
+  - name: title
+    required: false
+    default: "ステータス更新"
+    description: "ページタイトル"
+  - name: agent
+    required: false
+    default: "Clawdbot"
+    description: "更新者名"
+  - name: status
+    required: true
+    description: "新しいステータス"
+  - name: date
+    required: false
+    default: "today"
+    description: "日付（デフォルト: 今日）"
+  - name: memo
+    required: false
+    default: ""
+    description: "追加メモ（任意）"

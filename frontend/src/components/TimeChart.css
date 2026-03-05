@@ -1,0 +1,72 @@
+/* チャートコンテナ */
+.time-chart {
+  width: 100%;
+  min-height: 300px;
+}
+
+/* カスタムツールチップ */
+.chart-tooltip {
+  background: white;
+  border: 1px solid #e0e0e0;
+  border-radius: 4px;
+  padding: 10px 14px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+  font-size: 13px;
+}
+
+.chart-tooltip-label {
+  font-weight: bold;
+  margin-bottom: 6px;
+  color: #333;
+}
+
+.chart-tooltip p {
+  margin: 2px 0;
+}
+
+.chart-tooltip-total {
+  margin-top: 6px;
+  padding-top: 6px;
+  border-top: 1px solid #eee;
+  font-weight: bold;
+  color: #333;
+}
+
+/* データ0件メッセージ */
+.chart-empty {
+  text-align: center;
+  padding: 60px 20px;
+  color: #999;
+  font-size: 14px;
+}
+
+/* ローディング */
+.chart-loading {
+  text-align: center;
+  padding: 60px 20px;
+  color: #999;
+  font-size: 14px;
+}
+
+/* エラーメッセージ */
+.chart-error {
+  text-align: center;
+  padding: 40px 20px;
+  color: #e53935;
+  font-size: 14px;
+}
+
+.chart-error button {
+  margin-top: 12px;
+  padding: 6px 16px;
+  background: #e53935;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 13px;
+}
+
+.chart-error button:hover {
+  background: #c62828;
+}
