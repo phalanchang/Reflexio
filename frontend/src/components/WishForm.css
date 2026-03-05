@@ -1,13 +1,13 @@
 .wish-form-container {
-  background: white;
-  border: 1px solid #e0e0e0;
+  background: var(--form-bg);
+  border: 1px solid var(--card-border);
   border-radius: 8px;
   padding: 24px;
   margin-bottom: 20px;
 }
 
 .wish-form-title {
-  color: #333;
+  color: var(--text-primary);
   margin-bottom: 20px;
   font-size: 18px;
 }
@@ -20,7 +20,7 @@
 .wish-form .form-group label {
   display: block;
   margin-bottom: 5px;
-  color: #555;
+  color: var(--form-label-color);
   font-weight: 500;
   font-size: 14px;
 }
@@ -34,18 +34,20 @@
 .wish-form .form-group textarea {
   width: 100%;
   padding: 10px 12px;
-  border: 1px solid #ddd;
+  border: 1px solid var(--form-input-border);
   border-radius: 4px;
   font-size: 14px;
   box-sizing: border-box;
   font-family: inherit;
+  background-color: var(--form-input-bg);
+  color: var(--text-primary);
 }
 
 .wish-form .form-group input:focus,
 .wish-form .form-group select:focus,
 .wish-form .form-group textarea:focus {
   outline: none;
-  border-color: #4a90d9;
+  border-color: var(--btn-primary-bg);
   box-shadow: 0 0 0 2px rgba(74, 144, 217, 0.2);
 }
 
@@ -60,8 +62,8 @@
 }
 
 .wish-form .error-message {
-  background-color: #fee;
-  color: #c33;
+  background-color: var(--toast-error-bg);
+  color: var(--toast-error-color);
   padding: 10px;
   border-radius: 4px;
   margin-bottom: 15px;
@@ -84,26 +86,26 @@
 }
 
 .btn-primary {
-  background-color: #4a90d9;
+  background-color: var(--btn-primary-bg);
   color: white;
 }
 
 .btn-primary:hover {
-  background-color: #357abd;
+  background-color: var(--btn-primary-hover-bg);
 }
 
 .btn-primary:disabled {
-  background-color: #ccc;
+  background-color: var(--text-light);
   cursor: not-allowed;
 }
 
 .btn-secondary {
-  background-color: #f0f0f0;
-  color: #555;
+  background-color: var(--btn-secondary-bg);
+  color: var(--btn-secondary-color);
 }
 
 .btn-secondary:hover {
-  background-color: #e0e0e0;
+  background-color: var(--btn-secondary-hover-bg);
 }
 
 .btn-secondary:disabled {
@@ -119,7 +121,7 @@
 .image-preview-label {
   display: block;
   margin-bottom: 5px;
-  color: #555;
+  color: var(--form-label-color);
   font-weight: 500;
   font-size: 14px;
 }
@@ -136,7 +138,7 @@
   height: 80px;
   border-radius: 4px;
   overflow: hidden;
-  border: 1px solid #ddd;
+  border: 1px solid var(--form-input-border);
 }
 
 .image-preview-item img {
@@ -153,7 +155,7 @@
   width: 20px;
   height: 20px;
   border-radius: 50%;
-  background: rgba(0, 0, 0, 0.6);
+  background: var(--image-remove-bg);
   color: white;
   border: none;
   cursor: pointer;
@@ -178,27 +180,27 @@
 
 .image-add-btn {
   padding: 6px 14px;
-  border: 1px dashed #4a90d9;
+  border: 1px dashed var(--btn-primary-bg);
   border-radius: 4px;
-  background: white;
-  color: #4a90d9;
+  background: var(--form-bg);
+  color: var(--btn-primary-bg);
   font-size: 13px;
   cursor: pointer;
 }
 
 .image-add-btn:hover {
-  background: #e3f2fd;
+  background: var(--image-add-hover-bg);
 }
 
 .image-add-btn:disabled {
-  border-color: #ccc;
-  color: #ccc;
+  border-color: var(--text-light);
+  color: var(--text-light);
   cursor: not-allowed;
 }
 
 .image-paste-hint {
   font-size: 12px;
-  color: #999;
+  color: var(--text-muted);
 }
 
 .image-error {

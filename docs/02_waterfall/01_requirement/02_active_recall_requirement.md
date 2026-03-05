@@ -155,7 +155,22 @@ next_review_date = today + interval
 
 - `next_review_date <= today` の知識アイテムが「今日の復習対象」
 - 新規登録アイテム（next_review_date = NULL）は即日復習対象
-- 1日の復習数上限: 設定なし（MVP）、将来的にユーザー設定可能
+- 1日の復習数上限: 設定なし（全件表示）
+
+### 3.2.1 セッション出題数の選択（MVP）
+
+スキマ時間での軽い復習を想定し、セッション開始時に**出題数を選択**できる。
+
+| 選択肢 | 説明 |
+|--------|------|
+| 5問 | 最小セッション（約2-3分） |
+| 10問 | 標準セッション（約5分）— **デフォルト** |
+| 15問 | やや長めセッション（約8分） |
+| 全て | 復習対象を全件出題 |
+
+- 復習対象が選択数より少ない場合は全件出題（例: 対象3件で「10問」選択 → 3件出題）
+- 出題優先順序: ① 期限超過日数が多い順（`DATEDIFF(CURDATE(), next_review_date) DESC`）、② 新規アイテム（`next_review_date IS NULL`）
+- 出題数選択UIは ReviewSession 画面の冒頭に表示（セッション開始前のステップ）
 
 ### 3.3 配信方法
 
@@ -167,16 +182,39 @@ next_review_date = today + interval
 
 ### 3.4 復習セッションフロー
 
+#### 開始動線（2パターン）
+
+| 動線 | フロー | 説明 |
+|------|--------|------|
+| ダッシュボード経由 | Dashboard「今日の復習」→ 復習開始 → ReviewSession | 標準動線 |
+| サイドバー直接 | サイドバー「🔄 復習」→ ReviewSession | **クイック起動**（スキマ時間向け） |
+
+- サイドバーからの直接アクセス時も、出題数選択ステップは表示する
+- 復習対象が0件の場合は「復習対象なし」メッセージを表示
+
+#### セッション進行フロー
+
 ```
-1. ダッシュボード「今日の復習」→ 復習開始ボタン
-2. セッション作成（/api/reviews/sessions POST）
-3. 対象アイテムからランダム or 順次でクイズ出題
-4. ユーザーが回答 → 正解表示
-5. ユーザーが品質評価（0-5）を選択
-6. SM-2パラメータ更新 + quiz_attempt 記録
-7. 次の問題へ（残問題がなくなるまで）
-8. セッション完了 → 結果サマリー表示
+1. ReviewSession 画面にアクセス（ダッシュボード or サイドバー）
+2. 復習対象件数の表示 + 出題数選択（5 / 10 / 15 / 全て）
+3. セッション作成（/api/reviews/sessions POST {max_items: N}）
+4. 対象アイテムから優先度順でクイズ出題
+5. ユーザーが回答 → 正解表示
+6. ユーザーが品質評価（0-5）を選択
+7. SM-2パラメータ更新 + quiz_attempt 記録
+8. 次の問題へ（出題数に達する or 残問題がなくなるまで）
+9. セッション完了 → 結果サマリー表示
 ```
+
+#### 途中終了（Early Exit）
+
+スキマ時間利用では、セッション途中で離脱する場面がある。途中終了を許容する:
+
+- セッション中に「終了する」ボタンを常時表示
+- 途中終了時: 回答済み分のみスコア算出、SM-2更新済みなので整合性は保たれる
+- `POST /sessions/:sessionId/complete` を呼び出し、`total_items` を回答済み件数に更新
+- 未回答アイテムは `next_review_date` が変わらないため、次回セッションで再度出題される
+- 結果サマリーには「N問中M問回答」と表示
 
 ---
 
@@ -257,24 +295,28 @@ overall_retention = AVG(all knowledge_items.retention_score for user)
 │   ウィジェット │                              │
 └──────┬───────┘                              │
        │ サイドバー「📚 学習」                    │ 「復習開始」ボタン
-       ▼                                      ▼
-┌──────────────┐                     ┌──────────────┐
-│ KnowledgeList│                     │ReviewSession │
-│  知識一覧     │                     │  復習画面     │
-│ フィルタ機能   │                     │ カード式出題   │
-│ +定着度グラフ  │                     │ 回答→評価     │
-└──────┬───────┘                     └──────┬───────┘
-       │ 新規追加 / 詳細                      │ セッション完了
-       ▼                                      ▼
-┌──────────────┐                     ┌──────────────┐
-│KnowledgeForm │                     │ ReviewResult │
-│ 知識登録/編集  │                     │  復習結果     │
-│ +クイズ同時作成│                     │ スコア/正誤   │
-└──────┬───────┘                     └──────────────┘
-       │ クイズ管理
-       ▼
-┌──────────────┐
-│  QuizForm    │
+       ▼                                      │
+┌──────────────┐     サイドバー「🔄 復習」        │
+│ KnowledgeList│     （クイック起動）             │
+│  知識一覧     │──────────┐                    │
+│ フィルタ機能   │          │                    │
+│ +定着度グラフ  │          │                    │
+└──────┬───────┘          ▼                    ▼
+       │           ┌──────────────┐   ┌──────────────┐
+       │           │ 出題数選択    │──→│ReviewSession │
+       │           │ 5/10/15/全て  │   │  復習画面     │
+       │           └──────────────┘   │ カード式出題   │
+       │ 新規追加 / 詳細               │ 回答→評価     │
+       ▼                              │ [途中終了]    │
+┌──────────────┐                     └──────┬───────┘
+│KnowledgeForm │                            │ 完了 or 途中終了
+│ 知識登録/編集  │                            ▼
+│ +クイズ同時作成│                     ┌──────────────┐
+└──────┬───────┘                     │ ReviewResult │
+       │ クイズ管理                    │  復習結果     │
+       ▼                              │ N問中M問回答  │
+┌──────────────┐                     │ スコア/正誤   │
+│  QuizForm    │                     └──────────────┘
 │ クイズ追加/編集│
 │ Q&A形式       │
 └──────────────┘
@@ -432,15 +474,19 @@ users (1) ──────── (N) knowledge_items
 
 | Method | Path | 認証 | Request Body | Response |
 |--------|------|------|-------------|----------|
-| GET | `/api/reviews/today` | 必要 | - | `{items: [{knowledge_item, quizzes}, ...], count: N}` |
-| POST | `/api/reviews/sessions` | 必要 | - | `{session: {id, total_items, started_at}}` (201) |
+| GET | `/api/reviews/today` | 必要 | Query: `?limit=10` | `{items: [{knowledge_item, quizzes}, ...], count: N, total_due: M}` |
+| POST | `/api/reviews/sessions` | 必要 | `{max_items?: 10}` | `{session: {id, total_items, started_at}}` (201) |
 | POST | `/api/reviews/sessions/:sessionId/answer` | 必要 | `{quiz_id, user_answer?, is_correct, quality_rating}` | `{message, attempt, updated_item}` |
-| POST | `/api/reviews/sessions/:sessionId/complete` | 必要 | - | `{message, summary: {total, correct, score}}` |
+| POST | `/api/reviews/sessions/:sessionId/complete` | 必要 | - | `{message, summary: {total, correct, answered, score}}` |
 | GET | `/api/reviews/history` | 必要 | Query: `?limit=20&offset=0` | `{sessions: [...], total: N}` |
 
 - `today`: `next_review_date <= CURDATE() OR next_review_date IS NULL` の知識アイテムとクイズを返却
+  - `limit` パラメータ（任意）: 出題数制限。省略時は全件返却
+  - `total_due`: limit適用前の復習対象総数（出題数選択UIで「今日の復習対象: N件」表示用）
+  - 出題優先順序: ① 期限超過日数の多い順、② 新規アイテム（next_review_date IS NULL）
+- `sessions POST`: `max_items` で出題予定数を記録（途中終了時の `total_items` 調整に使用）
 - `answer`: SM-2パラメータを即座に更新（knowledge_items の EF/repetitions/interval/next_review_date/retention_score）
-- `complete`: セッションの score を算出して更新
+- `complete`: セッションの score を算出して更新。`answered` = 実際に回答した件数（途中終了対応）
 
 ### 統計API (`/api/knowledge/stats`)
 
@@ -485,6 +531,7 @@ users (1) ──────── (N) knowledge_items
 | Discord通知 | Sprint AR-5 | Clawdbot経由の復習リマインダー |
 | Google Calendar連携 | Sprint AR-5 | 復習予定をカレンダーに自動登録 |
 | 知識タグ機能 | 将来 | 既存tagsシステムとの統合（knowledge_tags中間テーブル） |
+| カテゴリ分散出題 | 将来 | インターリーブ効果を活用し、出題順をカテゴリでラウンドロビン分散 |
 | インポート/エクスポート | 将来 | CSV/Markdown形式でのデータ入出力 |
 | Notion連携 | 将来 | Notion APIを使った知識同期 |
 | 画像添付 | 将来 | 既存wish_images パターンを流用した知識への画像添付 |

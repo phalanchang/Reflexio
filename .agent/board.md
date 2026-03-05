@@ -221,3 +221,59 @@
 | 2026-02-25T10:50:00+09:00 | PL_to_TESTER_017 | PL | TESTER | test_request | テスト依頼: Notion Sync Tool（バッチ・テンプレート・Upsert・レート制限） | completed |
 | 2026-02-25T11:05:00+09:00 | TESTER_to_PL_017 | TESTER | PL | test_result | テスト結果報告: Notion Sync Tool 全30項目PASS | read |
 | 2026-02-25T11:10:00+09:00 | PL_to_PM_022 | PL | PM | completion | 完了報告: Notion Sync Tool 全工程完了 — 3タスク全完了 | read |
+| 2026-03-04T22:30:00+09:00 | PM_to_PL_023 | PM | PL | task | Sprint 9a: やりたいこと画面 UI改善 — テーブルビュー + 全幅化 + 期限視覚強調 | in_progress |
+| 2026-03-04T22:35:00+09:00 | PL_to_DEV1_017 | PL | DEV1 | task | Sprint 9a 改善3: サイドバー折りたたみ + 全幅レイアウト対応 | completed |
+| 2026-03-04T22:50:00+09:00 | DEV1_to_PL_017 | DEV1 | PL | completion | 完了: Sprint 9a 改善3 サイドバー折りたたみ + 全幅レイアウト対応 | read |
+| 2026-03-04T22:35:00+09:00 | PL_to_DEV2_021 | PL | DEV2 | task | Sprint 9a 改善1+5: テーブルビュー + 全幅化 + 期限視覚強調 | completed |
+| 2026-03-04T22:55:00+09:00 | DEV2_to_PL_021 | DEV2 | PL | completion | 完了: Sprint 9a 改善1+5 テーブルビュー+全幅化+期限視覚強調 | read |
+| 2026-03-04T23:00:00+09:00 | PL_to_REVIEWER_017 | PL | REVIEWER | review_request | レビュー依頼: Sprint 9a やりたいこと画面 UI改善（テーブル+サイドバー+期限色） | in_progress |
+| 2026-03-04T23:20:00+09:00 | REVIEWER_to_PL_017 | REVIEWER | PL | review_result | レビュー結果: Sprint 9a APPROVE（SHOULD 1件 + NICE 3件） | read |
+| 2026-03-04T23:25:00+09:00 | PL_to_DEV1_018 | PL | DEV1 | task | レビュー指摘修正: MainLayout.css dead CSS 削除 | completed |
+| 2026-03-04T23:30:00+09:00 | DEV1_to_PL_018 | DEV1 | PL | completion | 完了: レビュー指摘修正 MainLayout.css dead CSS 削除 | read |
+| 2026-03-04T23:35:00+09:00 | PL_to_TESTER_018 | PL | TESTER | test_request | テスト依頼: Sprint 9a やりたいこと画面 UI改善 全52項目 | in_progress |
+| 2026-03-04T23:45:00+09:00 | TESTER_to_PL_018 | TESTER | PL | test_result | テスト結果報告: Sprint 9a やりたいこと画面 UI改善 全52項目PASS | read |
+| 2026-03-04T23:50:00+09:00 | PL_to_PM_023 | PL | PM | completion | Sprint 9a 完了報告: やりたいこと画面 UI改善 全工程完了 | read |
+| 2026-03-04T23:50:00+09:00 | PL_to_LIBRARIAN_017 | PL | LIBRARIAN | doc_update | ドキュメント更新依頼: Sprint 9a やりたいこと画面 UI改善 | completed |
+| 2026-03-05T00:00:00+09:00 | LIBRARIAN_to_PL_017 | LIBRARIAN | PL | completion | 完了: Sprint 9a やりたいこと画面 UI改善 ドキュメント更新 | read |
+| 2026-03-05T00:05:00+09:00 | PM_to_PL_024 | PM | PL | task | Sprint 9b: ダークモード実装 + サイドバートグルボタンのデザイン改善 | in_progress |
+| 2026-03-05T00:10:00+09:00 | PL_to_DEV1_019 | PL | DEV1 | task | Sprint 9b: サイドバートグル改善 + Sidebar.css ダークモード変数化 | completed |
+| 2026-03-05T00:20:00+09:00 | DEV1_to_PL_019 | DEV1 | PL | completion | 完了: Sprint 9b サイドバートグル改善 + Sidebar.css ダークモード変数化 | read |
+| 2026-03-05T00:10:00+09:00 | PL_to_DEV2_022 | PL | DEV2 | task | Sprint 9b: ダークモード実装（CSS変数 + テーマ切替 + 全CSS変数化） | completed |
+| 2026-03-05T00:30:00+09:00 | DEV2_to_PL_022 | DEV2 | PL | completion | 完了: Sprint 9b ダークモード実装（CSS変数+テーマ切替+全CSS変数化） | read |
+| 2026-03-05T00:40:00+09:00 | PL_to_REVIEWER_018 | PL | REVIEWER | review_request | レビュー依頼: Sprint 9b ダークモード実装 + サイドバートグル改善 | in_progress |
+| 2026-03-05T01:00:00+09:00 | REVIEWER_to_PL_018 | REVIEWER | PL | review_result | レビュー結果: Sprint 9b APPROVE（SHOULD 1件 + NICE 4件） | read |
+| 2026-03-05T01:05:00+09:00 | PL_to_DEV2_023 | PL | DEV2 | task | レビュー指摘修正: ダークモード時のホバー背景色3箇所 | completed |
+| 2026-03-05T01:10:00+09:00 | DEV2_to_PL_023 | DEV2 | PL | completion | 完了: レビュー指摘修正 ダークモード時のホバー背景色3箇所 | read |
+| 2026-03-05T01:15:00+09:00 | PL_to_TESTER_019 | PL | TESTER | test_request | テスト依頼: Sprint 9b ダークモード実装 + サイドバートグル改善（全66項目） | in_progress |
+| 2026-03-05T01:35:00+09:00 | TESTER_to_PL_019 | TESTER | PL | test_result | テスト結果報告: Sprint 9b ダークモード+サイドバートグル改善 全66項目PASS | read |
+| 2026-03-05T01:40:00+09:00 | PL_to_PM_024 | PL | PM | completion | Sprint 9b 完了報告: ダークモード実装 + サイドバートグル改善 全工程完了 | read |
+| 2026-03-05T01:40:00+09:00 | PL_to_LIBRARIAN_018 | PL | LIBRARIAN | doc_update | ドキュメント更新依頼: Sprint 9b ダークモード実装 + サイドバートグル改善 | completed |
+| 2026-03-05T01:48:00+09:00 | LIBRARIAN_to_PL_018 | LIBRARIAN | PL | completion | 完了: Sprint 9b ダークモード+サイドバートグル改善 ドキュメント更新 | read |
+| 2026-03-05T02:15:00+09:00 | PM_to_PL_025 | PM | PL | task | Sprint 9c: サマリーバー + 統合ツールバー（検索・ソート・ステータスフィルタ） | in_progress |
+| 2026-03-05T02:25:00+09:00 | PL_to_DEV1_020 | PL | DEV1 | task | Sprint 9c: 統合ツールバーUI（WishFilter.js 改修 — 検索+ソート+コンパクト化） | completed |
+| 2026-03-05T02:40:00+09:00 | DEV1_to_PL_020 | DEV1 | PL | completion | 完了: Sprint 9c 統合ツールバーUI（検索+ソート+コンパクト化） | read |
+| 2026-03-05T02:25:00+09:00 | PL_to_DEV2_024 | PL | DEV2 | task | Sprint 9c: サマリーバー + 検索/ソートロジック（WishList.js + WishList.css） | completed |
+| 2026-03-05T02:45:00+09:00 | DEV2_to_PL_024 | DEV2 | PL | completion | 完了: Sprint 9c サマリーバー+検索/ソートロジック（WishList.js+WishList.css） | read |
+| 2026-03-05T03:00:00+09:00 | PL_to_REVIEWER_019 | PL | REVIEWER | review_request | レビュー依頼: Sprint 9c サマリーバー + 統合ツールバー（検索・ソート・ステータスフィルタ） | in_progress |
+| 2026-03-05T03:20:00+09:00 | REVIEWER_to_PL_019 | REVIEWER | PL | review_result | レビュー結果: Sprint 9c APPROVE（指摘なし・NICE 3件） | read |
+| 2026-03-05T03:25:00+09:00 | PL_to_TESTER_020 | PL | TESTER | test_request | テスト依頼: Sprint 9c サマリーバー + 統合ツールバー（検索・ソート・ステータスフィルタ）全65項目 | completed |
+| 2026-03-05T09:35:00+09:00 | TESTER_to_PL_020 | TESTER | PL | test_result | テスト結果: Sprint 9c サマリーバー+統合ツールバー 全65項目PASS | read |
+| 2026-03-05T09:40:00+09:00 | PL_to_PM_025 | PL | PM | completion | Sprint 9c 完了報告: サマリーバー + 統合ツールバー 全工程完了 | read |
+| 2026-03-05T09:40:00+09:00 | PL_to_LIBRARIAN_019 | PL | LIBRARIAN | doc_update | ドキュメント更新依頼: Sprint 9c サマリーバー + 統合ツールバー | completed |
+| 2026-03-05T09:48:00+09:00 | LIBRARIAN_to_PL_019 | LIBRARIAN | PL | completion | 完了: Sprint 9c サマリーバー+統合ツールバー ドキュメント更新 | read |
+| 2026-03-05T10:00:00+09:00 | PM_to_PL_026 | PM | PL | task | Sprint 9d: コンテキストメニュー+一括操作+キーボードショートカット【計画準備済み・着手待ち】 | completed |
+| 2026-03-05T10:10:00+09:00 | PL_to_DEV1_021 | PL | DEV1 | task | Sprint 9d Phase 1: ActionMenu コンポーネント新規作成（ActionMenu.js + ActionMenu.css） | completed |
+| 2026-03-05T10:25:00+09:00 | DEV1_to_PL_021 | DEV1 | PL | completion | 完了: Sprint 9d Phase 1 ActionMenu コンポーネント新規作成 | read |
+| 2026-03-05T10:10:00+09:00 | PL_to_DEV2_025 | PL | DEV2 | task | Sprint 9d Phase 1: キーボードショートカット関連ファイル新規作成（useKeyboardShortcuts.js + ShortcutHelp.js/css） | completed |
+| 2026-03-05T10:30:00+09:00 | DEV2_to_PL_025 | DEV2 | PL | completion | 完了: Sprint 9d Phase 1 キーボードショートカット関連ファイル新規作成 | read |
+| 2026-03-05T10:40:00+09:00 | PL_to_DEV1_022 | PL | DEV1 | task | Sprint 9d Phase 2: WishList.js+WishList.css 一括統合（改善6+7+8） | completed |
+| 2026-03-05T11:00:00+09:00 | DEV1_to_PL_022 | DEV1 | PL | completion | 完了: Sprint 9d Phase 2 WishList.js+WishList.css 一括統合（改善6+7+8） | read |
+| 2026-03-05T11:10:00+09:00 | PL_to_REVIEWER_020 | PL | REVIEWER | review_request | レビュー依頼: Sprint 9d コンテキストメニュー+一括操作+キーボードショートカット（8ファイル） | in_progress |
+| 2026-03-05T11:35:00+09:00 | REVIEWER_to_PL_020 | REVIEWER | PL | review_result | レビュー結果: Sprint 9d APPROVE（SHOULD 2件 + NICE 3件） | read |
+| 2026-03-05T11:40:00+09:00 | PL_to_DEV1_023 | PL | DEV1 | task | レビュー指摘修正: WishList.js SHOULD 2件（isDisabled + focusedIndex clamp） | completed |
+| 2026-03-05T11:50:00+09:00 | DEV1_to_PL_023 | DEV1 | PL | completion | 完了: レビュー指摘修正 WishList.js SHOULD 2件（isDisabled + focusedIndex clamp） | read |
+| 2026-03-05T11:55:00+09:00 | PL_to_TESTER_021 | PL | TESTER | test_request | テスト依頼: Sprint 9d コンテキストメニュー+一括操作+キーボードショートカット 全76項目 | completed |
+| 2026-03-05T12:30:00+09:00 | TESTER_to_PL_021 | TESTER | PL | test_result | テスト結果: Sprint 9d コンテキストメニュー+一括操作+キーボードショートカット 全76項目PASS | read |
+| 2026-03-05T12:35:00+09:00 | PL_to_PM_026 | PL | PM | completion | Sprint 9d 完了報告: コンテキストメニュー+一括操作+キーボードショートカット 全工程完了 | read |
+| 2026-03-05T12:35:00+09:00 | PL_to_LIBRARIAN_020 | PL | LIBRARIAN | doc_update | ドキュメント更新依頼: Sprint 9d コンテキストメニュー+一括操作+キーボードショートカット | completed |
+| 2026-03-05T12:42:00+09:00 | LIBRARIAN_to_PL_020 | LIBRARIAN | PL | completion | 完了: Sprint 9d コンテキストメニュー+一括操作+キーボードショートカット ドキュメント更新 | read |

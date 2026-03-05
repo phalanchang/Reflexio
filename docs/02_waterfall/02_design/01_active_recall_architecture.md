@@ -336,27 +336,40 @@ App.js
 |--------------|----------|
 | KnowledgeList | `items`, `filter`, `stats`, `loading` |
 | KnowledgeForm | `formData`, `quizzes`, `errors`, `submitting` |
-| ReviewSession | `session`, `currentIndex`, `items`, `answers`, `phase` (question/answer/rating) |
+| ReviewSession | `session`, `currentIndex`, `items`, `answers`, `phase` (setup/question/answer/rating), `maxItems` |
 | ReviewResult | `summary`, `attempts` |
 | RetentionChart | `data`, `period`, `loading` |
 
 ### 5.3 ReviewSession の画面遷移（内部状態）
 
 ```
+[phase: 'setup']
+┌──────────────┐
+│ 復習対象: N件  │
+│ 出題数選択:   │
+│ [5][10][15]  │
+│ [全て]       │
+│ [復習開始]   │
+└──────┬───────┘
+       │ セッション作成
+       ▼
 [phase: 'question']       [phase: 'answer']        [phase: 'rating']
 ┌──────────────┐          ┌──────────────┐          ┌──────────────┐
 │ Q: 問題文     │ ──回答──→ │ A: 正解表示   │ ──次へ──→ │ 品質評価     │
 │              │          │ ユーザー回答   │          │ 0 1 2 3 4 5  │
 │ [回答を表示]  │          │ 正誤判定      │          │ [次の問題]   │
+│ [途中終了]    │          │              │          │ [途中終了]   │
 └──────────────┘          └──────────────┘          └──────┬───────┘
                                                           │
                                                     POST /answer
                                                           │
-                                            ┌─────────────┴──────────┐
-                                            │ 残問題あり   │ 全完了    │
-                                            ▼             ▼          │
-                                     [phase: 'question'] POST /complete
-                                                          │
+                                         ┌────────────────┼──────────┐
+                                         │ 残問題あり      │ 全完了    │
+                                         ▼                ▼          │
+                                  [phase: 'question'] POST /complete │
+                                                          │          │
+         [途中終了] ──→ POST /complete ──→ [ReviewResult]  │
+                        (回答済み分のみ)     (N問中M問回答)   │
                                                     [ReviewResult]
 ```
 

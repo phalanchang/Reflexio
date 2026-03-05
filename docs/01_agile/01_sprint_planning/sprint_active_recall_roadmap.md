@@ -100,33 +100,39 @@ SM-2アルゴリズムに基づく間隔反復学習の復習セッション機�
   - `calculateNextReview(ef, repetitions, interval, qualityRating)`
   - ユニットテスト可能な設計
 - [ ] `backend/routes/reviews.js` 新規作成
-  - GET /api/reviews/today（今日の復習対象取得）
-  - POST /api/reviews/sessions（セッション作成）
+  - GET /api/reviews/today（今日の復習対象取得、`?limit=N` 出題数制限対応）
+  - POST /api/reviews/sessions（セッション作成、`{max_items}` 出題予定数）
   - POST /api/reviews/sessions/:sessionId/answer（回答記録 + SM-2更新）
-  - POST /api/reviews/sessions/:sessionId/complete（セッション完了）
+  - POST /api/reviews/sessions/:sessionId/complete（セッション完了、途中終了対応）
   - GET /api/reviews/history（セッション履歴）
 - [ ] `backend/server.js` にルート登録
 
 #### フロントエンド（DEV2担当想定）
 - [ ] `ReviewSession.js` + `ReviewSession.css`（復習セッション画面）
+  - 出題数選択ステップ（setup phase: 5/10/15/全て、デフォルト10）
   - フラッシュカード形式（質問表示 → 回答表示 → 品質評価）
   - プログレスバー（進捗表示）
-  - 5状態分岐（復習なし/ローディング/エラー/セッション中/完了）
+  - 途中終了ボタン（回答済み分のみスコア算出）
+  - 6状態分岐（復習なし/ローディング/エラー/出題数選択/セッション中/完了）
 - [ ] `ReviewResult.js` + `ReviewResult.css`（復習結果画面）
-  - セッションスコア表示
+  - セッションスコア表示（途中終了時は「N問中M問回答」表示）
   - 各問題の正誤一覧
   - 「もう一度復習」「知識一覧へ」ボタン
 - [ ] `App.js` ルート追加（/review, /review/result/:sessionId）
 - [ ] `Sidebar.js` に「🔄 復習」メニュー追加
 
 ### 受け入れ基準
-- [ ] 復習期限が来た知識アイテムのクイズが出題される
+- [ ] セッション開始時に出題数（5/10/15/全て）を選択できる
+- [ ] 復習期限が来た知識アイテムのクイズが出題される（優先度順）
 - [ ] フラッシュカード形式で回答→正解表示→品質評価の流れが動作する
 - [ ] 品質評価(0-5)に基づいてSM-2パラメータが正しく更新される
 - [ ] 正解時は復習間隔が伸び、不正解時はリセットされる
+- [ ] セッション途中で「終了する」ボタンから途中終了できる
+- [ ] 途中終了時も回答済み分のスコアが正しく算出される
 - [ ] セッション完了後に結果サマリーが表示される
 - [ ] 復習履歴が閲覧できる
 - [ ] 新規登録した知識アイテムが即座に復習対象になる
+- [ ] サイドバー「🔄 復習」から直接セッション画面にアクセスできる
 
 ### 見積もり
 - **規模**: 大（SM-2アルゴリズムの正確な実装とテストが重要）

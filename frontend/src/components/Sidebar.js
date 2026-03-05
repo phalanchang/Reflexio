@@ -3,19 +3,22 @@ import { NavLink } from 'react-router-dom';
 import './Sidebar.css';
 
 const menuItems = [
-  { path: '/dashboard', label: 'Dashboard' },
-  { path: '/wishes', label: 'やりたいこと' },
-  { path: '/accounting', label: 'Accounting' },
-  { path: '/notes', label: 'Notes' },
-  { path: '/active-recall', label: 'ActiveRecall' },
-  { path: '/tasks', label: 'Task Management' },
-  { path: '/settings', label: '⚙️ 設定' },
-  { path: '/clawdbot', label: '🤖 Clawdbot Badge' },
+  { path: '/dashboard', label: 'Dashboard', short: 'D' },
+  { path: '/wishes', label: 'やりたいこと', short: 'や' },
+  { path: '/accounting', label: 'Accounting', short: 'A' },
+  { path: '/notes', label: 'Notes', short: 'N' },
+  { path: '/active-recall', label: 'ActiveRecall', short: 'R' },
+  { path: '/tasks', label: 'Task Management', short: 'T' },
+  { path: '/settings', label: '⚙️ 設定', short: '⚙️' },
+  { path: '/clawdbot', label: '🤖 Clawdbot Badge', short: '🤖' },
 ];
 
-function Sidebar() {
+function Sidebar({ collapsed, onToggle }) {
   return (
-    <aside className="sidebar">
+    <aside className={`sidebar ${collapsed ? 'collapsed' : ''}`}>
+      <button className="sidebar-toggle" onClick={onToggle} title={collapsed ? 'サイドバーを展開' : 'サイドバーを折りたたむ'}>
+        {collapsed ? '▶' : '◀'}
+      </button>
       <nav className="sidebar-nav">
         {menuItems.map((item) => (
           <NavLink
@@ -24,8 +27,9 @@ function Sidebar() {
             className={({ isActive }) =>
               `sidebar-link ${isActive ? 'sidebar-link-active' : ''}`
             }
+            title={item.label}
           >
-            {item.label}
+            {collapsed ? item.short : item.label}
           </NavLink>
         ))}
       </nav>

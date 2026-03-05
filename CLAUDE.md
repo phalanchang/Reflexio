@@ -78,6 +78,42 @@
     - ティア定義: bronz, sliver, gold, platinum, diamond, hihiirokane
   - 改修4: バッジ画像サイズ2倍化（48→96px、wrapper 72→120px、ラベル 11→13px）
   - フロントエンドのみ（バックエンド変更なし）
+- Sprint 9a 完了: やりたいこと画面 UI改善
+  - 改善1: テーブルビュー（カード→テーブル切替、情報密度3倍、6カラム、ゼブラストライプ）
+  - 改善3: サイドバー折りたたみ（◀/▶トグル、40px/250px、localStorage永続化）+ 全幅レイアウト（max-width削除）
+  - 改善5: 期限視覚強調（赤太字/オレンジ太字/黄色/グレー/薄グレーの5段階）
+  - ビュー切替: ☰テーブル / ▦カード（localStorage永続化）
+  - WishList.js: getDueDateClass, viewMode state, テーブルビュー描画
+  - WishList.css: max-width削除, テーブルCSS, 期限色CSS, ビュー切替CSS
+  - MainLayout.js: sidebarCollapsed state, toggleSidebar
+  - Sidebar.js: collapsed/onToggle props, トグルボタン, short表示
+  - Sidebar.css: collapsed スタイル, transition, toggle ボタン
+  - フロントエンドのみ（バックエンド変更なし）
+- Sprint 9b 完了: ダークモード実装 + サイドバートグル改善
+  - CSS変数（Custom Properties）で全色管理（:root 73+ / [data-theme="dark"] 57変数）
+  - テーマ切替ボタン（🌙/☀️）— localStorage永続化 + OS設定自動検出（matchMedia）
+  - data-theme属性でテーマ切替（MainLayout.js で管理）
+  - 全CSSファイル（10ファイル）のハードコード色をCSS変数化
+  - ステータス/優先度/期限/タグバッジ色は意図的にハードコード維持
+  - サイドバートグル改善: 展開時24x24px右上角、折りたたみ時上部100%幅
+  - 変更ファイル: App.css, MainLayout.js/css, Header.js/css, Sidebar.css, WishList.css, WishFilter.css, WishForm.css, Toast.css
+  - フロントエンドのみ（バックエンド変更なし）
+- Sprint 9c 完了: サマリーバー + 統合ツールバー
+  - 改善2: ステータスサマリーバー（全て/未着手/進行中/完了、件数付きバッジ、クリックフィルタOR条件）
+  - 改善4: 統合ツールバー（テキスト検索300msデバウンス、6種ソートlocalStorage永続化、1行コンパクト化）
+  - WishList.js: selectedStatuses/searchQuery/debouncedSearch/sortOrder state、PRIORITY_ORDER定数、sortWishes関数
+  - WishFilter.js: SORT_OPTIONS定数、検索フィールド(🔍+×)、ソートドロップダウン、1行flex化
+  - WishList.css: サマリーバースタイル(.summary-bar/.summary-badge、ステータス別セマンティックカラー)
+  - WishFilter.css: ツールバースタイル(.filter-search/.filter-sort、flex 1行化)
+  - フロントエンドのみ（バックエンド変更なし）
+- Sprint 9d 完了: コンテキストメニュー + 一括操作 + キーボードショートカット
+  - 改善6: ActionMenu（⋯ ドロップダウン、ステータス変更サブメニュー、API PUT即時反映）
+  - 改善7: 一括操作（チェックボックス列、フローティングアクションバー、Promise.all一括処理）
+  - 改善8: キーボードショートカット（N/E/Delete/↑↓/Space///Escape/?の9キー）
+  - 新コンポーネント: ActionMenu, useKeyboardShortcuts(カスタムフック), ShortcutHelp
+  - 3層ガード: テキスト入力無効化 + isDisabled + テーブル専用キー制御
+  - z-index: bulk-action-bar(50) < ActionMenu(100) < ImageModal(1000) < ShortcutHelp(1500) < Toast(2000)
+  - フロントエンドのみ（バックエンド変更なし、既存 PUT/DELETE API 利用）
 - シードユーザー: admin / password123, phalanchang / password123
 - セッションベース認証（express-session、メモリストア）
 

@@ -1,6 +1,5 @@
 .wish-list-container {
   padding: 20px;
-  max-width: 800px;
 }
 
 .wish-list-header {
@@ -11,7 +10,7 @@
 }
 
 .wish-list-header h2 {
-  color: #333;
+  color: var(--text-primary);
   margin: 0;
 }
 
@@ -24,21 +23,21 @@
 }
 
 .message-success {
-  background-color: #e8f5e9;
-  color: #2e7d32;
-  border: 1px solid #c8e6c9;
+  background-color: var(--toast-success-bg);
+  color: var(--toast-success-color);
+  border: 1px solid var(--toast-success-border);
 }
 
 .message-error {
-  background-color: #fee;
-  color: #c33;
-  border: 1px solid #ffcdd2;
+  background-color: var(--toast-error-bg);
+  color: var(--toast-error-color);
+  border: 1px solid var(--toast-error-border);
 }
 
 /* ローディング */
 .loading-message {
   text-align: center;
-  color: #666;
+  color: var(--text-secondary);
   padding: 40px;
   font-size: 16px;
 }
@@ -46,11 +45,11 @@
 /* 空状態 */
 .empty-state {
   text-align: center;
-  color: #888;
+  color: var(--text-muted);
   padding: 60px 20px;
-  background: #fafafa;
+  background: var(--empty-bg);
   border-radius: 8px;
-  border: 1px dashed #ddd;
+  border: 1px dashed var(--empty-border);
 }
 
 .empty-state p {
@@ -65,15 +64,15 @@
 }
 
 .wish-item {
-  background: white;
-  border: 1px solid #e0e0e0;
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
   border-radius: 8px;
   padding: 16px;
   transition: box-shadow 0.2s;
 }
 
 .wish-item:hover {
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  box-shadow: 0 2px 8px var(--card-hover-shadow);
 }
 
 .wish-item-main {
@@ -87,7 +86,7 @@
 .wish-item-title {
   font-size: 16px;
   font-weight: 600;
-  color: #333;
+  color: var(--text-primary);
 }
 
 .wish-item-badges {
@@ -106,7 +105,7 @@
   font-weight: 500;
 }
 
-/* ステータスバッジ */
+/* ステータスバッジ（テーマ変更不要） */
 .status-not-started {
   background-color: #f0f0f0;
   color: #757575;
@@ -122,7 +121,7 @@
   color: #2e7d32;
 }
 
-/* 優先度バッジ */
+/* 優先度バッジ（テーマ変更不要） */
 .priority-high {
   background-color: #ffebee;
   color: #c62828;
@@ -141,14 +140,14 @@
 /* 期限 */
 .wish-item-date {
   font-size: 13px;
-  color: #888;
+  color: var(--text-muted);
 }
 
 /* 説明 */
 .wish-item-description {
   margin-top: 8px;
   font-size: 14px;
-  color: #666;
+  color: var(--text-secondary);
   line-height: 1.5;
 }
 
@@ -158,16 +157,16 @@
   gap: 8px;
   margin-top: 12px;
   padding-top: 12px;
-  border-top: 1px solid #f0f0f0;
+  border-top: 1px solid var(--border-light);
 }
 
 .btn-action {
   padding: 6px 16px;
-  border: 1px solid #ddd;
+  border: 1px solid var(--border-color);
   border-radius: 4px;
   font-size: 13px;
   cursor: pointer;
-  background: white;
+  background: var(--card-bg);
   transition: background-color 0.2s;
 }
 
@@ -177,7 +176,7 @@
 }
 
 .btn-edit:hover {
-  background-color: #e3f2fd;
+  background-color: var(--btn-edit-hover-bg);
 }
 
 .btn-delete {
@@ -186,7 +185,7 @@
 }
 
 .btn-delete:hover {
-  background-color: #ffebee;
+  background-color: var(--btn-delete-hover-bg);
 }
 
 /* 共通ボタン（WishForm と共用） */
@@ -200,12 +199,12 @@
 }
 
 .wish-list-container .btn-primary {
-  background-color: #4a90d9;
+  background-color: var(--btn-primary-bg);
   color: white;
 }
 
 .wish-list-container .btn-primary:hover {
-  background-color: #357abd;
+  background-color: var(--btn-primary-hover-bg);
 }
 
 /* タグラベル（アイテム内） */
@@ -239,11 +238,226 @@
   height: 60px;
   object-fit: cover;
   border-radius: 4px;
-  border: 1px solid #e0e0e0;
+  border: 1px solid var(--image-border);
   cursor: pointer;
   transition: opacity 0.2s;
 }
 
 .wish-item-thumbnail:hover {
   opacity: 0.8;
+}
+
+/* ヘッダーアクション */
+.wish-list-header-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+/* ビュー切替 */
+.view-toggle { display: flex; gap: 4px; }
+.view-toggle-btn {
+  background: var(--toggle-bg); border: 1px solid var(--toggle-border); border-radius: 4px;
+  padding: 4px 10px; cursor: pointer; font-size: 16px; color: var(--toggle-color);
+  transition: all 0.2s;
+}
+.view-toggle-btn.active {
+  background: var(--toggle-active-bg); color: var(--toggle-active-color); border-color: var(--toggle-active-bg);
+}
+.view-toggle-btn:hover:not(.active) { background: var(--toggle-hover-bg); }
+
+/* テーブルビュー */
+.wish-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+  color: var(--text-primary);
+}
+.wish-table th {
+  text-align: left;
+  padding: 8px 12px;
+  border-bottom: 2px solid var(--table-header-border);
+  font-weight: 600;
+  color: var(--text-secondary);
+  font-size: 12px;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+.wish-table td {
+  padding: 6px 12px;
+  border-bottom: 1px solid var(--border-light);
+  vertical-align: middle;
+}
+.wish-table tr { height: 36px; }
+.wish-table tr.even-row { background-color: var(--table-even-bg); }
+.wish-table tr:hover { background-color: var(--table-hover-bg); }
+.wish-table-title { font-weight: 500; color: var(--text-primary); }
+.has-image-icon { margin-right: 4px; font-size: 12px; }
+
+/* テーブル用小バッジ */
+.badge-sm {
+  display: inline-block;
+  padding: 1px 8px;
+  border-radius: 10px;
+  font-size: 11px;
+  font-weight: 500;
+}
+.tag-label-sm {
+  display: inline-block;
+  padding: 1px 6px;
+  background-color: #e3f2fd;
+  color: #1565c0;
+  border-radius: 8px;
+  font-size: 11px;
+  margin-right: 3px;
+}
+.tag-more {
+  font-size: 11px;
+  color: var(--text-muted);
+}
+
+/* テーブル操作ボタン */
+.wish-table-actions { white-space: nowrap; }
+.btn-action-sm {
+  background: none; border: none; cursor: pointer;
+  color: #4a90d9; font-size: 12px; padding: 2px 6px;
+}
+.btn-action-sm:hover { text-decoration: underline; }
+.btn-delete-sm { color: #c33; }
+
+/* サマリーバー */
+.summary-bar {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 12px;
+  flex-wrap: wrap;
+}
+.summary-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 14px;
+  border-radius: 16px;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  border: 1px solid var(--border-color);
+  background: var(--card-bg);
+  color: var(--text-secondary);
+  transition: all 0.2s;
+}
+.summary-badge:hover {
+  border-color: var(--text-muted);
+}
+.summary-badge-active {
+  border-color: var(--btn-primary-bg);
+  color: var(--btn-primary-bg);
+  font-weight: 600;
+}
+
+/* ステータス別サマリーバッジのアクティブ色（セマンティックカラー維持） */
+.summary-badge-not_started.summary-badge-active {
+  border-color: #757575;
+  color: #757575;
+}
+.summary-badge-in_progress.summary-badge-active {
+  border-color: #1565c0;
+  color: #1565c0;
+}
+.summary-badge-completed.summary-badge-active {
+  border-color: #2e7d32;
+  color: #2e7d32;
+}
+
+/* 期限視覚強調（テーマ変更不要） */
+.due-overdue { color: #c62828; font-weight: 700; }
+.due-today { color: #e65100; font-weight: 700; }
+.due-soon { color: #f57f17; }
+.due-future { color: var(--text-muted); }
+.due-none { color: var(--text-light); }
+.no-due-date { color: var(--text-light); }
+
+/* チェックボックス列 */
+.wish-table-checkbox {
+  width: 40px;
+  text-align: center;
+}
+.wish-table-checkbox input[type="checkbox"] {
+  cursor: pointer;
+  width: 16px;
+  height: 16px;
+}
+
+/* フォーカス行ハイライト */
+.focused-row {
+  outline: 2px solid var(--btn-primary-bg);
+  outline-offset: -2px;
+}
+
+/* 選択行ハイライト */
+.selected-row {
+  background-color: var(--table-hover-bg) !important;
+}
+
+/* フローティングアクションバー */
+.bulk-action-bar {
+  position: sticky;
+  bottom: 0;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 16px;
+  background: var(--card-bg);
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  box-shadow: 0 -2px 8px rgba(0, 0, 0, 0.1);
+  margin-top: 8px;
+  z-index: 50;
+}
+.bulk-action-count {
+  font-weight: 600;
+  font-size: 14px;
+  color: var(--text-primary);
+}
+.bulk-action-buttons {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+.bulk-action-status select {
+  padding: 6px 12px;
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  font-size: 13px;
+  background: var(--card-bg);
+  color: var(--text-primary);
+  cursor: pointer;
+}
+.bulk-action-delete {
+  padding: 6px 14px;
+  background: var(--btn-danger-bg, #dc3545);
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-size: 13px;
+  cursor: pointer;
+  transition: opacity 0.2s;
+}
+.bulk-action-delete:hover {
+  opacity: 0.85;
+}
+.bulk-action-clear {
+  margin-left: auto;
+  background: none;
+  border: none;
+  font-size: 18px;
+  cursor: pointer;
+  color: var(--text-muted);
+  padding: 4px 8px;
+  border-radius: 4px;
+  transition: all 0.2s;
+}
+.bulk-action-clear:hover {
+  background: var(--table-hover-bg);
+  color: var(--text-primary);
 }

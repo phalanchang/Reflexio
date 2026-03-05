@@ -17,3 +17,5 @@
 | USER_to_PM_008 | 2026-02-25T08:35:09+09:00 | あおい（Clawdbot）向け - Notion MCP サーバーの実装 | completed |
 | USER_to_PM_009 | 2026-02-25T08:35:19+09:00 | Reflexio Dashboard ビューア（Web UI）の設計・構築 | completed |
 | USER_to_PM_010 | 2026-02-25T08:35:28+09:00 | Notion Sync Tool - 複数ページ一括更新機能 | completed |
+| USER_to_PM_011 | 2026-02-27T07:53:14+09:00 | ログファイル書き込みテスト - あおいのポーリング監視機能確認 | in_progress |
+| USER_to_PM_012 | 2026-03-01T14:20:58+09:00 | Discord 出力テスト - Clawdbot Monitor 統合検証 | in_progress |

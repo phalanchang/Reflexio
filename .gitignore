@@ -28,6 +28,18 @@ Thumbs.db
 .idea/
 *.iml
 
+# Claude Code (ローカル設定)
+.claude/
+
+# AI共有コンテキスト
+.ai/
+
+# Cursor IDE ルール (個人設定)
+.cursor/rules/
+
+# 個人メモ・プロンプト
+docs/human/
+
 # 一時ファイル
 *.tmp
 *.temp
@@ -44,3 +56,8 @@ backend/uploads/
 .agent/messages/*.yaml
 .agent/.tmp_prompt_*
 .agent/.pane_map.sh
+
+# Agent テストレポート (一時的)
+.agent/reports/agent_report_MONITOR_TEST_*
+.agent/reports/agent_report_TEST_*
+.agent/reports/test_monitor_report_*

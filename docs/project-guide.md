@@ -55,12 +55,16 @@ Reflexio/
 ├── frontend/
 │   ├── src/
 │   │   ├── App.js             # ルーティング・認証状態管理・ToastProviderラップ
+│   │   ├── App.css            # グローバルCSS変数定義（:root 73+ / [data-theme="dark"] 57変数）
 │   │   ├── index.js           # BrowserRouterラッパー
 │   │   └── components/
 │   │       ├── LoginForm.js   # ログインフォーム
-│   │       ├── Header.js      # ヘッダー（40px、ログアウトボタン）
-│   │       ├── Sidebar.js     # サイドバー（250px、ナビ、⚙️ 設定、🤖 Clawdbot Badge）
-│   │       ├── MainLayout.js  # Header+Sidebar+Content配置
+│   │       ├── Header.js      # ヘッダー（40px、ログアウトボタン、🌙/☀️テーマ切替ボタン）
+│   │       ├── Header.css     # Header用スタイル（CSS変数化、テーマ切替ボタン）
+│   │       ├── Sidebar.js     # サイドバー（250px/40px折りたたみ、◀/▶トグル、ナビ、⚙️ 設定、🤖 Clawdbot Badge）
+│   │       ├── Sidebar.css    # Sidebar用スタイル（collapsed、transition、toggle、CSS変数化）
+│   │       ├── MainLayout.js  # Header+Sidebar+Content配置（sidebarCollapsed + theme state、data-theme属性管理）
+│   │       ├── MainLayout.css # MainLayout用スタイル（CSS変数化）
 │   │       ├── ProtectedRoute.js  # 未認証→/loginリダイレクト
 │   │       ├── Dashboard.js   # ダッシュボード（棒グラフ+期間切替+3状態分岐）
 │   │       ├── Dashboard.css  # Dashboard用スタイル（期間切替タブ含む）
@@ -74,16 +78,21 @@ Reflexio/
 │   │       ├── Settings.css   # Settings用スタイル
 │   │       ├── Toast.js       # トースト通知（ToastProvider + useToast フック）
 │   │       ├── Toast.css      # Toast用スタイル（右上固定、スライドイン/フェードアウト）
-│   │       ├── WishList.js    # やりたいこと一覧（フィルタ統合+サムネイル+モーダル+トースト通知）
-│   │       ├── WishList.css   # WishList用スタイル（サムネイルスタイル含む）
+│   │       ├── WishList.js    # やりたいこと一覧（カード/テーブル切替+サマリーバー+検索/ソート+フィルタ+サムネイル+モーダル+トースト+期限色）
+│   │       ├── WishList.css   # WishList用スタイル（サマリーバー+テーブルCSS+期限色CSS+ビュー切替CSS+サムネイル）
 │   │       ├── WishForm.js    # やりたいこと追加・編集（タグ入力+画像ペースト/選択/プレビュー）
 │   │       ├── WishForm.css   # WishForm用スタイル（画像プレビュースタイル含む）
 │   │       ├── ImageModal.js  # 全画面画像ビューア（モーダル）
 │   │       ├── ImageModal.css # ImageModal用スタイル
 │   │       ├── TagInput.js    # タグ入力コンポーネント（カンマ/Enter確定、バッジ表示）
 │   │       ├── TagInput.css   # TagInput用スタイル
-│   │       ├── WishFilter.js  # フィルタリングコンポーネント（タグOR/優先度OR/組合せAND）
-│   │       ├── WishFilter.css # WishFilter用スタイル
+│   │       ├── WishFilter.js  # 統合ツールバー（タグOR/優先度OR/組合せAND+テキスト検索+6種ソート+1行flex）
+│   │       ├── WishFilter.css # WishFilter用スタイル（検索フィールド+ソートドロップダウン+1行化）
+│   │       ├── ActionMenu.js # コンテキストメニュー（⋯ドロップダウン、ステータス変更サブメニュー、外側クリック閉じ）
+│   │       ├── ActionMenu.css # ActionMenu用スタイル（z-index: 100、ドロップダウン+サブメニュー）
+│   │       ├── useKeyboardShortcuts.js # キーボードショートカット カスタムフック（9キー、3層ガード）
+│   │       ├── ShortcutHelp.js  # ショートカットヘルプモーダル（?キーで表示、キー一覧テーブル）
+│   │       ├── ShortcutHelp.css # ShortcutHelp用スタイル（z-index: 1500、モーダル）
 │   │       ├── ClawdbotSkills.js   # Clawdbot Skills メインページ（3カテゴリ分類 + D&D並び替え）
 │   │       ├── ClawdbotSkills.css  # ClawdbotSkills用スタイル
 │   │       ├── SkillBadge.js  # バッジメダル（PNG画像/emoji切替 + ラベル + D&D + ティアランダム選択）
@@ -378,10 +387,14 @@ docker compose logs -f [backend|frontend|db]
 ├──────────┬──────────────────────────────┤
 │          │                              │
 │ Sidebar  │     Main Content             │  ← 選択された機能のコンテンツ
-│ (250px)  │                              │
-│          │                              │
+│(250/40px)│     （全幅レイアウト）          │
+│ ◀/▶     │                              │
 └──────────┴──────────────────────────────┘
 ```
+
+- サイドバーは折りたたみ可能（◀/▶トグル、展開250px / 折りたたみ40px）
+- 折りたたみ状態は localStorage で永続化
+- メインコンテンツは全幅レイアウト（max-width 制限なし）
 
 ### ルーティング
 
@@ -523,6 +536,74 @@ docker compose logs -f [backend|frontend|db]
   - [x] バッジサイズ: 48→96px、ラッパー幅: 72→120px、ラベル: 11→13px / max-width 120px
 - [x] フロントエンドのみ（バックエンド変更なし）
 
+### Sprint 9a（完了）— やりたいこと画面 UI改善
+- [x] 改善1: テーブルビュー（カード→テーブル切替、情報密度3倍、6カラム、ゼブラストライプ）
+  - [x] WishList.js: viewMode state（`card`/`table`、localStorage 永続化）
+  - [x] WishList.js: テーブルビュー描画（タイトル・ステータス・優先度・期限・タグ・操作の6カラム）
+  - [x] WishList.css: テーブルCSS + ビュー切替ボタンCSS（☰テーブル / ▦カード）
+- [x] 改善3: サイドバー折りたたみ + 全幅レイアウト
+  - [x] MainLayout.js: sidebarCollapsed state（localStorage 永続化）、toggleSidebar 関数
+  - [x] Sidebar.js: collapsed/onToggle props 対応、◀/▶トグルボタン、short 表示モード
+  - [x] Sidebar.css: collapsed スタイル（250px→40px transition）、トグルボタンスタイル
+  - [x] WishList.css: max-width 削除（全幅レイアウト対応）
+  - [x] MainLayout.css: dead CSS 削除
+- [x] 改善5: 期限視覚強調（5段階色分け）
+  - [x] WishList.js: getDueDateClass 関数（期限日からの残り日数で CSS クラスを決定）
+  - [x] WishList.css: 赤太字（期限切れ）/ オレンジ太字（3日以内）/ 黄色（7日以内）/ グレー（8日以上）/ 薄グレー（期限なし）
+- [x] フロントエンドのみ（バックエンド変更なし）
+
+### Sprint 9b（完了）— ダークモード実装 + サイドバートグル改善
+- [x] CSS変数（Custom Properties）でテーマシステム構築
+  - [x] App.css: `:root` に73+変数定義（ライトテーマ）、`[data-theme="dark"]` に57変数定義（ダークテーマ）
+  - [x] CSS変数カテゴリ: Header, Sidebar, Main, Card/Table, Text, Border, Filter, Form, Buttons, Empty, Toast, Toggle, Image
+  - [x] 全CSSファイル（10ファイル）のハードコード色をCSS変数に置換
+  - [x] ステータス/優先度/期限/タグバッジ色は意図的にハードコード維持（テーマに依存しない固定色）
+- [x] テーマ切替機能
+  - [x] MainLayout.js: theme state（useState + localStorage永続化 + OS設定自動検出 matchMedia）
+  - [x] MainLayout.js: `document.documentElement.setAttribute('data-theme', theme)` でテーマ切替
+  - [x] Header.js: 🌙/☀️テーマ切替ボタン（toggleTheme props、Header右側配置）
+  - [x] Header.css: テーマ切替ボタンスタイル（背景なし・ボーダーなし・ホバー効果）
+- [x] サイドバートグル改善
+  - [x] 展開時: 24x24px 右上角に配置（position: absolute）
+  - [x] 折りたたみ時: 上部100%幅に配置（position: static）
+  - [x] Sidebar.css: CSS変数化 + トグルボタン position 切替パターン
+- [x] CSS変数化対象ファイル一覧
+  - [x] App.css（変数定義）、MainLayout.css、Header.css、Sidebar.css、WishList.css、WishFilter.css、WishForm.css、Toast.css
+- [x] フロントエンドのみ（バックエンド変更なし）
+
+### Sprint 9c（完了）— サマリーバー + 統合ツールバー（検索・ソート・ステータスフィルタ）
+- [x] 改善2: ステータスサマリーバー
+  - [x] WishList.js: selectedStatuses state（Set で OR フィルタ管理）
+  - [x] WishList.js: ステータス別件数計算 + クリックでフィルタトグル
+  - [x] WishList.css: .summary-bar / .summary-badge（ステータス別セマンティックカラー: 未着手=グレー、進行中=青、完了=緑）
+- [x] 改善4: 統合ツールバー（検索 + ソート + コンパクト化）
+  - [x] WishList.js: searchQuery / debouncedSearch state（300ms デバウンス、タイトル・説明・タグ名を検索対象）
+  - [x] WishList.js: sortOrder state（localStorage 永続化）、PRIORITY_ORDER 定数、sortWishes 関数
+  - [x] WishFilter.js: SORT_OPTIONS 定数（6種: 作成日降順/昇順、優先度高→低/低→高、期限昇順/降順）
+  - [x] WishFilter.js: 検索フィールド（🔍プレースホルダ + × クリアボタン）+ ソートドロップダウン
+  - [x] WishFilter.css: 1行 flex 化（.filter-toolbar）、.filter-search / .filter-sort スタイル
+- [x] フロントエンドのみ（バックエンド変更なし）
+
+### Sprint 9d（完了）— コンテキストメニュー + 一括操作 + キーボードショートカット
+- [x] 改善6: コンテキストメニュー（ActionMenu）
+  - [x] ActionMenu.js: ⋯ボタンでドロップダウン表示（編集/削除/ステータス変更サブメニュー）
+  - [x] ActionMenu.js: props（wish, onEdit, onDelete, onStatusChange）、外側クリックで閉じ（useEffect + mousedown）
+  - [x] ActionMenu.css: z-index: 100、ドロップダウン + サブメニュースタイル
+  - [x] WishList.js: handleStatusChange 関数（既存 PUT API でステータス即時変更 + トースト通知）
+- [x] 改善7: 一括操作
+  - [x] WishList.js: selectedIds state（Set）、全選択/個別選択チェックボックス
+  - [x] WishList.js: handleBulkStatusChange / handleBulkDelete（Promise.all で一括処理）
+  - [x] WishList.css: フローティングアクションバー（.bulk-action-bar、z-index: 50、画面下部固定）
+  - [x] テーブルビュー: チェックボックス列追加（7カラム化）
+- [x] 改善8: キーボードショートカット
+  - [x] useKeyboardShortcuts.js: カスタムフック（11パラメータ: 9コールバック + isDisabled + isTableView）
+  - [x] ShortcutHelp.js: ショートカットヘルプモーダル（props: isOpen, onClose、z-index: 1500）
+  - [x] キー一覧: N(新規), E(編集), Delete(削除), ↑↓(移動), Space(選択), /(検索), Escape(解除), ?(ヘルプ)
+  - [x] 3層ガード: テキスト入力無効化（input/textarea/select）+ isDisabled + テーブル専用キー制御（↑↓/Space）
+  - [x] focusedIndex: useEffect でクランプ（リスト件数変動時の範囲外防止）
+- [x] z-index階層更新: bulk-action-bar(50) < ActionMenu(100) < ImageModal(1000) < ShortcutHelp(1500) < Toast(2000)
+- [x] フロントエンドのみ（バックエンド変更なし、既存 PUT/DELETE API 利用）
+
 ### 今後の予定（優先順）
 1. タスク管理機能
 2. ノート管理機能
@@ -534,7 +615,7 @@ docker compose logs -f [backend|frontend|db]
 - **言語**: ドキュメントは日本語、コード・コミットメッセージは日本語
 - **フロントエンド**: 関数コンポーネント + React Hooks（クラスコンポーネント不使用）
 - **バックエンド**: CommonJS (`require`/`module.exports`)
-- **CSS**: コンポーネントごとに個別CSSファイル（CSS Modules未使用）
+- **CSS**: コンポーネントごとに個別CSSファイル（CSS Modules未使用）。色はCSS変数（`var(--xxx)`）を使用（App.css で定義、ダークモード対応）
 - **状態管理**: React useState/useEffect（Redux未使用）
 - **DB操作**: mysql2/promise のパラメータ化クエリ（SQLインジェクション防止）
 - **認証チェック**: バックエンドは `requireAuth` ミドルウェア、フロントエンドは `ProtectedRoute` コンポーネント
@@ -565,4 +646,13 @@ docker compose logs -f [backend|frontend|db]
 - **トースト通知**: ToastProvider + useToast フック。成功(緑)/エラー(赤)/情報(青)、画面右上固定、自動消去（success=4秒, error=8秒）、スライドイン/フェードアウトアニメーション
 - **バッジメダル**: CSS clip-path で hexagon（六角形・Skills）/ octagon（八角形・MCP/Integrations）。カテゴリ別配色（青/紫/緑）+ ホバーエフェクト。バッジラベル（スキル名テキスト、13px、max-width 120px）。バッジサイズ96px、ラッパー120px。PNG画像バッジ対応（useState lazy initializer でティアランダム選択、画像なし→emojiフォールバック）
 - **ドラッグ&ドロップ**: HTML5 D&D API（dragStart/dragOver/drop/dragEnd）。同カテゴリ内のみ並び替え可能。useState で各カテゴリリストを個別管理
-- **z-index階層**: ImageModal(1000) < SkillModal(1500) < Toast(2000) — モーダル・通知の重なり順を統一管理
+- **z-index階層**: bulk-action-bar(50) < ActionMenu(100) < ImageModal(1000) < SkillModal/ShortcutHelp(1500) < Toast(2000) — モーダル・通知の重なり順を統一管理
+- **サイドバー折りたたみ**: ◀/▶トグルボタン。展開250px / 折りたたみ40px。CSS transition でスムーズアニメーション。localStorage で状態永続化
+- **ビュー切替**: ☰テーブル / ▦カードの切替ボタン。localStorage で選択状態永続化。テーブルビューはゼブラストライプ + 6カラム情報表示
+- **期限視覚強調**: getDueDateClass 関数で5段階色分け。赤太字（期限切れ）/ オレンジ太字（3日以内）/ 黄色（7日以内）/ グレー（8日以上）/ 薄グレー（期限なし）
+- **ダークモード（テーマシステム）**: CSS変数ベース。App.css に `:root`（ライト73+変数）と `[data-theme="dark"]`（ダーク57変数）を定義。MainLayout.js で theme state 管理（localStorage永続化 + OS設定自動検出 `matchMedia('prefers-color-scheme: dark')`）。Header.js に 🌙/☀️ 切替ボタン。新規色追加時は App.css の両テーマに変数追加が必要。ステータス/優先度/期限色はテーマ非依存のハードコード維持
+- **サマリーバー**: ステータス別件数バッジ（全て/未着手/進行中/完了）。クリックで OR フィルタ。セマンティックカラー（未着手=グレー、進行中=青、完了=緑）。Set で複数ステータス同時選択
+- **統合ツールバー**: テキスト検索（300ms デバウンス、タイトル・説明・タグ名を対象）+ 6種ソート（作成日/優先度/期限の昇順・降順）+ 1行 flex レイアウト。ソート順は localStorage 永続化。🔍検索フィールド + × クリアボタン
+- **コンテキストメニュー（ActionMenu）**: ⋯ボタンでドロップダウン表示。編集/削除/ステータス変更サブメニュー。外側クリックで閉じ（mousedown イベント）。z-index: 100
+- **一括操作**: チェックボックス列（テーブルビュー7カラム化）。selectedIds（Set）で選択管理。フローティングアクションバー（画面下部固定、z-index: 50）。Promise.all で一括ステータス変更/一括削除
+- **キーボードショートカット**: useKeyboardShortcuts カスタムフック（9キー: N/E/Delete/↑↓/Space///Escape/?）。3層ガード: テキスト入力無効化（input/textarea/select）+ isDisabled + テーブル専用キー制御。ShortcutHelp モーダル（?キーで表示、z-index: 1500）
