@@ -18,6 +18,7 @@
 | 認証 | express-session + bcrypt | セッションベース |
 | 外部連携 | Google OAuth 2.0 + googleapis | カレンダー連携 |
 | ファイルアップロード | multer | バックエンド |
+| 音声文字起こし | faster-whisper (Python) | Dockerコンテナ内（node:18-slim + Python3） |
 | チャート | recharts | フロントエンド |
 | インフラ | Docker Compose | - |
 | 開発環境 | Windows + WSL2 | - |
@@ -35,7 +36,10 @@ Reflexio/
 │       ├── 007_create_google_oauth_settings_table.sql  # ユーザーごとのOAuth設定
 │       ├── 008_seed_user_phalanchang.sql  # 新規ユーザー phalanchang
 │       ├── 009_create_category_mappings_table.sql  # カテゴリマッピング
-│       └── 010_create_wish_images_table.sql  # 画像メタ情報
+│       ├── 010_create_wish_images_table.sql  # 画像メタ情報
+│       ├── 011_create_voice_recordings_table.sql  # 音声録音メタ情報
+│       ├── 012_create_transcriptions_table.sql  # 文字起こし結果
+│       └── 012_create_knowledge_tables.sql  # 知識+クイズ+レビュー+クイズ試行（4テーブル）
 ├── backend/
 │   ├── server.js              # Expressエントリーポイント
 │   ├── config/database.js     # MySQL接続プール
@@ -49,6 +53,11 @@ Reflexio/
 │   ├── routes/calendar.js     # カレンダーAPI (/api/calendar/*)
 │   ├── routes/categoryMappings.js  # カテゴリマッピングAPI (/api/category-mappings/*)
 │   ├── routes/wishImages.js  # 画像API (/api/wishes/:wishId/images, /api/wishes/images/:imageId)
+│   ├── routes/recordings.js  # 音声録音API (/api/recordings/*)
+│   ├── routes/transcribe.js  # 文字起こしAPI (/api/transcribe, /api/transcriptions/*)
+│   ├── routes/knowledge.js  # 知識管理API (/api/knowledge/*, CRUD+フィルタ+統計)
+│   ├── routes/quizzes.js    # クイズAPI (/api/knowledge/:id/quizzes, /api/quizzes/:id)
+│   ├── scripts/transcribe.py # 文字起こしPythonスクリプト（faster-whisper small, CPU/int8）
 │   ├── uploads/              # 画像保存ディレクトリ（{user_id}/配下、バインドマウントで永続化）
 │   ├── package.json
 │   └── Dockerfile
@@ -99,7 +108,19 @@ Reflexio/
 │   │       ├── SkillBadge.css # SkillBadge用スタイル（画像バッジ+カテゴリ別配色+ホバー）
 │   │       ├── SkillModal.js  # スキル詳細モーダル（画像表示120px + ESC/オーバーレイクリック閉じ）
 │   │       ├── SkillModal.css # SkillModal用スタイル（z-index: 1500、モーダル内画像120px）
-│   │       └── clawdbotSkillsData.js # スキルデータ定義（11件、badges配列+tier、将来拡張フィールド付き）
+│   │       ├── clawdbotSkillsData.js # スキルデータ定義（11件、badges配列+tier、将来拡張フィールド付き）
+│   │       ├── VoiceRecorder.js  # 再利用可能な音声録音コンポーネント（MediaRecorder API、状態遷移管理）
+│   │       ├── VoiceRecorder.css # VoiceRecorder用スタイル（ダークモード対応）
+│   │       ├── VoiceTest.js     # 音声録音・文字起こし動作確認用テスト画面
+│   │       ├── VoiceTest.css    # VoiceTest用スタイル（ダークモード対応）
+│   │       ├── KnowledgeList.js # 知識一覧（統計サマリーバー+フィルタ+テーブル表示）
+│   │       ├── KnowledgeList.css # KnowledgeList用スタイル（ダークモード対応）
+│   │       ├── KnowledgeForm.js # 知識 新規/編集フォーム（クイズ同時作成対応）
+│   │       ├── KnowledgeForm.css # KnowledgeForm用スタイル（ダークモード対応）
+│   │       ├── KnowledgeDetail.js # 知識詳細（SM-2パラメータ表示+クイズ管理）
+│   │       ├── KnowledgeDetail.css # KnowledgeDetail用スタイル（ダークモード対応）
+│   │       ├── QuizForm.js      # 再利用可能クイズフォーム（free_text/multiple_choice切替）
+│   │       └── QuizForm.css     # QuizForm用スタイル（ダークモード対応）
 │   ├── public/
 │   │   └── images/badges/        # バッジPNG画像（14ファイル、全11スキルにマッピング）
 │   ├── package.json
@@ -143,6 +164,8 @@ docker compose logs -f [backend|frontend|db]
 - WSL2環境では `localhost` が使えない場合がある。`ip addr show eth0` でWSL2のIPを確認し、そのIPでアクセスする
 - フロントエンドのAPI接続先は `window.location.hostname` から動的に決定される（localhost でも WSL2 IP でも自動対応）
 - `backend/uploads/` は Docker バインドマウントで永続化（`docker compose down -v` でも画像データは保持される）
+- バックエンド Docker イメージは `node:18-slim`（Python3 + faster-whisper インストール済み）
+- `whisper_models` ボリュームで Whisper モデルキャッシュを永続化（初回起動時にダウンロード、以降はキャッシュ利用）
 
 ## API設計
 
@@ -256,6 +279,65 @@ docker compose logs -f [backend|frontend|db]
 - DELETE: 単一マッピング削除（colorId 1-11 のバリデーション付き）
 - GOOGLE_EVENT_COLORS: `backend/config/google.js` に定義（11色の日本語名+HEXカラー）
 - calendar.js summary: ユーザーのカスタム名 → デフォルト色名のフォールバックでカテゴリ分類
+
+### 音声録音API (`/api/recordings`)
+
+| Method | Path | 認証 | Request Body | Response |
+|--------|------|------|-------------|----------|
+| POST | `/api/recordings` | 必要 | FormData (`audio` フィールド) | `{message, recording}` (201) |
+| GET | `/api/recordings/:id` | 必要 | - | `{recording: {...}}` |
+| DELETE | `/api/recordings/:id` | 必要 | - | `{message}` |
+
+- multer による multipart/form-data アップロード
+- ファイル制限: 50MB上限、audio/webm・audio/wav・audio/mp3・audio/ogg・audio/mp4 の5種MIMEタイプ
+- 保存先: `backend/uploads/recordings/{user_id}/`
+- 所有権チェック: 録音取得・削除時に user_id を検証
+
+### 文字起こしAPI (`/api/transcribe`, `/api/transcriptions`)
+
+| Method | Path | 認証 | Request Body | Response |
+|--------|------|------|-------------|----------|
+| POST | `/api/transcribe` | 必要 | `{recording_id}` | `{message, transcription}` (201) |
+| GET | `/api/transcriptions/:id` | 必要 | - | `{transcription: {...}}` |
+
+- child_process で Python スクリプト（backend/scripts/transcribe.py）を実行
+- faster-whisper small モデル（CPU/int8 量子化）
+- headersSent ガード付き（プロセス終了時のレスポンス二重送信防止）
+- ステータス管理: pending → processing → completed / failed
+- Docker構成: node:18-slim ベース、コンテナ内に Python3 + faster-whisper インストール済み
+- PYTHON_PATH 環境変数でPythonパス指定（コンテナ内: /usr/bin/python3）
+- Whisper モデルキャッシュ: Docker volume（whisper_models）で永続化（初回ダウンロード後はキャッシュ利用）
+
+### 知識管理API (`/api/knowledge`)
+
+| Method | Path | 認証 | Request Body | Response |
+|--------|------|------|-------------|----------|
+| GET | `/api/knowledge` | 必要 | - (Query: category, difficulty, status) | `{knowledge_items: [...]}` |
+| GET | `/api/knowledge/stats` | 必要 | - | `{stats: {total_items, due_today, mastered, learning, not_started, retention_avg}}` |
+| GET | `/api/knowledge/:id` | 必要 | - | `{knowledge_item: {..., quizzes: [...]}}` |
+| POST | `/api/knowledge` | 必要 | `{title, content, category?, difficulty?, quizzes?}` | `{message, knowledge_item}` (201) |
+| PUT | `/api/knowledge/:id` | 必要 | `{title?, content?, category?, difficulty?}` | `{message, knowledge_item}` |
+| DELETE | `/api/knowledge/:id` | 必要 | - | `{message}` （CASCADE でクイズも自動削除） |
+
+- difficulty: `easy` / `medium` / `hard`（デフォルト: medium）
+- SM-2パラメータ: easiness_factor, repetitions, interval_days, next_review_date, retention_score
+- フィルタ: category, difficulty, status（due/mastered/not_started）
+- POST時クイズ同時作成: トランザクション処理
+- 所有権チェック: user_id で自分のデータのみ操作可能
+
+### クイズAPI (`/api/knowledge/.../quizzes`, `/api/quizzes`)
+
+| Method | Path | 認証 | Request Body | Response |
+|--------|------|------|-------------|----------|
+| GET | `/api/knowledge/:knowledgeId/quizzes` | 必要 | - | `{quizzes: [...]}` |
+| POST | `/api/knowledge/:knowledgeId/quizzes` | 必要 | `{question, answer, quiz_type?, options_json?}` | `{message, quiz}` (201) |
+| PUT | `/api/quizzes/:id` | 必要 | `{question?, answer?, quiz_type?, options_json?}` | `{message, quiz}` |
+| DELETE | `/api/quizzes/:id` | 必要 | - | `{message}` |
+
+- quiz_type: `free_text`（デフォルト）/ `multiple_choice`
+- options_json: 選択肢（JSON型、multiple_choice時のみ使用）
+- 所有権チェック: 知識アイテム所有者のみ操作可能
+- 知識アイテム削除時: CASCADE でクイズも自動削除
 
 ### ヘルスチェック
 
@@ -377,6 +459,108 @@ docker compose logs -f [backend|frontend|db]
 - 用途: Google カレンダーイベントの色（colorId 1-11）にユーザー独自のカテゴリ名を割り当て
 - 初期化SQL: `docker/mysql/init/009_create_category_mappings_table.sql`
 
+### voice_recordings テーブル
+
+| カラム | 型 | 備考 |
+|-------|---|------|
+| id | INT AUTO_INCREMENT | PK |
+| user_id | INT NOT NULL | FK → users(id) ON DELETE CASCADE |
+| filename | VARCHAR(255) NOT NULL | サーバー上のファイル名 |
+| original_name | VARCHAR(255) NOT NULL | アップロード時の元ファイル名 |
+| mime_type | VARCHAR(100) NOT NULL | MIMEタイプ（audio/webm 等） |
+| size | INT NOT NULL | ファイルサイズ（バイト） |
+| duration | FLOAT | 録音時間（秒、任意） |
+| created_at | TIMESTAMP | 自動設定 |
+
+- 初期化SQL: `docker/mysql/init/011_create_voice_recordings_table.sql`
+
+### transcriptions テーブル
+
+| カラム | 型 | 備考 |
+|-------|---|------|
+| id | INT AUTO_INCREMENT | PK |
+| recording_id | INT NOT NULL | FK → voice_recordings(id) ON DELETE CASCADE |
+| user_id | INT NOT NULL | FK → users(id) ON DELETE CASCADE |
+| text | TEXT | 文字起こし結果テキスト |
+| language | VARCHAR(10) | 検出言語（例: ja, en） |
+| status | ENUM('pending','processing','completed','failed') | デフォルト: pending |
+| error_message | TEXT | 失敗時のエラーメッセージ |
+| created_at | TIMESTAMP | 自動設定 |
+| updated_at | TIMESTAMP | 自動更新 |
+
+- ステータス遷移: pending → processing → completed / failed
+- 初期化SQL: `docker/mysql/init/012_create_transcriptions_table.sql`
+
+### knowledge_items テーブル
+
+| カラム | 型 | 備考 |
+|-------|---|------|
+| id | INT AUTO_INCREMENT | PK |
+| user_id | INT NOT NULL | FK → users(id) ON DELETE CASCADE |
+| title | VARCHAR(255) NOT NULL | 知識アイテムのタイトル |
+| content | TEXT NOT NULL | 知識の内容 |
+| category | VARCHAR(100) | カテゴリ（任意） |
+| difficulty | ENUM('easy','medium','hard') | デフォルト: medium |
+| easiness_factor | DECIMAL(4,2) | SM-2 容易度係数（デフォルト: 2.50） |
+| repetitions | INT | SM-2 反復回数（デフォルト: 0） |
+| interval_days | INT | SM-2 次回までの間隔日数（デフォルト: 0） |
+| next_review_date | DATE | SM-2 次回復習日（NULL=未開始） |
+| retention_score | DECIMAL(5,2) | 定着度スコア（デフォルト: 0.00） |
+| created_at | TIMESTAMP | 自動設定 |
+| updated_at | TIMESTAMP | 自動更新 |
+
+- INDEX: `(user_id, next_review_date)` — レビュー対象の効率的取得
+- 初期化SQL: `docker/mysql/init/012_create_knowledge_tables.sql`
+
+### quizzes テーブル
+
+| カラム | 型 | 備考 |
+|-------|---|------|
+| id | INT AUTO_INCREMENT | PK |
+| knowledge_item_id | INT NOT NULL | FK → knowledge_items(id) ON DELETE CASCADE |
+| user_id | INT NOT NULL | FK → users(id) ON DELETE CASCADE |
+| question | TEXT NOT NULL | 問題文 |
+| answer | TEXT NOT NULL | 回答 |
+| quiz_type | ENUM('free_text','multiple_choice') | デフォルト: free_text |
+| options_json | JSON | 選択肢（multiple_choice時） |
+| created_at | TIMESTAMP | 自動設定 |
+| updated_at | TIMESTAMP | 自動更新 |
+
+- 知識アイテム削除時に CASCADE で自動削除
+- 初期化SQL: `docker/mysql/init/012_create_knowledge_tables.sql`
+
+### review_sessions テーブル（Phase 3用）
+
+| カラム | 型 | 備考 |
+|-------|---|------|
+| id | INT AUTO_INCREMENT | PK |
+| user_id | INT NOT NULL | FK → users(id) ON DELETE CASCADE |
+| total_items | INT | 総アイテム数 |
+| correct_count | INT | 正解数 |
+| score | DECIMAL(5,2) | スコア |
+| started_at | TIMESTAMP | 開始時刻 |
+| completed_at | TIMESTAMP | 完了時刻（NULL=未完了） |
+
+- Phase 3 で使用予定（テーブル作成のみ）
+- 初期化SQL: `docker/mysql/init/012_create_knowledge_tables.sql`
+
+### quiz_attempts テーブル（Phase 3用）
+
+| カラム | 型 | 備考 |
+|-------|---|------|
+| id | INT AUTO_INCREMENT | PK |
+| quiz_id | INT NOT NULL | FK → quizzes(id) ON DELETE CASCADE |
+| user_id | INT NOT NULL | FK → users(id) ON DELETE CASCADE |
+| session_id | INT | FK → review_sessions(id) ON DELETE SET NULL |
+| user_answer | TEXT | ユーザーの回答 |
+| is_correct | BOOLEAN NOT NULL | 正解/不正解 |
+| quality_rating | TINYINT NOT NULL | SM-2 quality 0-5 |
+| response_time_ms | INT | 回答時間（ミリ秒） |
+| attempted_at | TIMESTAMP | 回答時刻 |
+
+- Phase 3 で使用予定（テーブル作成のみ）
+- 初期化SQL: `docker/mysql/init/012_create_knowledge_tables.sql`
+
 ## フロントエンド設計
 
 ### 画面構成
@@ -407,6 +591,11 @@ docker compose logs -f [backend|frontend|db]
 | `/auth/google/callback` | GoogleCallback | 必要 |
 | `/settings` | Settings | 必要 |
 | `/clawdbot` | ClawdbotSkills | 必要 |
+| `/voice-test` | VoiceTest | 必要 |
+| `/knowledge` | KnowledgeList | 必要 |
+| `/knowledge/new` | KnowledgeForm | 必要 |
+| `/knowledge/:id` | KnowledgeDetail | 必要 |
+| `/knowledge/:id/edit` | KnowledgeForm | 必要 |
 | その他 | `/` へリダイレクト | 必要 |
 
 ### 認証フロー
@@ -604,11 +793,45 @@ docker compose logs -f [backend|frontend|db]
 - [x] z-index階層更新: bulk-action-bar(50) < ActionMenu(100) < ImageModal(1000) < ShortcutHelp(1500) < Toast(2000)
 - [x] フロントエンドのみ（バックエンド変更なし、既存 PUT/DELETE API 利用）
 
+### ActiveRecall Phase 1（完了）— 音声録音・文字起こし基盤
+- [x] voice_recordings テーブル作成（音声ファイルメタ情報）
+- [x] transcriptions テーブル作成（文字起こし結果・ステータス管理）
+- [x] 音声録音 API（POST/GET/DELETE /api/recordings、multer 50MB上限、5種MIMEタイプ）
+- [x] 文字起こし API（POST /api/transcribe、GET /api/transcriptions/:id）
+- [x] Python スクリプト（backend/scripts/transcribe.py、faster-whisper small、CPU/int8）
+- [x] child_process 実行 + headersSent ガード（レスポンス二重送信防止）
+- [x] VoiceRecorder.js: 再利用可能な音声録音コンポーネント（MediaRecorder API、状態遷移管理）
+- [x] VoiceTest.js: 動作確認用テスト画面（/voice-test）
+- [x] App.js: /voice-test ルート追加、Sidebar.js: ナビゲーション追加
+- [x] ダークモード対応（CSS変数）、credentials: 'include' 設定済み
+- [x] ブランチ: feature/active-recall-voice-recording
+- [x] バグ修正: DockerコンテナにPython+faster-whisperインストール（node:18-alpine→node:18-slim変更）
+  - [x] Dockerfile: node:18-slim ベース + Python3/pip/faster-whisper インストール
+  - [x] docker-compose.yml: whisper_models ボリューム追加（モデルキャッシュ永続化）
+  - [x] PYTHON_PATH 環境変数化（コンテナ内: /usr/bin/python3）
+
+### ActiveRecall Phase 2（完了）— 知識管理+クイズ管理（CRUD + SM-2基盤）
+- [x] knowledge_items テーブル作成（SM-2パラメータ: easiness_factor, repetitions, interval_days, next_review_date, retention_score）
+- [x] quizzes テーブル作成（free_text/multiple_choice、options_json JSON、CASCADE DELETE）
+- [x] review_sessions, quiz_attempts テーブル作成（Phase 3用、テーブルのみ）
+- [x] 知識管理API（GET/POST/PUT/DELETE /api/knowledge、GET /api/knowledge/stats）
+  - [x] フィルタ対応: category, difficulty, status（due/mastered/not_started）
+  - [x] 統計API: total_items, due_today, mastered, learning, not_started, retention_avg
+  - [x] POST時クイズ同時作成（トランザクション処理）
+- [x] クイズAPI（GET/POST /api/knowledge/:knowledgeId/quizzes、PUT/DELETE /api/quizzes/:id）
+- [x] KnowledgeList.js: 統計サマリーバー + フィルタ + テーブル表示
+- [x] KnowledgeForm.js: 新規/編集兼用 + QuizForm でクイズ同時作成
+- [x] KnowledgeDetail.js: SM-2パラメータ表示 + クイズ一覧管理
+- [x] QuizForm.js: 再利用可能、free_text/multiple_choice 切替
+- [x] App.js: /knowledge, /knowledge/new, /knowledge/:id, /knowledge/:id/edit ルート追加
+- [x] Sidebar.js: 📚 学習（/knowledge）ナビゲーション追加
+- [x] ダークモード対応済み（CSS変数使用）
+
 ### 今後の予定（優先順）
-1. タスク管理機能
-2. ノート管理機能
-3. 家計簿機能
-4. ActiveRecall機能
+1. ActiveRecall Phase 3: 間隔反復学習（SM-2アルゴリズム実行 + レビューセッション）
+2. タスク管理機能
+3. ノート管理機能
+4. 家計簿機能
 
 ## コーディング規約
 

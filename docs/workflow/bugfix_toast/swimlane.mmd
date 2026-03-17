@@ -1,0 +1,38 @@
+graph TD
+    subgraph Browser["ブラウザ (User)"]
+        B1["認証が必要な操作実行"]
+        B3["やりたいこと操作<br/>追加/編集/削除"]
+        B6["トースト通知表示<br/>画面右上スライドイン"]
+        B7["×ボタンで手動消去<br/>or 自動消去"]
+    end
+
+    subgraph React["React (Frontend)"]
+        R1["App.js<br/>ToastProvider ラッピング"]
+        R2["WishList.js<br/>API呼出 + 結果判定"]
+        R3["useToast フック<br/>showToast(msg, type)"]
+        R4["ToastProvider<br/>toasts 配列に追加<br/>一意ID生成"]
+        R5["setTimeout<br/>success=4秒 / error=8秒<br/>→ 配列から削除"]
+    end
+
+    subgraph Express["Express (Backend)"]
+        E1["requireAuth<br/>セッションチェック<br/>エラーメッセージ日本語化"]
+        E2["routes/wishes.js<br/>[wishes] プレフィックス<br/>リクエストログ出力"]
+        E3["routes/auth.js<br/>[auth] プレフィックス<br/>ログイン成功/失敗ログ"]
+    end
+
+    B1 --> E1
+    E1 -->|未認証| R3
+    E1 -->|認証OK| E2
+    B3 --> R2
+    R2 -->|fetch| E2
+    E2 -->|レスポンス| R2
+    R2 -->|成功/エラー| R3
+    R3 --> R4
+    R4 --> B6
+    R4 --> R5
+    R5 --> B7
+    R1 -.->|Context提供| R3
+
+    style Browser fill:#d5e8d4,stroke:#82b366
+    style React fill:#dae8fc,stroke:#6c8ebf
+    style Express fill:#ffe6cc,stroke:#d6b656

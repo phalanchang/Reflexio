@@ -11,6 +11,10 @@ const googleRoutes = require('./routes/google');
 const calendarRoutes = require('./routes/calendar');
 const categoryMappingsRoutes = require('./routes/categoryMappings');
 const wishImagesRoutes = require('./routes/wishImages');
+const recordingsRoutes = require('./routes/recordings');
+const transcribeRoutes = require('./routes/transcribe');
+const knowledgeRoutes = require('./routes/knowledge');
+const quizzesRoutes = require('./routes/quizzes');
 const pool = require('./config/database');
 
 const app = express();
@@ -61,6 +65,10 @@ app.use('/api/google/settings', googleSettingsRoutes);
 app.use('/api/google', googleRoutes);
 app.use('/api/calendar', calendarRoutes);
 app.use('/api/category-mappings', categoryMappingsRoutes);
+app.use('/api/recordings', recordingsRoutes);
+app.use('/api', transcribeRoutes);
+app.use('/api/knowledge', knowledgeRoutes);
+app.use('/api', quizzesRoutes);
 
 app.listen(PORT, '0.0.0.0', () => {
   console.log(`Server is running on port ${PORT}`);

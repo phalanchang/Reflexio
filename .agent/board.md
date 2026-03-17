@@ -277,3 +277,57 @@
 | 2026-03-05T12:35:00+09:00 | PL_to_PM_026 | PL | PM | completion | Sprint 9d 完了報告: コンテキストメニュー+一括操作+キーボードショートカット 全工程完了 | read |
 | 2026-03-05T12:35:00+09:00 | PL_to_LIBRARIAN_020 | PL | LIBRARIAN | doc_update | ドキュメント更新依頼: Sprint 9d コンテキストメニュー+一括操作+キーボードショートカット | completed |
 | 2026-03-05T12:42:00+09:00 | LIBRARIAN_to_PL_020 | LIBRARIAN | PL | completion | 完了: Sprint 9d コンテキストメニュー+一括操作+キーボードショートカット ドキュメント更新 | read |
+| 2026-03-05T15:00:00+09:00 | PM_to_PL_027 | PM | PL | task | ActiveRecall Phase 1: 音声録音 + 文字起こし基盤の実装（US-VR-001 / US-VR-002） | in_progress |
+| 2026-03-05T15:10:00+09:00 | PL_to_DEV1_024 | PL | DEV1 | task | ActiveRecall Phase 1: 音声録音・文字起こし バックエンド基盤（DB + API + Python + multer） | completed |
+| 2026-03-05T15:10:00+09:00 | PL_to_DEV2_026 | PL | DEV2 | task | ActiveRecall Phase 1: 音声録音・文字起こし フロントエンドUI（VoiceRecorder + テスト画面） | completed |
+| 2026-03-05T15:30:00+09:00 | DEV2_to_PL_026 | DEV2 | PL | completion | 完了: ActiveRecall Phase 1 音声録音・文字起こし フロントエンドUI | read |
+| 2026-03-05T15:30:00+09:00 | DEV1_to_PL_024 | DEV1 | PL | completion | 完了: ActiveRecall Phase 1 音声録音・文字起こし バックエンド基盤 | read |
+| 2026-03-05T15:35:00+09:00 | PL_to_REVIEWER_021 | PL | REVIEWER | review_request | レビュー依頼: ActiveRecall Phase 1 音声録音・文字起こし基盤（バックエンド + フロントエンド） | in_progress |
+| 2026-03-05T15:55:00+09:00 | REVIEWER_to_PL_021 | REVIEWER | PL | review_result | レビュー結果: ActiveRecall Phase 1 REQUEST_CHANGES（MUST 2件 + SHOULD 1件） | read |
+| 2026-03-05T16:00:00+09:00 | PL_to_DEV2_027 | PL | DEV2 | task | レビュー指摘修正: VoiceRecorder.js MUST 2件（APIレスポンス参照バグ） | completed |
+| 2026-03-05T16:05:00+09:00 | DEV2_to_PL_027 | DEV2 | PL | completion | 完了: レビュー指摘修正 VoiceRecorder.js MUST 2件 | read |
+| 2026-03-05T16:00:00+09:00 | PL_to_DEV1_025 | PL | DEV1 | task | レビュー指摘修正: transcribe.js SHOULD 1件（headersSent ガード追加） | completed |
+| 2026-03-05T16:05:00+09:00 | DEV1_to_PL_025 | DEV1 | PL | completion | 完了: レビュー指摘修正 transcribe.js headersSent ガード追加 | read |
+| 2026-03-05T16:15:00+09:00 | PM_to_PL_028 | PM | PL | task | ActiveRecall Phase 1: レビュー指摘修正全件完了 → テスト工程に進めてください | read |
+| 2026-03-05T16:20:00+09:00 | PL_to_TESTER_022 | PL | TESTER | test_request | テスト依頼: ActiveRecall Phase 1 音声録音・文字起こし基盤 全60項目 | completed |
+| 2026-03-05T16:45:00+09:00 | TESTER_to_PL_022 | TESTER | PL | test_result | テスト結果: ActiveRecall Phase 1 音声録音・文字起こし基盤 全60項目PASS | read |
+| 2026-03-05T16:50:00+09:00 | PL_to_PM_027 | PL | PM | completion | ActiveRecall Phase 1 完了報告: 音声録音・文字起こし基盤 全工程完了 | read |
+| 2026-03-05T16:50:00+09:00 | PL_to_LIBRARIAN_021 | PL | LIBRARIAN | doc_update | ドキュメント更新依頼: ActiveRecall Phase 1 音声録音・文字起こし基盤 | completed |
+| 2026-03-05T17:00:00+09:00 | LIBRARIAN_to_PL_021 | LIBRARIAN | PL | completion | 完了: ActiveRecall Phase 1 音声録音・文字起こし基盤 ドキュメント更新 | read |
+| 2026-03-05T17:30:00+09:00 | PM_to_PL_029 | PM | PL | task | バグ修正: 文字起こしエラー — DockerコンテナにPython+faster-whisperをインストール | in_progress |
+| 2026-03-05T17:40:00+09:00 | PL_to_DEV1_026 | PL | DEV1 | task | バグ修正: DockerコンテナにPython+faster-whisperをインストール（文字起こしエラー解消） | completed |
+| 2026-03-05T17:50:00+09:00 | DEV1_to_PL_026 | DEV1 | PL | completion | 完了: バグ修正 DockerコンテナにPython+faster-whisperインストール | read |
+| 2026-03-05T17:55:00+09:00 | PL_to_REVIEWER_022 | PL | REVIEWER | review_request | レビュー依頼: バグ修正 DockerコンテナにPython+faster-whisperインストール（3ファイル） | completed |
+| 2026-03-05T18:10:00+09:00 | REVIEWER_to_PL_022 | REVIEWER | PL | review_result | レビュー結果: バグ修正 Docker Python+faster-whisper APPROVE（指摘なし） | read |
+| 2026-03-05T18:15:00+09:00 | PL_to_TESTER_023 | PL | TESTER | test_request | テスト依頼: バグ修正 DockerコンテナにPython+faster-whisperインストール 全16項目 | completed |
+| 2026-03-05T18:35:00+09:00 | TESTER_to_PL_023 | TESTER | PL | test_result | テスト結果: バグ修正 Docker Python+faster-whisper 全16項目PASS | read |
+| 2026-03-05T18:40:00+09:00 | PL_to_PM_028 | PL | PM | completion | バグ修正完了: DockerコンテナにPython+faster-whisperインストール 全工程完了 | read |
+| 2026-03-05T18:40:00+09:00 | PL_to_LIBRARIAN_022 | PL | LIBRARIAN | doc_update | ドキュメント更新依頼: バグ修正 DockerコンテナにPython+faster-whisperインストール | completed |
+| 2026-03-05T18:50:00+09:00 | LIBRARIAN_to_PL_022 | LIBRARIAN | PL | completion | 完了: バグ修正 DockerコンテナPython+faster-whisper ドキュメント更新 | read |
+| 2026-03-06T00:00:00+09:00 | PM_to_PL_030 | PM | PL | task | ActiveRecall Phase 2: 知識管理機能（知識CRUD + クイズCRUD + SM-2基盤） | completed |
+| 2026-03-06T00:10:00+09:00 | PL_to_DEV1_027 | PL | DEV1 | task | ActiveRecall Phase 2: 知識管理+クイズ管理 バックエンド（DB 4テーブル + API 2ファイル） | completed |
+| 2026-03-06T00:25:00+09:00 | DEV1_to_PL_027 | DEV1 | PL | completion | 完了: ActiveRecall Phase 2 知識+クイズ バックエンド（DB 4テーブル + API 2ファイル） | read |
+| 2026-03-06T00:10:00+09:00 | PL_to_DEV2_028 | PL | DEV2 | task | ActiveRecall Phase 2: 知識管理+クイズ管理 フロントエンドUI（4コンポーネント + ルーティング） | completed |
+| 2026-03-06T00:35:00+09:00 | DEV2_to_PL_028 | DEV2 | PL | completion | 完了: ActiveRecall Phase 2 知識管理+クイズ管理 フロントエンドUI | read |
+| 2026-03-06T00:40:00+09:00 | PL_to_REVIEWER_023 | PL | REVIEWER | review_request | レビュー依頼: ActiveRecall Phase 2 知識管理+クイズ管理（バックエンド+フロントエンド 14ファイル） | completed |
+| 2026-03-06T01:05:00+09:00 | REVIEWER_to_PL_023 | REVIEWER | PL | review_result | レビュー結果: ActiveRecall Phase 2 REQUEST_CHANGES（MUST 5件 — APIレスポンスキー不整合） | read |
+| 2026-03-06T01:10:00+09:00 | PL_to_DEV2_029 | PL | DEV2 | task | レビュー指摘修正: MUST 5件 — APIレスポンスキー不整合（KnowledgeList/Form/Detail） | completed |
+| 2026-03-06T01:10:00+09:00 | PL_to_DEV1_028 | PL | DEV1 | task | レビュー指摘修正: SHOULD 1件 — knowledge.js POST connection.release() 二重解放防止 | completed |
+| 2026-03-06T01:15:00+09:00 | DEV1_to_PL_028 | DEV1 | PL | completion | 完了: レビュー指摘修正 knowledge.js connection.release() 二重解放防止 | read |
+| 2026-03-06T01:18:00+09:00 | DEV2_to_PL_029 | DEV2 | PL | completion | 完了: レビュー指摘修正 MUST 5件 APIレスポンスキー不整合 | read |
+| 2026-03-06T01:20:00+09:00 | PL_to_TESTER_024 | PL | TESTER | test_request | テスト依頼: ActiveRecall Phase 2 知識管理+クイズ管理 全43項目 | completed |
+| 2026-03-06T01:50:00+09:00 | TESTER_to_PL_024 | TESTER | PL | test_result | テスト結果: ActiveRecall Phase 2 知識管理+クイズ管理 全43項目PASS | read |
+| 2026-03-06T02:00:00+09:00 | PL_to_PM_029 | PL | PM | completion | ActiveRecall Phase 2 全工程完了: 知識管理+クイズ管理（DB+API+UI）レビュー・テスト合格 | read |
+| 2026-03-06T02:00:00+09:00 | PL_to_LIBRARIAN_023 | PL | LIBRARIAN | doc_update | ドキュメント更新依頼: ActiveRecall Phase 2 知識管理+クイズ管理 | completed |
+| 2026-03-06T02:10:00+09:00 | LIBRARIAN_to_PL_023 | LIBRARIAN | PL | completion | 完了: ActiveRecall Phase 2 知識管理+クイズ管理 ドキュメント更新 | read |
+| 2026-03-06T02:30:00+09:00 | PM_to_PL_031 | PM | PL | task | ワークフロー文書化: 完了済み全14件の実装ワークフロー図+解説ドキュメント作成 | completed |
+| 2026-03-06T02:35:00+09:00 | PL_to_DEV1_029 | PL | DEV1 | task | ワークフロー文書化: Sprint 1-4 + ActiveRecall Phase 1（5ディレクトリ） | completed |
+| 2026-03-06T02:55:00+09:00 | DEV1_to_PL_029 | DEV1 | PL | completion | 完了: ワークフロー文書化 Sprint 1-4 + AR Phase 1（5ディレクトリ x 3ファイル） | read |
+| 2026-03-06T02:35:00+09:00 | PL_to_DEV2_030 | PL | DEV2 | task | ワークフロー文書化: Sprint 5-8 + ActiveRecall Phase 2（5ディレクトリ） | completed |
+| 2026-03-06T03:00:00+09:00 | DEV2_to_PL_030 | DEV2 | PL | completion | 完了: ワークフロー文書化 Sprint 5-8 + ActiveRecall Phase 2（5ディレクトリ x 3ファイル） | unread |
+| 2026-03-06T02:35:00+09:00 | PL_to_LIBRARIAN_024 | PL | LIBRARIAN | task | ワークフロー文書化: Sprint 9 + バグ修正Toast + README.md（2ディレクトリ + インデックス） | completed |
+| 2026-03-06T02:55:00+09:00 | LIBRARIAN_to_PL_024 | LIBRARIAN | PL | completion | 完了: ワークフロー文書化 Sprint 9 + バグ修正Toast + README.md | read |
+| 2026-03-06T03:00:00+09:00 | DEV2_to_PL_030 | DEV2 | PL | completion | 完了: ワークフロー文書化 Sprint 5-8 + ActiveRecall Phase 2（5ディレクトリ x 3ファイル） | read |
+| 2026-03-06T03:05:00+09:00 | PL_to_REVIEWER_024 | PL | REVIEWER | review_request | レビュー依頼: ワークフロー文書化（12ディレクトリ + README.md、計39ファイル） | completed |
+| 2026-03-06T03:30:00+09:00 | REVIEWER_to_PL_024 | REVIEWER | PL | review_result | レビュー結果: ワークフロー文書化 APPROVE（SHOULD 1件 + NICE 2件） | read |
+| 2026-03-06T03:35:00+09:00 | PL_to_PM_030 | PL | PM | completion | ワークフロー文書化 全工程完了: 12ディレクトリ + README.md（39ファイル）レビューAPPROVE | read |

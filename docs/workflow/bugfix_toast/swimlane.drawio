@@ -1,0 +1,71 @@
+<mxfile host="app.diagrams.net" modified="2026-03-06T02:45:00.000Z" agent="LIBRARIAN" version="21.0.0">
+  <diagram name="Bugfix Toast" id="bugfix_toast">
+    <mxGraphModel dx="1200" dy="800" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1200" pageHeight="900" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+
+        <mxCell id="lane_browser" value="ブラウザ (User)" style="shape=swimlane;startSize=30;fillColor=#d5e8d4;strokeColor=#82b366;fontStyle=1;fontSize=14;" vertex="1" parent="1">
+          <mxGeometry x="40" y="40" width="1120" height="160" as="geometry" />
+        </mxCell>
+        <mxCell id="lane_react" value="React (Frontend)" style="shape=swimlane;startSize=30;fillColor=#dae8fc;strokeColor=#6c8ebf;fontStyle=1;fontSize=14;" vertex="1" parent="1">
+          <mxGeometry x="40" y="200" width="1120" height="200" as="geometry" />
+        </mxCell>
+        <mxCell id="lane_express" value="Express (Backend)" style="shape=swimlane;startSize=30;fillColor=#ffe6cc;strokeColor=#d6b656;fontStyle=1;fontSize=14;" vertex="1" parent="1">
+          <mxGeometry x="40" y="400" width="1120" height="160" as="geometry" />
+        </mxCell>
+
+        <mxCell id="b1" value="認証が必要な&#xa;操作実行" style="rounded=1;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="lane_browser">
+          <mxGeometry x="20" y="50" width="120" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="b3" value="やりたいこと操作&#xa;(追加/編集/削除)" style="rounded=1;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="lane_browser">
+          <mxGeometry x="200" y="50" width="140" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="b6" value="トースト通知表示&#xa;画面右上&#xa;スライドイン" style="rounded=1;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="lane_browser">
+          <mxGeometry x="800" y="40" width="130" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="b7" value="自動消去&#xa;(4秒/8秒)&#xa;or ×手動消去" style="rounded=1;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="lane_browser">
+          <mxGeometry x="960" y="40" width="120" height="60" as="geometry" />
+        </mxCell>
+
+        <mxCell id="r1" value="App.js&#xa;ToastProvider&#xa;ラッピング" style="rounded=1;fillColor=#dae8fc;strokeColor=#6c8ebf;dashed=1;" vertex="1" parent="lane_react">
+          <mxGeometry x="20" y="40" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="r2" value="WishList.js&#xa;API呼出&#xa;+ 結果判定" style="rounded=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="lane_react">
+          <mxGeometry x="200" y="40" width="130" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="r3" value="useToast()&#xa;showToast&#xa;(msg, type)" style="rounded=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="lane_react">
+          <mxGeometry x="500" y="40" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="r4" value="ToastProvider&#xa;toasts配列追加&#xa;一意ID生成" style="rounded=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="lane_react">
+          <mxGeometry x="660" y="40" width="130" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="r5" value="setTimeout&#xa;success=4秒&#xa;error=8秒" style="rounded=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="lane_react">
+          <mxGeometry x="820" y="120" width="120" height="60" as="geometry" />
+        </mxCell>
+
+        <mxCell id="e1" value="requireAuth&#xa;セッションチェック&#xa;エラー日本語化" style="rounded=1;fillColor=#ffe6cc;strokeColor=#d6b656;" vertex="1" parent="lane_express">
+          <mxGeometry x="20" y="40" width="140" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="e2" value="routes/wishes.js&#xa;[wishes] プレフィックス&#xa;リクエストログ" style="rounded=1;fillColor=#ffe6cc;strokeColor=#d6b656;" vertex="1" parent="lane_express">
+          <mxGeometry x="200" y="40" width="160" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="e3" value="routes/auth.js&#xa;[auth] プレフィックス&#xa;ログイン成功/失敗" style="rounded=1;fillColor=#ffe6cc;strokeColor=#d6b656;" vertex="1" parent="lane_express">
+          <mxGeometry x="400" y="40" width="160" height="60" as="geometry" />
+        </mxCell>
+
+        <mxCell id="a1" edge="1" source="b1" target="e1" parent="1"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="a2" edge="1" source="e1" target="e2" parent="1"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="a3" edge="1" source="b3" target="r2" parent="1"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="a4" edge="1" source="r2" target="e2" parent="1"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="a5" edge="1" source="e2" target="r2" parent="1" style="dashed=1;"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="a6" edge="1" source="r2" target="r3" parent="1"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="a7" edge="1" source="r3" target="r4" parent="1"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="a8" edge="1" source="r4" target="b6" parent="1"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="a9" edge="1" source="r4" target="r5" parent="1"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="a10" edge="1" source="r5" target="b7" parent="1"><mxGeometry relative="1" as="geometry" /></mxCell>
+
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

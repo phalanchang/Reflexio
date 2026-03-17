@@ -1,0 +1,65 @@
+<mxfile>
+  <diagram name="Sprint 8 Clawdbot Skills" id="sprint08">
+    <mxGraphModel dx="1000" dy="800" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1200" pageHeight="900" math="0" shadow="0">
+      <root>
+        <mxCell id="0"/>
+        <mxCell id="1" parent="0"/>
+        <!-- Lanes (Frontend only) -->
+        <mxCell id="lane1" value="ブラウザ (User)" style="shape=swimlane;startSize=30;fillColor=#d5e8d4;strokeColor=#82b366;fontStyle=1;fontSize=13;" vertex="1" parent="1">
+          <mxGeometry x="20" y="20" width="350" height="780" as="geometry"/>
+        </mxCell>
+        <mxCell id="lane2" value="React (Frontend)" style="shape=swimlane;startSize=30;fillColor=#dae8fc;strokeColor=#6c8ebf;fontStyle=1;fontSize=13;" vertex="1" parent="1">
+          <mxGeometry x="370" y="20" width="400" height="780" as="geometry"/>
+        </mxCell>
+
+        <!-- バッジ表示 -->
+        <mxCell id="n1" value="/clawdbot ページに遷移" style="rounded=1;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="lane1">
+          <mxGeometry x="50" y="50" width="250" height="40" as="geometry"/>
+        </mxCell>
+        <mxCell id="n2" value="ClawdbotSkills.js&#xa;clawdbotSkillsData.js 読込&#xa;3カテゴリ分け表示" style="rounded=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="lane2">
+          <mxGeometry x="50" y="50" width="300" height="50" as="geometry"/>
+        </mxCell>
+        <mxCell id="n3" value="SkillBadge.js&#xa;hexagon/octagon clip-path&#xa;PNG画像ランダム選択 (96px)" style="rounded=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="lane2">
+          <mxGeometry x="50" y="130" width="300" height="50" as="geometry"/>
+        </mxCell>
+        <mxCell id="n4" value="バッジラベル表示 (13px)" style="rounded=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="lane2">
+          <mxGeometry x="50" y="210" width="300" height="40" as="geometry"/>
+        </mxCell>
+
+        <!-- D&D -->
+        <mxCell id="n5" value="バッジをドラッグ開始" style="rounded=1;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="lane1">
+          <mxGeometry x="50" y="310" width="250" height="40" as="geometry"/>
+        </mxCell>
+        <mxCell id="n6" value="HTML5 D&D API&#xa;onDragStart/onDragOver/onDrop&#xa;同カテゴリ内並び替え" style="rounded=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="lane2">
+          <mxGeometry x="50" y="310" width="300" height="50" as="geometry"/>
+        </mxCell>
+        <mxCell id="n7" value="useState で並び順管理&#xa;(セッション内のみ)" style="rounded=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="lane2">
+          <mxGeometry x="50" y="390" width="300" height="40" as="geometry"/>
+        </mxCell>
+
+        <!-- モーダル -->
+        <mxCell id="n8" value="バッジクリック&#xa;(or Enterキー)" style="rounded=1;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="lane1">
+          <mxGeometry x="50" y="490" width="250" height="40" as="geometry"/>
+        </mxCell>
+        <mxCell id="n9" value="SkillModal.js&#xa;詳細モーダル (z-index:1500)&#xa;スキル名+説明+画像(120x120)" style="rounded=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="lane2">
+          <mxGeometry x="50" y="490" width="300" height="50" as="geometry"/>
+        </mxCell>
+        <mxCell id="n10" value="ESCキー or&#xa;オーバーレイクリック" style="rounded=1;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="lane1">
+          <mxGeometry x="50" y="580" width="250" height="40" as="geometry"/>
+        </mxCell>
+        <mxCell id="n11" value="モーダル閉じ&#xa;キーボードアクセシビリティ&#xa;(tabIndex, role, onKeyDown)" style="rounded=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="lane2">
+          <mxGeometry x="50" y="580" width="300" height="50" as="geometry"/>
+        </mxCell>
+
+        <!-- Arrows -->
+        <mxCell id="a1" edge="1" source="n1" target="n2" parent="1"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="a2" edge="1" source="n2" target="n3" parent="1"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="a3" edge="1" source="n3" target="n4" parent="1"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="a4" edge="1" source="n5" target="n6" parent="1"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="a5" edge="1" source="n6" target="n7" parent="1"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="a6" edge="1" source="n8" target="n9" parent="1"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="a7" edge="1" source="n10" target="n11" parent="1"><mxGeometry relative="1" as="geometry"/></mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

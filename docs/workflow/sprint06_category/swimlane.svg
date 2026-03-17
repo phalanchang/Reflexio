@@ -1,0 +1,77 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1400 700" font-family="sans-serif" font-size="13">
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#333"/>
+    </marker>
+  </defs>
+
+  <!-- Lanes -->
+  <rect x="0" y="0" width="260" height="700" fill="#d5e8d4" stroke="#82b366" rx="4"/>
+  <rect x="260" y="0" width="280" height="700" fill="#dae8fc" stroke="#6c8ebf" rx="4"/>
+  <rect x="540" y="0" width="280" height="700" fill="#ffe6cc" stroke="#d6b656" rx="4"/>
+  <rect x="820" y="0" width="280" height="700" fill="#e1d5e7" stroke="#9673a6" rx="4"/>
+  <rect x="1100" y="0" width="280" height="700" fill="#f8cecc" stroke="#b85450" rx="4"/>
+  <text x="130" y="20" text-anchor="middle" font-weight="bold" font-size="14">ブラウザ</text>
+  <text x="400" y="20" text-anchor="middle" font-weight="bold" font-size="14">React</text>
+  <text x="680" y="20" text-anchor="middle" font-weight="bold" font-size="14">Express</text>
+  <text x="960" y="20" text-anchor="middle" font-weight="bold" font-size="14">MySQL</text>
+  <text x="1240" y="20" text-anchor="middle" font-weight="bold" font-size="14">Google Calendar API</text>
+
+  <!-- カテゴリ設定フロー -->
+  <rect x="20" y="50" width="220" height="35" rx="8" fill="#fff" stroke="#82b366" stroke-width="1.5"/>
+  <text x="130" y="72" text-anchor="middle" font-size="12">設定→カテゴリ設定セクション</text>
+
+  <rect x="280" y="50" width="240" height="35" rx="8" fill="#fff" stroke="#6c8ebf" stroke-width="1.5"/>
+  <text x="400" y="72" text-anchor="middle" font-size="12">Settings.js 11色マッピングテーブル</text>
+  <line x1="240" y1="67" x2="280" y2="67" stroke="#333" stroke-width="1.5" marker-end="url(#arrow)"/>
+
+  <rect x="560" y="110" width="240" height="35" rx="8" fill="#fff" stroke="#d6b656" stroke-width="1.5"/>
+  <text x="680" y="132" text-anchor="middle" font-size="12">GET /api/category-mappings</text>
+  <line x1="520" y1="85" x2="560" y2="127" stroke="#333" stroke-width="1.5" marker-end="url(#arrow)"/>
+
+  <rect x="840" y="110" width="240" height="35" rx="8" fill="#fff" stroke="#9673a6" stroke-width="1.5"/>
+  <text x="960" y="132" text-anchor="middle" font-size="12">category_mappings SELECT</text>
+  <line x1="800" y1="127" x2="840" y2="127" stroke="#333" stroke-width="1.5" marker-end="url(#arrow)"/>
+
+  <rect x="20" y="190" width="220" height="35" rx="8" fill="#fff" stroke="#82b366" stroke-width="1.5"/>
+  <text x="130" y="212" text-anchor="middle" font-size="12">各色にカテゴリ名入力→保存</text>
+
+  <rect x="280" y="250" width="240" height="35" rx="8" fill="#fff" stroke="#6c8ebf" stroke-width="1.5"/>
+  <text x="400" y="272" text-anchor="middle" font-size="12">PUT /api/category-mappings</text>
+  <line x1="240" y1="207" x2="280" y2="267" stroke="#333" stroke-width="1.5" marker-end="url(#arrow)"/>
+
+  <rect x="560" y="250" width="240" height="35" rx="8" fill="#fff" stroke="#d6b656" stroke-width="1.5"/>
+  <text x="680" y="272" text-anchor="middle" font-size="12">各colorId UPSERT</text>
+  <line x1="520" y1="267" x2="560" y2="267" stroke="#333" stroke-width="1.5" marker-end="url(#arrow)"/>
+
+  <rect x="840" y="250" width="240" height="35" rx="8" fill="#fff" stroke="#9673a6" stroke-width="1.5"/>
+  <text x="960" y="272" text-anchor="middle" font-size="12">category_mappings UPSERT</text>
+  <line x1="800" y1="267" x2="840" y2="267" stroke="#333" stroke-width="1.5" marker-end="url(#arrow)"/>
+
+  <!-- 分類表示フロー -->
+  <text x="130" y="340" text-anchor="middle" font-weight="bold" font-size="12" fill="#555">--- カテゴリ分類表示 ---</text>
+
+  <rect x="280" y="370" width="240" height="35" rx="8" fill="#fff" stroke="#6c8ebf" stroke-width="1.5"/>
+  <text x="400" y="392" text-anchor="middle" font-size="12">Dashboard表示</text>
+
+  <rect x="560" y="370" width="240" height="35" rx="8" fill="#fff" stroke="#d6b656" stroke-width="1.5"/>
+  <text x="680" y="392" text-anchor="middle" font-size="12">GET /api/calendar/summary</text>
+  <line x1="520" y1="387" x2="560" y2="387" stroke="#333" stroke-width="1.5" marker-end="url(#arrow)"/>
+
+  <rect x="1120" y="370" width="240" height="35" rx="8" fill="#fff" stroke="#b85450" stroke-width="1.5"/>
+  <text x="1240" y="392" text-anchor="middle" font-size="12">イベント取得 (colorId含む)</text>
+  <line x1="800" y1="387" x2="1120" y2="387" stroke="#333" stroke-width="1.5" marker-end="url(#arrow)"/>
+
+  <rect x="840" y="440" width="240" height="40" rx="8" fill="#fff" stroke="#9673a6" stroke-width="1.5"/>
+  <text x="960" y="456" text-anchor="middle" font-size="11">カスタム名取得</text>
+  <text x="960" y="472" text-anchor="middle" font-size="11">(未設定時→デフォルト色名)</text>
+  <line x1="680" y1="405" x2="840" y2="460" stroke="#333" stroke-width="1.5" marker-end="url(#arrow)"/>
+
+  <rect x="560" y="510" width="240" height="35" rx="8" fill="#fff" stroke="#d6b656" stroke-width="1.5"/>
+  <text x="680" y="532" text-anchor="middle" font-size="12">カテゴリ別サマリー返却</text>
+  <line x1="840" y1="480" x2="800" y2="527" stroke="#333" stroke-width="1.5" marker-end="url(#arrow)"/>
+
+  <rect x="280" y="510" width="240" height="35" rx="8" fill="#fff" stroke="#6c8ebf" stroke-width="1.5"/>
+  <text x="400" y="532" text-anchor="middle" font-size="12">TimeChart カテゴリ別棒グラフ</text>
+  <line x1="560" y1="527" x2="520" y2="527" stroke="#333" stroke-width="1.5" marker-end="url(#arrow)"/>
+</svg>

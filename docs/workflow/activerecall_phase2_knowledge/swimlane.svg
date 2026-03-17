@@ -1,0 +1,121 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 900" font-family="sans-serif" font-size="13">
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#333"/>
+    </marker>
+  </defs>
+
+  <!-- Lanes -->
+  <rect x="0" y="0" width="280" height="900" fill="#d5e8d4" stroke="#82b366" rx="4"/>
+  <rect x="280" y="0" width="300" height="900" fill="#dae8fc" stroke="#6c8ebf" rx="4"/>
+  <rect x="580" y="0" width="300" height="900" fill="#ffe6cc" stroke="#d6b656" rx="4"/>
+  <rect x="880" y="0" width="300" height="900" fill="#e1d5e7" stroke="#9673a6" rx="4"/>
+  <text x="140" y="20" text-anchor="middle" font-weight="bold" font-size="14">ブラウザ</text>
+  <text x="430" y="20" text-anchor="middle" font-weight="bold" font-size="14">React</text>
+  <text x="730" y="20" text-anchor="middle" font-weight="bold" font-size="14">Express</text>
+  <text x="1030" y="20" text-anchor="middle" font-weight="bold" font-size="14">MySQL</text>
+
+  <!-- 知識一覧 -->
+  <rect x="20" y="45" width="240" height="35" rx="8" fill="#fff" stroke="#82b366" stroke-width="1.5"/>
+  <text x="140" y="67" text-anchor="middle" font-size="12">学習ページに遷移 (/knowledge)</text>
+
+  <rect x="300" y="45" width="260" height="45" rx="8" fill="#fff" stroke="#6c8ebf" stroke-width="1.5"/>
+  <text x="430" y="63" text-anchor="middle" font-size="11">KnowledgeList.js</text>
+  <text x="430" y="79" text-anchor="middle" font-size="11">GET /knowledge/stats + GET /knowledge</text>
+  <line x1="260" y1="62" x2="300" y2="67" stroke="#333" stroke-width="1.5" marker-end="url(#arrow)"/>
+
+  <rect x="600" y="45" width="260" height="45" rx="8" fill="#fff" stroke="#d6b656" stroke-width="1.5"/>
+  <text x="730" y="63" text-anchor="middle" font-size="11">knowledge.js stats + 一覧</text>
+  <text x="730" y="79" text-anchor="middle" font-size="11">WHERE句動的構築</text>
+  <line x1="560" y1="67" x2="600" y2="67" stroke="#333" stroke-width="1.5" marker-end="url(#arrow)"/>
+
+  <rect x="900" y="45" width="260" height="45" rx="8" fill="#fff" stroke="#9673a6" stroke-width="1.5"/>
+  <text x="1030" y="63" text-anchor="middle" font-size="11">knowledge_items SELECT+COUNT</text>
+  <text x="1030" y="79" text-anchor="middle" font-size="11">(category/difficulty/statusフィルタ)</text>
+  <line x1="860" y1="67" x2="900" y2="67" stroke="#333" stroke-width="1.5" marker-end="url(#arrow)"/>
+
+  <rect x="300" y="120" width="260" height="45" rx="8" fill="#fff" stroke="#6c8ebf" stroke-width="1.5"/>
+  <text x="430" y="138" text-anchor="middle" font-size="11">テーブルビュー+サマリーバー</text>
+  <text x="430" y="154" text-anchor="middle" font-size="11">定着度バー+難易度バッジ</text>
+  <line x1="900" y1="90" x2="560" y2="142" stroke="#999" stroke-width="1" stroke-dasharray="4"/>
+
+  <!-- 知識登録 -->
+  <text x="140" y="200" text-anchor="middle" font-weight="bold" font-size="12" fill="#555">--- 知識登録 ---</text>
+
+  <rect x="20" y="220" width="240" height="35" rx="8" fill="#fff" stroke="#82b366" stroke-width="1.5"/>
+  <text x="140" y="242" text-anchor="middle" font-size="12">「+ 新規追加」クリック</text>
+
+  <rect x="300" y="220" width="260" height="40" rx="8" fill="#fff" stroke="#6c8ebf" stroke-width="1.5"/>
+  <text x="430" y="236" text-anchor="middle" font-size="11">KnowledgeForm.js</text>
+  <text x="430" y="252" text-anchor="middle" font-size="11">タイトル/コンテンツ/カテゴリ/難易度</text>
+  <line x1="260" y1="237" x2="300" y2="240" stroke="#333" stroke-width="1.5" marker-end="url(#arrow)"/>
+
+  <rect x="300" y="290" width="260" height="40" rx="8" fill="#fff" stroke="#6c8ebf" stroke-width="1.5"/>
+  <text x="430" y="306" text-anchor="middle" font-size="11">QuizForm.js (inline)</text>
+  <text x="430" y="322" text-anchor="middle" font-size="11">質問/解答/形式 複数追加可能</text>
+
+  <rect x="300" y="360" width="260" height="35" rx="8" fill="#fff" stroke="#6c8ebf" stroke-width="1.5"/>
+  <text x="430" y="382" text-anchor="middle" font-size="12">POST /api/knowledge (quizzes含む)</text>
+
+  <rect x="600" y="360" width="260" height="45" rx="8" fill="#fff" stroke="#d6b656" stroke-width="1.5"/>
+  <text x="730" y="378" text-anchor="middle" font-size="11">knowledge.js POST</text>
+  <text x="730" y="394" text-anchor="middle" font-size="11">トランザクション (knowledge+quizzes)</text>
+  <line x1="560" y1="377" x2="600" y2="382" stroke="#333" stroke-width="1.5" marker-end="url(#arrow)"/>
+
+  <rect x="900" y="360" width="260" height="45" rx="8" fill="#fff" stroke="#9673a6" stroke-width="1.5"/>
+  <text x="1030" y="378" text-anchor="middle" font-size="11">knowledge_items INSERT</text>
+  <text x="1030" y="394" text-anchor="middle" font-size="11">quizzes INSERT (N件) → COMMIT</text>
+  <line x1="860" y1="382" x2="900" y2="382" stroke="#333" stroke-width="1.5" marker-end="url(#arrow)"/>
+
+  <!-- 知識詳細 -->
+  <text x="140" y="445" text-anchor="middle" font-weight="bold" font-size="12" fill="#555">--- 知識詳細 ---</text>
+
+  <rect x="20" y="465" width="240" height="35" rx="8" fill="#fff" stroke="#82b366" stroke-width="1.5"/>
+  <text x="140" y="487" text-anchor="middle" font-size="12">タイトルクリック</text>
+
+  <rect x="300" y="465" width="260" height="35" rx="8" fill="#fff" stroke="#6c8ebf" stroke-width="1.5"/>
+  <text x="430" y="487" text-anchor="middle" font-size="12">KnowledgeDetail.js GET /:id</text>
+  <line x1="260" y1="482" x2="300" y2="482" stroke="#333" stroke-width="1.5" marker-end="url(#arrow)"/>
+
+  <rect x="600" y="465" width="260" height="35" rx="8" fill="#fff" stroke="#d6b656" stroke-width="1.5"/>
+  <text x="730" y="487" text-anchor="middle" font-size="12">knowledge + quizzes JOIN取得</text>
+  <line x1="560" y1="482" x2="600" y2="482" stroke="#333" stroke-width="1.5" marker-end="url(#arrow)"/>
+
+  <rect x="300" y="530" width="260" height="45" rx="8" fill="#fff" stroke="#6c8ebf" stroke-width="1.5"/>
+  <text x="430" y="548" text-anchor="middle" font-size="11">SM-2パラメータ表示</text>
+  <text x="430" y="564" text-anchor="middle" font-size="11">(EF, repetitions, interval, retention)</text>
+  <line x1="600" y1="500" x2="560" y2="552" stroke="#999" stroke-width="1" stroke-dasharray="4"/>
+
+  <!-- クイズ管理 -->
+  <text x="140" y="615" text-anchor="middle" font-weight="bold" font-size="12" fill="#555">--- クイズ管理 ---</text>
+
+  <rect x="20" y="635" width="240" height="35" rx="8" fill="#fff" stroke="#82b366" stroke-width="1.5"/>
+  <text x="140" y="657" text-anchor="middle" font-size="12">クイズ追加/編集/削除</text>
+
+  <rect x="300" y="635" width="260" height="40" rx="8" fill="#fff" stroke="#6c8ebf" stroke-width="1.5"/>
+  <text x="430" y="651" text-anchor="middle" font-size="11">QuizForm.js</text>
+  <text x="430" y="667" text-anchor="middle" font-size="11">POST/PUT/DELETE /api/quizzes</text>
+  <line x1="260" y1="652" x2="300" y2="655" stroke="#333" stroke-width="1.5" marker-end="url(#arrow)"/>
+
+  <rect x="600" y="635" width="260" height="40" rx="8" fill="#fff" stroke="#d6b656" stroke-width="1.5"/>
+  <text x="730" y="651" text-anchor="middle" font-size="11">quizzes.js 所有権チェック</text>
+  <text x="730" y="667" text-anchor="middle" font-size="11">CRUD処理</text>
+  <line x1="560" y1="655" x2="600" y2="655" stroke="#333" stroke-width="1.5" marker-end="url(#arrow)"/>
+
+  <rect x="900" y="635" width="260" height="35" rx="8" fill="#fff" stroke="#9673a6" stroke-width="1.5"/>
+  <text x="1030" y="657" text-anchor="middle" font-size="12">quizzes INSERT/UPDATE/DELETE</text>
+  <line x1="860" y1="655" x2="900" y2="652" stroke="#333" stroke-width="1.5" marker-end="url(#arrow)"/>
+
+  <!-- 知識削除 -->
+  <rect x="20" y="720" width="240" height="35" rx="8" fill="#fff" stroke="#82b366" stroke-width="1.5"/>
+  <text x="140" y="742" text-anchor="middle" font-size="12">削除確認 → DELETE</text>
+
+  <rect x="600" y="720" width="260" height="35" rx="8" fill="#fff" stroke="#d6b656" stroke-width="1.5"/>
+  <text x="730" y="742" text-anchor="middle" font-size="12">DELETE /api/knowledge/:id</text>
+  <line x1="260" y1="737" x2="600" y2="737" stroke="#333" stroke-width="1.5" marker-end="url(#arrow)"/>
+
+  <rect x="900" y="720" width="260" height="40" rx="8" fill="#fff" stroke="#9673a6" stroke-width="1.5"/>
+  <text x="1030" y="736" text-anchor="middle" font-size="11">knowledge_items DELETE</text>
+  <text x="1030" y="752" text-anchor="middle" font-size="11">→ quizzes CASCADE DELETE</text>
+  <line x1="860" y1="737" x2="900" y2="740" stroke="#333" stroke-width="1.5" marker-end="url(#arrow)"/>
+</svg>

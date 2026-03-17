@@ -114,6 +114,30 @@
   - 3層ガード: テキスト入力無効化 + isDisabled + テーブル専用キー制御
   - z-index: bulk-action-bar(50) < ActionMenu(100) < ImageModal(1000) < ShortcutHelp(1500) < Toast(2000)
   - フロントエンドのみ（バックエンド変更なし、既存 PUT/DELETE API 利用）
+- ActiveRecall Phase 1 完了: 音声録音・文字起こし基盤
+  - 新テーブル: voice_recordings（音声ファイルメタ情報）、transcriptions（文字起こし結果・ステータス管理）
+  - 新API: POST/GET/DELETE /api/recordings（multer 50MB上限、audio/webm等5種MIMEタイプ）
+  - 新API: POST /api/transcribe、GET /api/transcriptions/:id（child_process + headersSentガード）
+  - Pythonスクリプト: backend/scripts/transcribe.py（faster-whisper small, CPU/int8）
+  - 新コンポーネント: VoiceRecorder.js（再利用可能、MediaRecorder API、状態遷移管理）
+  - 新画面: VoiceTest（/voice-test、動作確認用）
+  - ダークモード対応、credentials: 'include' 設定済み
+  - Docker構成: node:18-slim ベース、コンテナ内に Python3 + faster-whisper インストール済み
+  - PYTHON_PATH 環境変数でPythonパス指定（コンテナ内: /usr/bin/python3）
+  - Whisper モデルキャッシュ: Docker volume（whisper_models）で永続化
+- ActiveRecall Phase 2 完了: 知識管理+クイズ管理（CRUD + SM-2基盤）
+  - 新テーブル: knowledge_items（SM-2パラメータ: easiness_factor, repetitions, interval_days, next_review_date, retention_score）
+  - 新テーブル: quizzes（free_text/multiple_choice、options_json JSON、CASCADE DELETE）
+  - 新テーブル: review_sessions, quiz_attempts（Phase 3用、テーブル作成のみ）
+  - 新API: /api/knowledge（CRUD + フィルタ + 統計）、/api/knowledge/:knowledgeId/quizzes
+  - 新API: /api/quizzes/:id（PUT/DELETE）
+  - 新コンポーネント: KnowledgeList（統計サマリーバー+フィルタ+テーブル表示）
+  - 新コンポーネント: KnowledgeForm（新規/編集兼用+クイズ同時作成）
+  - 新コンポーネント: KnowledgeDetail（SM-2パラメータ表示+クイズ管理）
+  - 新コンポーネント: QuizForm（再利用可能、free_text/multiple_choice切替）
+  - ルーティング: /knowledge, /knowledge/new, /knowledge/:id, /knowledge/:id/edit
+  - サイドバー: 📚 学習（/knowledge）
+  - ダークモード対応済み（CSS変数使用）
 - シードユーザー: admin / password123, phalanchang / password123
 - セッションベース認証（express-session、メモリストア）
 

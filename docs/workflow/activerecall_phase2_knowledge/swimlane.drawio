@@ -1,0 +1,118 @@
+<mxfile>
+  <diagram name="ActiveRecall Phase 2" id="ar_phase2">
+    <mxGraphModel dx="1400" dy="900" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1600" pageHeight="1100" math="0" shadow="0">
+      <root>
+        <mxCell id="0"/>
+        <mxCell id="1" parent="0"/>
+        <!-- Lanes -->
+        <mxCell id="lane1" value="ブラウザ (User)" style="shape=swimlane;startSize=30;fillColor=#d5e8d4;strokeColor=#82b366;fontStyle=1;fontSize=13;" vertex="1" parent="1">
+          <mxGeometry x="20" y="20" width="280" height="980" as="geometry"/>
+        </mxCell>
+        <mxCell id="lane2" value="React (Frontend)" style="shape=swimlane;startSize=30;fillColor=#dae8fc;strokeColor=#6c8ebf;fontStyle=1;fontSize=13;" vertex="1" parent="1">
+          <mxGeometry x="300" y="20" width="300" height="980" as="geometry"/>
+        </mxCell>
+        <mxCell id="lane3" value="Express (Backend)" style="shape=swimlane;startSize=30;fillColor=#ffe6cc;strokeColor=#d6b656;fontStyle=1;fontSize=13;" vertex="1" parent="1">
+          <mxGeometry x="600" y="20" width="300" height="980" as="geometry"/>
+        </mxCell>
+        <mxCell id="lane4" value="MySQL (DB)" style="shape=swimlane;startSize=30;fillColor=#e1d5e7;strokeColor=#9673a6;fontStyle=1;fontSize=13;" vertex="1" parent="1">
+          <mxGeometry x="900" y="20" width="280" height="980" as="geometry"/>
+        </mxCell>
+
+        <!-- 知識一覧 -->
+        <mxCell id="n1" value="学習ページに遷移&#xa;(/knowledge)" style="rounded=1;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="lane1">
+          <mxGeometry x="30" y="50" width="220" height="40" as="geometry"/>
+        </mxCell>
+        <mxCell id="n2" value="KnowledgeList.js&#xa;GET /api/knowledge/stats&#xa;GET /api/knowledge" style="rounded=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="lane2">
+          <mxGeometry x="30" y="50" width="240" height="50" as="geometry"/>
+        </mxCell>
+        <mxCell id="n3" value="knowledge.js&#xa;stats: COUNT集計&#xa;一覧: WHERE句動的構築" style="rounded=1;fillColor=#ffe6cc;strokeColor=#d6b656;" vertex="1" parent="lane3">
+          <mxGeometry x="30" y="50" width="240" height="50" as="geometry"/>
+        </mxCell>
+        <mxCell id="n4" value="knowledge_items&#xa;SELECT + COUNT&#xa;(category/difficulty/statusフィルタ)" style="rounded=1;fillColor=#e1d5e7;strokeColor=#9673a6;" vertex="1" parent="lane4">
+          <mxGeometry x="20" y="50" width="240" height="50" as="geometry"/>
+        </mxCell>
+        <mxCell id="n5" value="テーブルビュー表示&#xa;サマリーバー+フィルタ&#xa;定着度バー+難易度バッジ" style="rounded=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="lane2">
+          <mxGeometry x="30" y="140" width="240" height="50" as="geometry"/>
+        </mxCell>
+
+        <!-- 知識登録 -->
+        <mxCell id="n6" value="「+ 新規追加」クリック" style="rounded=1;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="lane1">
+          <mxGeometry x="30" y="240" width="220" height="40" as="geometry"/>
+        </mxCell>
+        <mxCell id="n7" value="KnowledgeForm.js&#xa;タイトル/コンテンツ/&#xa;カテゴリ/難易度入力" style="rounded=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="lane2">
+          <mxGeometry x="30" y="240" width="240" height="50" as="geometry"/>
+        </mxCell>
+        <mxCell id="n8" value="QuizForm.js (inline)&#xa;質問/解答/形式入力&#xa;複数追加可能" style="rounded=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="lane2">
+          <mxGeometry x="30" y="320" width="240" height="50" as="geometry"/>
+        </mxCell>
+        <mxCell id="n9" value="POST /api/knowledge&#xa;{title, content, quizzes: [...]}" style="rounded=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="lane2">
+          <mxGeometry x="30" y="400" width="240" height="40" as="geometry"/>
+        </mxCell>
+        <mxCell id="n10" value="knowledge.js POST&#xa;トランザクション開始&#xa;knowledge INSERT&#xa;quizzes 一括INSERT" style="rounded=1;fillColor=#ffe6cc;strokeColor=#d6b656;" vertex="1" parent="lane3">
+          <mxGeometry x="30" y="400" width="240" height="60" as="geometry"/>
+        </mxCell>
+        <mxCell id="n11" value="knowledge_items INSERT&#xa;quizzes INSERT (N件)&#xa;COMMIT" style="rounded=1;fillColor=#e1d5e7;strokeColor=#9673a6;" vertex="1" parent="lane4">
+          <mxGeometry x="20" y="400" width="240" height="50" as="geometry"/>
+        </mxCell>
+
+        <!-- 知識詳細 -->
+        <mxCell id="n12" value="タイトルクリック" style="rounded=1;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="lane1">
+          <mxGeometry x="30" y="520" width="220" height="40" as="geometry"/>
+        </mxCell>
+        <mxCell id="n13" value="KnowledgeDetail.js&#xa;GET /api/knowledge/:id" style="rounded=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="lane2">
+          <mxGeometry x="30" y="520" width="240" height="40" as="geometry"/>
+        </mxCell>
+        <mxCell id="n14" value="knowledge + quizzes&#xa;JOIN取得" style="rounded=1;fillColor=#ffe6cc;strokeColor=#d6b656;" vertex="1" parent="lane3">
+          <mxGeometry x="30" y="520" width="240" height="40" as="geometry"/>
+        </mxCell>
+        <mxCell id="n15" value="SM-2パラメータ表示&#xa;(EF, repetitions, interval,&#xa;next_review, retention)" style="rounded=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="lane2">
+          <mxGeometry x="30" y="600" width="240" height="50" as="geometry"/>
+        </mxCell>
+
+        <!-- クイズ管理 -->
+        <mxCell id="n16" value="クイズ追加/編集/削除" style="rounded=1;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="lane1">
+          <mxGeometry x="30" y="700" width="220" height="40" as="geometry"/>
+        </mxCell>
+        <mxCell id="n17" value="QuizForm.js&#xa;POST/PUT/DELETE&#xa;/api/quizzes" style="rounded=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="lane2">
+          <mxGeometry x="30" y="700" width="240" height="50" as="geometry"/>
+        </mxCell>
+        <mxCell id="n18" value="quizzes.js&#xa;所有権チェック&#xa;CRUD処理" style="rounded=1;fillColor=#ffe6cc;strokeColor=#d6b656;" vertex="1" parent="lane3">
+          <mxGeometry x="30" y="700" width="240" height="50" as="geometry"/>
+        </mxCell>
+        <mxCell id="n19" value="quizzes&#xa;INSERT/UPDATE/DELETE" style="rounded=1;fillColor=#e1d5e7;strokeColor=#9673a6;" vertex="1" parent="lane4">
+          <mxGeometry x="20" y="700" width="240" height="40" as="geometry"/>
+        </mxCell>
+
+        <!-- 知識削除 -->
+        <mxCell id="n20" value="削除確認ダイアログ&#xa;→ DELETE" style="rounded=1;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="lane1">
+          <mxGeometry x="30" y="810" width="220" height="40" as="geometry"/>
+        </mxCell>
+        <mxCell id="n21" value="DELETE /api/knowledge/:id" style="rounded=1;fillColor=#ffe6cc;strokeColor=#d6b656;" vertex="1" parent="lane3">
+          <mxGeometry x="30" y="810" width="240" height="40" as="geometry"/>
+        </mxCell>
+        <mxCell id="n22" value="knowledge_items DELETE&#xa;→ quizzes CASCADE" style="rounded=1;fillColor=#e1d5e7;strokeColor=#9673a6;" vertex="1" parent="lane4">
+          <mxGeometry x="20" y="810" width="240" height="40" as="geometry"/>
+        </mxCell>
+
+        <!-- Arrows -->
+        <mxCell id="a1" edge="1" source="n1" target="n2" parent="1"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="a2" value="fetch" edge="1" source="n2" target="n3" parent="1"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="a3" edge="1" source="n3" target="n4" parent="1"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="a4" value="response" edge="1" source="n4" target="n5" parent="1"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="a5" edge="1" source="n6" target="n7" parent="1"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="a6" edge="1" source="n7" target="n8" parent="1"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="a7" edge="1" source="n8" target="n9" parent="1"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="a8" value="POST" edge="1" source="n9" target="n10" parent="1"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="a9" value="transaction" edge="1" source="n10" target="n11" parent="1"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="a10" edge="1" source="n12" target="n13" parent="1"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="a11" value="GET" edge="1" source="n13" target="n14" parent="1"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="a12" value="response" edge="1" source="n14" target="n15" parent="1"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="a13" edge="1" source="n16" target="n17" parent="1"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="a14" edge="1" source="n17" target="n18" parent="1"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="a15" edge="1" source="n18" target="n19" parent="1"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="a16" edge="1" source="n20" target="n21" parent="1"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="a17" edge="1" source="n21" target="n22" parent="1"><mxGeometry relative="1" as="geometry"/></mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

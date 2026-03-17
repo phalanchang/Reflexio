@@ -1,0 +1,43 @@
+/* ===== VoiceTest テスト画面 ===== */
+
+.voice-test {
+  max-width: 700px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.voice-test h2 {
+  margin: 0 0 8px 0;
+  font-size: 22px;
+  color: var(--text-primary);
+}
+
+.voice-test-description {
+  margin: 0 0 24px 0;
+  font-size: 14px;
+  color: var(--text-muted);
+}
+
+/* デバッグ情報 */
+.voice-test-debug {
+  margin-top: 20px;
+  padding: 14px;
+  background: var(--main-bg);
+  border: 1px solid var(--card-border);
+  border-radius: 6px;
+}
+
+.voice-test-debug h3 {
+  margin: 0 0 8px 0;
+  font-size: 14px;
+  color: var(--text-secondary);
+}
+
+.voice-test-debug pre {
+  margin: 0;
+  font-size: 12px;
+  line-height: 1.5;
+  color: var(--text-primary);
+  white-space: pre-wrap;
+  word-wrap: break-word;
+}

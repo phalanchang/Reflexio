@@ -1,0 +1,155 @@
+<mxfile host="app.diagrams.net" modified="2026-03-06T02:40:00.000Z" agent="LIBRARIAN" version="21.0.0">
+  <diagram name="Sprint 9 UI Improvements" id="sprint9_ui">
+    <mxGraphModel dx="1422" dy="762" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1600" pageHeight="1200" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+
+        <!-- Lanes -->
+        <mxCell id="lane_browser" value="ブラウザ (User)" style="shape=swimlane;startSize=30;fillColor=#d5e8d4;strokeColor=#82b366;fontStyle=1;fontSize=14;" vertex="1" parent="1">
+          <mxGeometry x="40" y="40" width="1520" height="180" as="geometry" />
+        </mxCell>
+        <mxCell id="lane_react" value="React (Frontend)" style="shape=swimlane;startSize=30;fillColor=#dae8fc;strokeColor=#6c8ebf;fontStyle=1;fontSize=14;" vertex="1" parent="1">
+          <mxGeometry x="40" y="220" width="1520" height="200" as="geometry" />
+        </mxCell>
+
+        <!-- 9a: Table View + Sidebar -->
+        <mxCell id="s9a_title" value="【9a】テーブルビュー + サイドバー折りたたみ" style="text;fontSize=12;fontStyle=5;fillColor=#f5f5f5;strokeColor=#666666;" vertex="1" parent="lane_browser">
+          <mxGeometry x="20" y="40" width="300" height="25" as="geometry" />
+        </mxCell>
+        <mxCell id="b1" value="☰/▦ ビュー切替&#xa;クリック" style="rounded=1;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="lane_browser">
+          <mxGeometry x="20" y="75" width="120" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="b2" value="◀/▶ トグル&#xa;クリック" style="rounded=1;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="lane_browser">
+          <mxGeometry x="250" y="75" width="120" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="r1" value="viewMode 切替&#xa;(card/table)&#xa;→ localStorage" style="rounded=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="lane_react">
+          <mxGeometry x="20" y="40" width="140" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="r2" value="テーブル描画&#xa;6カラム + ゼブラ&#xa;+ getDueDateClass()" style="rounded=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="lane_react">
+          <mxGeometry x="20" y="110" width="160" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="r3" value="sidebarCollapsed&#xa;切替 → localStorage&#xa;250px ↔ 40px" style="rounded=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="lane_react">
+          <mxGeometry x="250" y="40" width="150" height="60" as="geometry" />
+        </mxCell>
+
+        <!-- Arrows 9a -->
+        <mxCell id="a1" edge="1" source="b1" target="r1" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="a2" edge="1" source="r1" target="r2" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="a3" edge="1" source="b2" target="r3" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- 9b: Dark Mode -->
+        <mxCell id="s9b_title" value="【9b】ダークモード" style="text;fontSize=12;fontStyle=5;fillColor=#f5f5f5;strokeColor=#666666;" vertex="1" parent="lane_browser">
+          <mxGeometry x="440" y="40" width="200" height="25" as="geometry" />
+        </mxCell>
+        <mxCell id="b3" value="🌙/☀️ テーマ&#xa;切替クリック" style="rounded=1;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="lane_browser">
+          <mxGeometry x="440" y="75" width="120" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="r4" value="theme state 切替&#xa;data-theme 属性設定&#xa;→ localStorage" style="rounded=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="lane_react">
+          <mxGeometry x="430" y="40" width="160" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="r5" value="CSS変数適用&#xa;:root(73+) /&#xa;[data-theme=dark](57)" style="rounded=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="lane_react">
+          <mxGeometry x="430" y="110" width="170" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="r4b" value="初回: OS設定検出&#xa;matchMedia&#xa;prefers-color-scheme" style="rounded=1;fillColor=#dae8fc;strokeColor=#6c8ebf;dashed=1;" vertex="1" parent="lane_react">
+          <mxGeometry x="610" y="40" width="160" height="60" as="geometry" />
+        </mxCell>
+
+        <!-- Arrows 9b -->
+        <mxCell id="a4" edge="1" source="b3" target="r4" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="a5" edge="1" source="r4" target="r5" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- 9c: Summary Bar + Search/Sort -->
+        <mxCell id="s9c_title" value="【9c】サマリーバー + 検索ソート" style="text;fontSize=12;fontStyle=5;fillColor=#f5f5f5;strokeColor=#666666;" vertex="1" parent="lane_browser">
+          <mxGeometry x="800" y="40" width="250" height="25" as="geometry" />
+        </mxCell>
+        <mxCell id="b4" value="ステータスバッジ&#xa;クリック" style="rounded=1;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="lane_browser">
+          <mxGeometry x="800" y="75" width="120" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="b5" value="検索テキスト&#xa;入力" style="rounded=1;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="lane_browser">
+          <mxGeometry x="940" y="75" width="100" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="b6" value="ソート変更" style="rounded=1;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="lane_browser">
+          <mxGeometry x="1060" y="75" width="90" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="r6" value="selectedStatuses&#xa;Set トグル&#xa;OR フィルタ" style="rounded=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="lane_react">
+          <mxGeometry x="790" y="40" width="130" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="r7" value="300ms デバウンス&#xa;→ debouncedSearch&#xa;タイトル/説明/タグ" style="rounded=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="lane_react">
+          <mxGeometry x="930" y="40" width="150" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="r8" value="sortOrder 更新&#xa;→ localStorage&#xa;sortWishes(6種)" style="rounded=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="lane_react">
+          <mxGeometry x="1090" y="40" width="130" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="r9" value="フィルタ結果で&#xa;リスト再描画" style="rounded=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="lane_react">
+          <mxGeometry x="930" y="120" width="140" height="50" as="geometry" />
+        </mxCell>
+
+        <!-- Arrows 9c -->
+        <mxCell id="a6" edge="1" source="b4" target="r6" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="a7" edge="1" source="b5" target="r7" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="a8" edge="1" source="b6" target="r8" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="a9" edge="1" source="r6" target="r9" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="a10" edge="1" source="r7" target="r9" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="a11" edge="1" source="r8" target="r9" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- 9d: Context Menu + Bulk + Keyboard -->
+        <mxCell id="s9d_title" value="【9d】コンテキストメニュー + 一括操作 + キーボード" style="text;fontSize=12;fontStyle=5;fillColor=#f5f5f5;strokeColor=#666666;" vertex="1" parent="lane_browser">
+          <mxGeometry x="1230" y="40" width="280" height="25" as="geometry" />
+        </mxCell>
+        <mxCell id="b7" value="⋯ メニュー&#xa;クリック" style="rounded=1;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="lane_browser">
+          <mxGeometry x="1240" y="75" width="100" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="b8" value="チェック選択&#xa;+ 一括操作" style="rounded=1;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="lane_browser">
+          <mxGeometry x="1360" y="75" width="100" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="b9" value="キーボード&#xa;ショートカット" style="rounded=1;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="lane_browser">
+          <mxGeometry x="1240" y="130" width="100" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="r10" value="ActionMenu&#xa;ドロップダウン&#xa;(編集/削除/ステータス)" style="rounded=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="lane_react">
+          <mxGeometry x="1230" y="40" width="150" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="r11" value="Promise.all&#xa;一括処理&#xa;PUT/DELETE API" style="rounded=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="lane_react">
+          <mxGeometry x="1390" y="40" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="r12" value="useKeyboardShortcuts&#xa;3層ガード&#xa;→ アクション実行" style="rounded=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="lane_react">
+          <mxGeometry x="1230" y="120" width="160" height="50" as="geometry" />
+        </mxCell>
+
+        <!-- Arrows 9d -->
+        <mxCell id="a12" edge="1" source="b7" target="r10" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="a13" edge="1" source="b8" target="r11" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="a14" edge="1" source="b9" target="r12" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

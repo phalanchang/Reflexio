@@ -7,10 +7,11 @@ const menuItems = [
   { path: '/wishes', label: 'やりたいこと', short: 'や' },
   { path: '/accounting', label: 'Accounting', short: 'A' },
   { path: '/notes', label: 'Notes', short: 'N' },
-  { path: '/active-recall', label: 'ActiveRecall', short: 'R' },
+  { path: '/knowledge', label: '📚 学習', short: '📚' },
   { path: '/tasks', label: 'Task Management', short: 'T' },
   { path: '/settings', label: '⚙️ 設定', short: '⚙️' },
   { path: '/clawdbot', label: '🤖 Clawdbot Badge', short: '🤖' },
+  { path: '/voice-test', label: '🎤 Voice Test', short: 'Mic' },
 ];
 
 function Sidebar({ collapsed, onToggle }) {

@@ -1,0 +1,62 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 650" font-family="sans-serif" font-size="13">
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#333"/>
+    </marker>
+  </defs>
+
+  <!-- Lanes (Frontend only) -->
+  <rect x="0" y="0" width="350" height="650" fill="#d5e8d4" stroke="#82b366" rx="4"/>
+  <rect x="350" y="0" width="430" height="650" fill="#dae8fc" stroke="#6c8ebf" rx="4"/>
+  <text x="175" y="20" text-anchor="middle" font-weight="bold" font-size="14">ブラウザ (User)</text>
+  <text x="565" y="20" text-anchor="middle" font-weight="bold" font-size="14">React (Frontend)</text>
+
+  <!-- バッジ表示 -->
+  <rect x="30" y="50" width="290" height="35" rx="8" fill="#fff" stroke="#82b366" stroke-width="1.5"/>
+  <text x="175" y="72" text-anchor="middle" font-size="12">/clawdbot ページに遷移</text>
+
+  <rect x="380" y="50" width="370" height="40" rx="8" fill="#fff" stroke="#6c8ebf" stroke-width="1.5"/>
+  <text x="565" y="66" text-anchor="middle" font-size="12">ClawdbotSkills.js</text>
+  <text x="565" y="82" text-anchor="middle" font-size="11">clawdbotSkillsData.js読込 → 3カテゴリ分け表示</text>
+  <line x1="320" y1="67" x2="380" y2="70" stroke="#333" stroke-width="1.5" marker-end="url(#arrow)"/>
+
+  <rect x="380" y="120" width="370" height="45" rx="8" fill="#fff" stroke="#6c8ebf" stroke-width="1.5"/>
+  <text x="565" y="138" text-anchor="middle" font-size="12">SkillBadge.js</text>
+  <text x="565" y="156" text-anchor="middle" font-size="11">hexagon/octagon clip-path + PNG画像 (96px)</text>
+
+  <rect x="380" y="195" width="370" height="35" rx="8" fill="#fff" stroke="#6c8ebf" stroke-width="1.5"/>
+  <text x="565" y="217" text-anchor="middle" font-size="12">バッジラベル表示 (スキル名 13px)</text>
+
+  <!-- D&D -->
+  <text x="175" y="275" text-anchor="middle" font-weight="bold" font-size="12" fill="#555">--- ドラッグ&ドロップ ---</text>
+
+  <rect x="30" y="295" width="290" height="35" rx="8" fill="#fff" stroke="#82b366" stroke-width="1.5"/>
+  <text x="175" y="317" text-anchor="middle" font-size="12">バッジをドラッグ開始</text>
+
+  <rect x="380" y="295" width="370" height="45" rx="8" fill="#fff" stroke="#6c8ebf" stroke-width="1.5"/>
+  <text x="565" y="313" text-anchor="middle" font-size="12">HTML5 D&D API</text>
+  <text x="565" y="331" text-anchor="middle" font-size="11">onDragStart/onDragOver/onDrop 同カテゴリ内</text>
+  <line x1="320" y1="312" x2="380" y2="317" stroke="#333" stroke-width="1.5" marker-end="url(#arrow)"/>
+
+  <rect x="380" y="370" width="370" height="35" rx="8" fill="#fff" stroke="#6c8ebf" stroke-width="1.5"/>
+  <text x="565" y="392" text-anchor="middle" font-size="12">useState で並び順管理 (セッション内のみ)</text>
+
+  <!-- モーダル -->
+  <text x="175" y="440" text-anchor="middle" font-weight="bold" font-size="12" fill="#555">--- 詳細モーダル ---</text>
+
+  <rect x="30" y="460" width="290" height="35" rx="8" fill="#fff" stroke="#82b366" stroke-width="1.5"/>
+  <text x="175" y="482" text-anchor="middle" font-size="12">バッジクリック (or Enterキー)</text>
+
+  <rect x="380" y="460" width="370" height="45" rx="8" fill="#fff" stroke="#6c8ebf" stroke-width="1.5"/>
+  <text x="565" y="478" text-anchor="middle" font-size="12">SkillModal.js (z-index:1500)</text>
+  <text x="565" y="496" text-anchor="middle" font-size="11">スキル名 + 説明 + 画像 (120x120px)</text>
+  <line x1="320" y1="477" x2="380" y2="482" stroke="#333" stroke-width="1.5" marker-end="url(#arrow)"/>
+
+  <rect x="30" y="535" width="290" height="35" rx="8" fill="#fff" stroke="#82b366" stroke-width="1.5"/>
+  <text x="175" y="557" text-anchor="middle" font-size="12">ESCキー or オーバーレイクリック</text>
+
+  <rect x="380" y="535" width="370" height="40" rx="8" fill="#fff" stroke="#6c8ebf" stroke-width="1.5"/>
+  <text x="565" y="551" text-anchor="middle" font-size="12">モーダル閉じ</text>
+  <text x="565" y="567" text-anchor="middle" font-size="11">キーボードA11y (tabIndex, role, onKeyDown)</text>
+  <line x1="320" y1="552" x2="380" y2="555" stroke="#333" stroke-width="1.5" marker-end="url(#arrow)"/>
+</svg>

@@ -1,0 +1,278 @@
+.knowledge-list-container {
+  padding: 20px;
+}
+
+.knowledge-list-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+}
+
+.knowledge-list-header h2 {
+  color: var(--text-primary);
+  margin: 0;
+}
+
+.knowledge-list-header .btn-primary {
+  padding: 8px 18px;
+  background-color: var(--btn-primary-bg);
+  color: var(--btn-primary-color);
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.knowledge-list-header .btn-primary:hover {
+  background-color: var(--btn-primary-hover-bg);
+}
+
+/* サマリーバー */
+.knowledge-summary-bar {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 16px;
+  flex-wrap: wrap;
+}
+
+.knowledge-summary-badge {
+  padding: 6px 14px;
+  border-radius: 20px;
+  font-size: 13px;
+  color: var(--text-primary);
+  background: var(--bg-secondary, #f0f0f0);
+  border: 1px solid var(--card-border);
+}
+
+.knowledge-summary-badge strong {
+  margin-left: 4px;
+}
+
+.summary-due {
+  background: #fff3cd;
+  border-color: #ffc107;
+  color: #856404;
+}
+
+.summary-mastered {
+  background: #d4edda;
+  border-color: #28a745;
+  color: #155724;
+}
+
+.summary-learning {
+  background: #cce5ff;
+  border-color: #007bff;
+  color: #004085;
+}
+
+.summary-not-started {
+  background: var(--bg-secondary, #e9ecef);
+  border-color: var(--card-border);
+  color: var(--text-muted);
+}
+
+/* フィルタバー */
+.knowledge-filter-bar {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  margin-bottom: 16px;
+  flex-wrap: wrap;
+}
+
+.filter-category-input {
+  padding: 6px 12px;
+  border: 1px solid var(--form-input-border);
+  border-radius: 4px;
+  font-size: 13px;
+  background: var(--form-input-bg);
+  color: var(--text-primary);
+  min-width: 180px;
+}
+
+.filter-category-input:focus {
+  outline: none;
+  border-color: var(--btn-primary-bg);
+}
+
+.filter-difficulty-pills,
+.filter-review-pills {
+  display: flex;
+  gap: 4px;
+}
+
+.pill {
+  padding: 4px 12px;
+  border: 1px solid var(--card-border);
+  border-radius: 16px;
+  background: var(--bg-secondary, #f8f9fa);
+  color: var(--text-secondary);
+  font-size: 12px;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+
+.pill:hover {
+  border-color: var(--btn-primary-bg);
+  color: var(--btn-primary-bg);
+}
+
+.pill-active {
+  background: var(--btn-primary-bg);
+  color: #fff;
+  border-color: var(--btn-primary-bg);
+}
+
+.pill-active:hover {
+  color: #fff;
+}
+
+/* テーブル */
+.knowledge-table-wrapper {
+  overflow-x: auto;
+}
+
+.knowledge-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+}
+
+.knowledge-table th {
+  text-align: left;
+  padding: 10px 12px;
+  background: var(--bg-secondary, #f8f9fa);
+  color: var(--text-secondary);
+  font-weight: 600;
+  font-size: 13px;
+  border-bottom: 2px solid var(--card-border);
+  white-space: nowrap;
+}
+
+.knowledge-table td {
+  padding: 10px 12px;
+  border-bottom: 1px solid var(--card-border);
+  color: var(--text-primary);
+  vertical-align: middle;
+}
+
+.knowledge-table tbody tr:nth-child(even) {
+  background: var(--bg-secondary, #fafafa);
+}
+
+.knowledge-table tbody tr:hover {
+  background: var(--hover-bg, #f0f4ff);
+}
+
+/* タイトルリンク */
+.title-link {
+  background: none;
+  border: none;
+  color: var(--btn-primary-bg);
+  cursor: pointer;
+  font-size: 14px;
+  text-align: left;
+  padding: 0;
+  font-family: inherit;
+  text-decoration: none;
+}
+
+.title-link:hover {
+  text-decoration: underline;
+}
+
+/* カテゴリバッジ */
+.category-badge {
+  display: inline-block;
+  padding: 2px 10px;
+  border-radius: 12px;
+  background: var(--bg-secondary, #e9ecef);
+  color: var(--text-secondary);
+  font-size: 12px;
+  border: 1px solid var(--card-border);
+}
+
+/* 難易度バッジ */
+.difficulty-badge {
+  display: inline-block;
+  padding: 2px 10px;
+  border-radius: 12px;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.difficulty-easy {
+  background: #d4edda;
+  color: #155724;
+}
+
+.difficulty-medium {
+  background: #fff3cd;
+  color: #856404;
+}
+
+.difficulty-hard {
+  background: #f8d7da;
+  color: #721c24;
+}
+
+/* 定着度プログレスバー */
+.retention-bar {
+  display: inline-block;
+  width: 60px;
+  height: 8px;
+  background: var(--bg-secondary, #e9ecef);
+  border-radius: 4px;
+  overflow: hidden;
+  vertical-align: middle;
+}
+
+.retention-fill {
+  height: 100%;
+  background: #28a745;
+  border-radius: 4px;
+  transition: width 0.3s;
+}
+
+.retention-text {
+  font-size: 12px;
+  color: var(--text-muted);
+  margin-left: 6px;
+}
+
+/* 復習日の色 */
+.review-overdue {
+  color: #dc3545;
+  font-weight: 600;
+}
+
+.text-muted {
+  color: var(--text-muted);
+}
+
+.text-center {
+  text-align: center;
+}
+
+/* 空状態（WishList 準拠） */
+.empty-state {
+  text-align: center;
+  color: var(--text-muted);
+  padding: 60px 20px;
+  background: var(--empty-bg);
+  border-radius: 8px;
+  border: 1px dashed var(--empty-border);
+}
+
+.empty-state p {
+  font-size: 16px;
+}
+
+.loading-message {
+  text-align: center;
+  color: var(--text-secondary);
+  padding: 40px;
+  font-size: 16px;
+}

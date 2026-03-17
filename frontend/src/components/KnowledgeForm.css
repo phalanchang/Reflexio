@@ -1,0 +1,205 @@
+.knowledge-form-container {
+  padding: 20px;
+  max-width: 800px;
+}
+
+.knowledge-form-title {
+  color: var(--text-primary);
+  margin: 0 0 20px 0;
+  font-size: 20px;
+}
+
+.knowledge-form-error {
+  background: var(--toast-error-bg);
+  color: var(--toast-error-color);
+  border: 1px solid var(--toast-error-border);
+  padding: 10px 14px;
+  border-radius: 4px;
+  margin-bottom: 16px;
+  font-size: 14px;
+}
+
+.knowledge-form .form-group {
+  margin-bottom: 16px;
+  flex: 1;
+}
+
+.knowledge-form .form-group label {
+  display: block;
+  margin-bottom: 5px;
+  color: var(--form-label-color);
+  font-weight: 500;
+  font-size: 14px;
+}
+
+.knowledge-form .required {
+  color: #c33;
+}
+
+.knowledge-form .form-group input,
+.knowledge-form .form-group select,
+.knowledge-form .form-group textarea {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid var(--form-input-border);
+  border-radius: 4px;
+  font-size: 14px;
+  box-sizing: border-box;
+  font-family: inherit;
+  background-color: var(--form-input-bg);
+  color: var(--text-primary);
+}
+
+.knowledge-form .form-group input:focus,
+.knowledge-form .form-group select:focus,
+.knowledge-form .form-group textarea:focus {
+  outline: none;
+  border-color: var(--btn-primary-bg);
+  box-shadow: 0 0 0 2px rgba(74, 144, 217, 0.2);
+}
+
+.knowledge-form .form-group textarea {
+  resize: vertical;
+  min-height: 120px;
+}
+
+.knowledge-form .form-row {
+  display: flex;
+  gap: 16px;
+}
+
+/* クイズセクション */
+.quiz-section {
+  margin-top: 24px;
+  padding-top: 20px;
+  border-top: 1px solid var(--card-border);
+}
+
+.quiz-section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.quiz-section-header h3 {
+  color: var(--text-primary);
+  margin: 0;
+  font-size: 16px;
+}
+
+.btn-add-quiz {
+  padding: 6px 14px;
+  background: var(--btn-primary-bg);
+  color: var(--btn-primary-color);
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 13px;
+}
+
+.btn-add-quiz:hover {
+  background: var(--btn-primary-hover-bg);
+}
+
+.quiz-preview-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+.quiz-preview-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: var(--bg-secondary, #f8f9fa);
+  border: 1px solid var(--card-border);
+  border-radius: 4px;
+  padding: 8px 12px;
+}
+
+.quiz-preview-content {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex: 1;
+  min-width: 0;
+}
+
+.quiz-preview-label {
+  font-weight: 600;
+  color: var(--text-secondary);
+  font-size: 13px;
+  flex-shrink: 0;
+}
+
+.quiz-preview-question {
+  font-size: 14px;
+  color: var(--text-primary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.quiz-type-badge {
+  font-size: 11px;
+  padding: 2px 8px;
+  border-radius: 10px;
+  background: var(--btn-primary-bg);
+  color: #fff;
+  flex-shrink: 0;
+}
+
+.btn-remove-quiz {
+  background: none;
+  border: none;
+  color: var(--text-muted);
+  cursor: pointer;
+  font-size: 16px;
+  padding: 4px 8px;
+  flex-shrink: 0;
+}
+
+.btn-remove-quiz:hover {
+  color: #c33;
+}
+
+/* アクション */
+.knowledge-form-actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 24px;
+}
+
+.knowledge-form-actions .btn {
+  padding: 10px 24px;
+  border: none;
+  border-radius: 4px;
+  font-size: 14px;
+  cursor: pointer;
+  font-family: inherit;
+}
+
+.knowledge-form-actions .btn-primary {
+  background-color: var(--btn-primary-bg);
+  color: var(--btn-primary-color);
+}
+
+.knowledge-form-actions .btn-primary:hover {
+  background-color: var(--btn-primary-hover-bg);
+}
+
+.knowledge-form-actions .btn-primary:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.knowledge-form-actions .btn-secondary {
+  background-color: var(--bg-secondary, #e9ecef);
+  color: var(--text-primary);
+}
+
+.knowledge-form-actions .btn-secondary:hover {
+  background-color: var(--card-border);
+}

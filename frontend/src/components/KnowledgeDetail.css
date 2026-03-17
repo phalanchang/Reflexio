@@ -1,0 +1,350 @@
+.knowledge-detail-container {
+  padding: 20px;
+  max-width: 900px;
+}
+
+/* ヘッダー */
+.knowledge-detail-header {
+  margin-bottom: 24px;
+}
+
+.knowledge-detail-title-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 16px;
+}
+
+.knowledge-detail-title-row h2 {
+  color: var(--text-primary);
+  margin: 0;
+  flex: 1;
+}
+
+.knowledge-detail-actions {
+  display: flex;
+  gap: 8px;
+  flex-shrink: 0;
+}
+
+.knowledge-detail-meta {
+  display: flex;
+  gap: 8px;
+  margin-top: 10px;
+}
+
+/* ボタン */
+.btn {
+  padding: 8px 16px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+  font-family: inherit;
+}
+
+.btn-primary {
+  background-color: var(--btn-primary-bg);
+  color: var(--btn-primary-color);
+}
+
+.btn-primary:hover {
+  background-color: var(--btn-primary-hover-bg);
+}
+
+.btn-secondary {
+  background-color: var(--bg-secondary, #e9ecef);
+  color: var(--text-primary);
+}
+
+.btn-secondary:hover {
+  background-color: var(--card-border);
+}
+
+.btn-danger {
+  background-color: #dc3545;
+  color: #fff;
+}
+
+.btn-danger:hover {
+  background-color: #c82333;
+}
+
+.btn-sm {
+  padding: 4px 10px;
+  font-size: 12px;
+}
+
+.btn-edit {
+  background: var(--bg-secondary, #e9ecef);
+  color: var(--text-primary);
+}
+
+.btn-edit:hover {
+  background: var(--card-border);
+}
+
+.btn-delete {
+  background: none;
+  color: #dc3545;
+  border: 1px solid #dc3545;
+}
+
+.btn-delete:hover {
+  background: #dc3545;
+  color: #fff;
+}
+
+.btn-add-quiz {
+  padding: 6px 14px;
+  background: var(--btn-primary-bg);
+  color: var(--btn-primary-color);
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 13px;
+}
+
+.btn-add-quiz:hover {
+  background: var(--btn-primary-hover-bg);
+}
+
+.btn-link {
+  background: none;
+  border: none;
+  color: var(--btn-primary-bg);
+  cursor: pointer;
+  font-size: 14px;
+  padding: 0;
+  font-family: inherit;
+}
+
+.btn-link:hover {
+  text-decoration: underline;
+}
+
+/* バッジ */
+.category-badge {
+  display: inline-block;
+  padding: 2px 10px;
+  border-radius: 12px;
+  background: var(--bg-secondary, #e9ecef);
+  color: var(--text-secondary);
+  font-size: 13px;
+  border: 1px solid var(--card-border);
+}
+
+.difficulty-badge {
+  display: inline-block;
+  padding: 2px 10px;
+  border-radius: 12px;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.difficulty-easy {
+  background: #d4edda;
+  color: #155724;
+}
+
+.difficulty-medium {
+  background: #fff3cd;
+  color: #856404;
+}
+
+.difficulty-hard {
+  background: #f8d7da;
+  color: #721c24;
+}
+
+/* コンテンツ */
+.knowledge-detail-content {
+  margin-bottom: 24px;
+}
+
+.knowledge-detail-content h3 {
+  color: var(--text-primary);
+  font-size: 16px;
+  margin: 0 0 10px 0;
+}
+
+.content-body {
+  background: var(--form-bg);
+  border: 1px solid var(--card-border);
+  border-radius: 8px;
+  padding: 16px;
+  color: var(--text-primary);
+  font-size: 14px;
+  line-height: 1.7;
+}
+
+.content-body p {
+  margin: 0 0 4px 0;
+}
+
+/* SM-2パラメータ */
+.knowledge-detail-sm2 {
+  margin-bottom: 24px;
+}
+
+.knowledge-detail-sm2 h3 {
+  color: var(--text-primary);
+  font-size: 16px;
+  margin: 0 0 10px 0;
+}
+
+.sm2-grid {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.sm2-item {
+  background: var(--form-bg);
+  border: 1px solid var(--card-border);
+  border-radius: 8px;
+  padding: 12px 16px;
+  min-width: 120px;
+  text-align: center;
+}
+
+.sm2-label {
+  display: block;
+  font-size: 12px;
+  color: var(--text-muted);
+  margin-bottom: 4px;
+}
+
+.sm2-value {
+  display: block;
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+/* クイズセクション */
+.knowledge-detail-quizzes {
+  margin-bottom: 24px;
+}
+
+.quiz-section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.quiz-section-header h3 {
+  color: var(--text-primary);
+  font-size: 16px;
+  margin: 0;
+}
+
+.quiz-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.quiz-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  background: var(--form-bg);
+  border: 1px solid var(--card-border);
+  border-radius: 8px;
+  padding: 12px 16px;
+  gap: 12px;
+}
+
+.quiz-item-content {
+  flex: 1;
+  min-width: 0;
+}
+
+.quiz-item-question {
+  font-size: 14px;
+  color: var(--text-primary);
+  margin-bottom: 4px;
+}
+
+.quiz-item-answer {
+  font-size: 13px;
+  color: var(--text-secondary);
+  margin-bottom: 6px;
+}
+
+.quiz-type-badge {
+  display: inline-block;
+  font-size: 11px;
+  padding: 2px 8px;
+  border-radius: 10px;
+  background: var(--btn-primary-bg);
+  color: #fff;
+}
+
+.quiz-item-actions {
+  display: flex;
+  gap: 6px;
+  flex-shrink: 0;
+}
+
+.text-muted {
+  color: var(--text-muted);
+}
+
+/* 削除確認ダイアログ */
+.delete-confirm-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.delete-confirm-dialog {
+  background: var(--card-bg, #fff);
+  border-radius: 8px;
+  padding: 24px;
+  max-width: 400px;
+  width: 90%;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+}
+
+.delete-confirm-dialog h3 {
+  color: var(--text-primary);
+  margin: 0 0 12px 0;
+  font-size: 18px;
+}
+
+.delete-confirm-dialog p {
+  color: var(--text-secondary);
+  font-size: 14px;
+  margin: 0 0 20px 0;
+  line-height: 1.5;
+}
+
+.delete-confirm-actions {
+  display: flex;
+  gap: 8px;
+  justify-content: flex-end;
+}
+
+/* 戻るリンク */
+.knowledge-detail-back {
+  margin-top: 24px;
+  padding-top: 16px;
+  border-top: 1px solid var(--card-border);
+}
+
+.loading-message {
+  text-align: center;
+  color: var(--text-secondary);
+  padding: 40px;
+  font-size: 16px;
+}

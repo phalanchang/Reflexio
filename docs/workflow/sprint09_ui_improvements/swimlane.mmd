@@ -1,0 +1,47 @@
+graph TD
+    subgraph Browser["ブラウザ (User)"]
+        B1["☰/▦ ビュー切替クリック"]
+        B2["◀/▶ トグルクリック"]
+        B3["🌙/☀️ テーマ切替クリック"]
+        B4["ステータスバッジクリック"]
+        B5["検索テキスト入力"]
+        B6["ソート変更"]
+        B7["⋯ メニュークリック"]
+        B8["チェック選択 + 一括操作"]
+        B9["キーボードショートカット"]
+    end
+
+    subgraph React["React (Frontend)"]
+        R1["viewMode 切替<br/>card/table → localStorage"]
+        R2["テーブル描画 6カラム<br/>+ getDueDateClass 5段階色"]
+        R3["sidebarCollapsed 切替<br/>250px ↔ 40px → localStorage"]
+        R4["theme state 切替<br/>data-theme属性 → localStorage"]
+        R5["CSS変数適用<br/>:root 73+ / dark 57変数"]
+        R4B["初回: OS設定検出<br/>matchMedia prefers-color-scheme"]
+        R6["selectedStatuses Set<br/>OR フィルタ トグル"]
+        R7["300ms デバウンス<br/>タイトル/説明/タグ検索"]
+        R8["sortOrder 更新<br/>localStorage + sortWishes 6種"]
+        R9["フィルタ結果でリスト再描画"]
+        R10["ActionMenu ドロップダウン<br/>編集/削除/ステータス変更"]
+        R11["Promise.all 一括処理<br/>PUT/DELETE API呼出"]
+        R12["useKeyboardShortcuts<br/>3層ガード → アクション実行"]
+    end
+
+    B1 --> R1
+    R1 --> R2
+    B2 --> R3
+    B3 --> R4
+    R4 --> R5
+    R4B -.-> R4
+    B4 --> R6
+    B5 --> R7
+    B6 --> R8
+    R6 --> R9
+    R7 --> R9
+    R8 --> R9
+    B7 --> R10
+    B8 --> R11
+    B9 --> R12
+
+    style Browser fill:#d5e8d4,stroke:#82b366
+    style React fill:#dae8fc,stroke:#6c8ebf
