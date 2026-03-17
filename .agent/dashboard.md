@@ -1,21 +1,21 @@
 # Agent Dashboard
 
-最終更新: 2026-03-06T03:40:00+09:00
+最終更新: 2026-03-18T11:15:00+09:00
 
 ## エージェント状況
 
 | ID | ロール | ステータス | 現在のタスク | 対象メッセージID | 最終更新 |
 |---|---|---|---|---|---|
-| PM | Project Manager | idle | - | - | 2026-03-06T03:40:00+09:00 |
-| PL | Project Lead | idle | - | - | 2026-03-06T03:35:00+09:00 |
-| DEV1 | Developer | idle | - | - | 2026-03-06T02:55:00+09:00 |
+| PM | Project Manager | idle | - | - | 2026-03-18T11:15:00+09:00 |
+| PL | Project Lead | idle | - | - | 2026-03-18T11:10:00+09:00 |
+| DEV1 | Developer | idle | - | - | 2026-03-18T10:30:00+09:00 |
 | DEV2 | Developer | idle | - | - | 2026-03-06T03:00:00+09:00 |
 | DEV3 | Developer | idle | - | - | - |
 | DEV4 | Developer | idle | - | - | - |
 | DEV5 | Developer | idle | - | - | - |
-| LIBRARIAN | Librarian | idle | - | - | 2026-03-06T02:55:00+09:00 |
-| TESTER | Tester | idle | - | - | 2026-03-06T01:50:00+09:00 |
-| REVIEWER | Reviewer | idle | - | - | 2026-03-06T03:30:00+09:00 |
+| LIBRARIAN | Librarian | idle | - | - | 2026-03-18T11:20:00+09:00 |
+| TESTER | Tester | idle | - | - | 2026-03-18T11:05:00+09:00 |
+| REVIEWER | Reviewer | idle | - | - | 2026-03-18T10:45:00+09:00 |
 
 ### ステータス凡例
 - **idle**: 待機中（タスクなし）
@@ -220,3 +220,9 @@
 | 2026-03-06T03:30:00+09:00 | REVIEWER | ワークフロー文書化レビュー（APPROVE・SHOULD 1件） | PL_to_REVIEWER_024 |
 | 2026-03-06T03:35:00+09:00 | PL | ワークフロー文書化 全工程完了（PM報告済み） | PM_to_PL_031 |
 | 2026-03-06T03:40:00+09:00 | PM | ワークフロー文書化 完了確認・ユーザー報告 | PL_to_PM_030 |
+| 2026-03-18T10:30:00+09:00 | DEV1 | Sprint 10 バグ修正: PUT wishes due_date ISO datetime → YYYY-MM-DD 変換 | PL_to_DEV1_030 |
+| 2026-03-18T10:45:00+09:00 | REVIEWER | Sprint 10 バグ修正レビュー（APPROVE・指摘なし） | PL_to_REVIEWER_025 |
+| 2026-03-18T11:05:00+09:00 | TESTER | Sprint 10 バグ修正テスト（全15項目PASS） | PL_to_TESTER_025 |
+| 2026-03-18T11:10:00+09:00 | PL | Sprint 10 バグ修正 全工程完了（PM報告済み） | PM_to_PL_032 |
+| 2026-03-18T11:15:00+09:00 | PM | Sprint 10 バグ修正完了確認・Issue #28 クローズ | PL_to_PM_031 |
+| 2026-03-18T11:20:00+09:00 | LIBRARIAN | Sprint 10 バグ修正 ドキュメント更新（CLAUDE.md + project-guide.md due_date変換） | PL_to_LIBRARIAN_025 |

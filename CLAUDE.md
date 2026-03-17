@@ -138,6 +138,11 @@
   - ルーティング: /knowledge, /knowledge/new, /knowledge/:id, /knowledge/:id/edit
   - サイドバー: 📚 学習（/knowledge）
   - ダークモード対応済み（CSS変数使用）
+- Sprint 10 バグ修正: ステータス変更500エラー（due_date ISO datetime → YYYY-MM-DD変換）
+  - 根本原因: mysql2が返すDateオブジェクト → JSONシリアライズ → ISO datetime文字列がMySQL DATE型に不適合（ER_TRUNCATED_WRONG_VALUE）
+  - 修正: formatDueDate() ヘルパー関数追加（wishes.js、POST/PUT両方適用）
+  - formatDueDate(): YYYY-MM-DD形式はそのまま、ISO datetime文字列は日付部分のみ抽出、無効値はnull
+  - 変更ファイル: backend/routes/wishes.js（1ファイルのみ）
 - シードユーザー: admin / password123, phalanchang / password123
 - セッションベース認証（express-session、メモリストア）
 
