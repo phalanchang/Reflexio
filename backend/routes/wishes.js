@@ -9,6 +9,18 @@ const { requireAuth } = require('../middleware/auth');
 const VALID_STATUS = ['not_started', 'in_progress', 'completed'];
 const VALID_PRIORITY = ['high', 'medium', 'low'];
 
+// due_date を MySQL DATE型（YYYY-MM-DD）に変換するヘルパー
+// フロントエンドから ISO datetime 文字列（"2025-03-01T00:00:00.000Z"）が来ても安全に処理
+function formatDueDate(value) {
+  if (!value) return null;
+  // 既に YYYY-MM-DD 形式ならそのまま
+  if (/^\d{4}-\d{2}-\d{2}$/.test(value)) return value;
+  // ISO datetime 文字列の場合、日付部分のみ抽出
+  const date = new Date(value);
+  if (isNaN(date.getTime())) return null;
+  return date.toISOString().split('T')[0];
+}
+
 // 全ルートに認証ミドルウェアを適用
 router.use(requireAuth);
 
@@ -91,7 +103,7 @@ router.post('/', async (req, res) => {
 
     const wishStatus = status || 'not_started';
     const wishPriority = priority || 'medium';
-    const wishDueDate = due_date || null;
+    const wishDueDate = formatDueDate(due_date);
     const wishDescription = description || null;
 
     const [result] = await pool.execute(
@@ -171,7 +183,7 @@ router.put('/:id', async (req, res) => {
     const wishDescription = description !== undefined ? description : null;
     const wishStatus = status || 'not_started';
     const wishPriority = priority || 'medium';
-    const wishDueDate = due_date !== undefined ? due_date : null;
+    const wishDueDate = due_date !== undefined ? formatDueDate(due_date) : null;
 
     // 所有権チェック付きで更新
     const [result] = await pool.execute(

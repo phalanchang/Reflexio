@@ -331,3 +331,14 @@
 | 2026-03-06T03:05:00+09:00 | PL_to_REVIEWER_024 | PL | REVIEWER | review_request | レビュー依頼: ワークフロー文書化（12ディレクトリ + README.md、計39ファイル） | completed |
 | 2026-03-06T03:30:00+09:00 | REVIEWER_to_PL_024 | REVIEWER | PL | review_result | レビュー結果: ワークフロー文書化 APPROVE（SHOULD 1件 + NICE 2件） | read |
 | 2026-03-06T03:35:00+09:00 | PL_to_PM_030 | PL | PM | completion | ワークフロー文書化 全工程完了: 12ディレクトリ + README.md（39ファイル）レビューAPPROVE | read |
+| 2026-03-18T10:00:00+09:00 | PM_to_PL_032 | PM | PL | task | Sprint 10（バグ修正）: やりたいこと ステータス変更「完了」で500エラー — GitHub Issue #28 | in_progress |
+| 2026-03-18T10:15:00+09:00 | PL_to_DEV1_030 | PL | DEV1 | task | Sprint 10 バグ修正: PUT /api/wishes/:id ステータス変更500エラー — 調査・原因特定・修正 | unread |
+| 2026-03-18T10:15:00+09:00 | PL_to_DEV1_030 | PL | DEV1 | task | Sprint 10 バグ修正: PUT /api/wishes/:id ステータス変更500エラー | completed |
+| 2026-03-18T10:30:00+09:00 | DEV1_to_PL_030 | DEV1 | PL | completion | 完了: Sprint 10 バグ修正 PUT wishes due_date ISO datetime変換 | read |
+| 2026-03-18T10:35:00+09:00 | PL_to_REVIEWER_025 | PL | REVIEWER | review_request | レビュー依頼: Sprint 10 バグ修正 PUT wishes due_date ISO datetime変換 | completed |
+| 2026-03-18T10:45:00+09:00 | REVIEWER_to_PL_025 | REVIEWER | PL | review_result | レビュー結果: Sprint 10 バグ修正 due_date変換 APPROVE（指摘なし） | read |
+| 2026-03-18T10:50:00+09:00 | PL_to_TESTER_025 | PL | TESTER | test_request | テスト依頼: Sprint 10 バグ修正 ステータス変更500エラー 全15項目 | completed |
+| 2026-03-18T11:05:00+09:00 | TESTER_to_PL_025 | TESTER | PL | test_result | テスト結果: Sprint 10 バグ修正 ステータス変更500エラー 全15項目PASS | read |
+| 2026-03-18T11:10:00+09:00 | PL_to_PM_031 | PL | PM | completion | Sprint 10 バグ修正 完了報告: ステータス変更500エラー 全工程完了 | read |
+| 2026-03-18T11:10:00+09:00 | PL_to_LIBRARIAN_025 | PL | LIBRARIAN | doc_update | ドキュメント更新依頼: Sprint 10 バグ修正 due_date ISO datetime変換 | completed |
+| 2026-03-18T11:20:00+09:00 | LIBRARIAN_to_PL_025 | LIBRARIAN | PL | completion | 完了: Sprint 10 バグ修正 due_date ISO datetime変換 ドキュメント更新 | read |

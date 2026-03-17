@@ -188,7 +188,7 @@ docker compose logs -f [backend|frontend|db]
 |--------|------|------|-------------|----------|
 | GET | `/api/wishes` | 必要 | - | `{wishes: [...]}` （各wishに `tags` 配列 + `images` 配列含む） |
 | POST | `/api/wishes` | 必要 | `{title, description?, status?, priority?, due_date?, tags?}` | `{message, wish}` (201) |
-| PUT | `/api/wishes/:id` | 必要 | `{title, description?, status?, priority?, due_date?, tags?}` | `{message, wish}` |
+| PUT | `/api/wishes/:id` | 必要 | `{title, description?, status?, priority?, due_date?, tags?}` | `{message, wish}` （due_dateはformatDueDateでYYYY-MM-DDに正規化） |
 | DELETE | `/api/wishes/:id` | 必要 | - | `{message}` （CASCADE で wish_tags/wish_images 削除 + ファイルクリーンアップ） |
 
 - status: `not_started` / `in_progress` / `completed`（デフォルト: not_started）
@@ -196,6 +196,8 @@ docker compose logs -f [backend|frontend|db]
 - 所有権チェック: 自分のデータのみ操作可能
 - tags: 文字列配列。POST/PUT時に `INSERT IGNORE` で自動作成、PUT時は全置換方式（DELETE+INSERT）
 - GET時のtags取得: N+1回避のため一括取得
+- due_date: POST/PUT時に `formatDueDate()` ヘルパーで YYYY-MM-DD に正規化（ISO datetime文字列や Date オブジェクトからの変換に対応）
+- 注意: mysql2 は DATE型を JavaScript Date オブジェクトで返す（`dateStrings` 未設定時）。フロントエンドでJSONシリアライズされると ISO datetime 文字列になるため、PUT時にそのまま渡すと ER_TRUNCATED_WRONG_VALUE エラーが発生する
 
 ### タグAPI (`/api/tags`)
 
@@ -826,6 +828,15 @@ docker compose logs -f [backend|frontend|db]
 - [x] App.js: /knowledge, /knowledge/new, /knowledge/:id, /knowledge/:id/edit ルート追加
 - [x] Sidebar.js: 📚 学習（/knowledge）ナビゲーション追加
 - [x] ダークモード対応済み（CSS変数使用）
+
+### Sprint 10 バグ修正（完了）— ステータス変更500エラー（GitHub Issue #28）
+- [x] 根本原因特定: mysql2 が DATE 型を JavaScript Date オブジェクトで返却 → JSON シリアライズで ISO datetime 文字列に → PUT 時にそのまま MySQL DATE 型に挿入 → ER_TRUNCATED_WRONG_VALUE
+- [x] formatDueDate() ヘルパー関数追加（backend/routes/wishes.js）
+  - YYYY-MM-DD 形式はそのまま返却
+  - ISO datetime 文字列は `new Date(value).toISOString().split('T')[0]` で日付部分のみ抽出
+  - 無効値は null を返却
+- [x] POST /api/wishes、PUT /api/wishes/:id の両方に formatDueDate() を適用
+- [x] 変更ファイル: backend/routes/wishes.js（1ファイルのみ）
 
 ### 今後の予定（優先順）
 1. ActiveRecall Phase 3: 間隔反復学習（SM-2アルゴリズム実行 + レビューセッション）
