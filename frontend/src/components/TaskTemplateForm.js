@@ -16,7 +16,7 @@ const WEEKDAY_OPTIONS = [
 
 function TaskTemplateForm({ template, onSave, onCancel }) {
   const isEditMode = !!template;
-  const showToast = useToast();
+  const { showToast } = useToast();
 
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');

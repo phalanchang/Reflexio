@@ -16,7 +16,7 @@ function TaskList() {
   const [showForm, setShowForm] = useState(false);
   const [editingTemplate, setEditingTemplate] = useState(null);
   const [activeTab, setActiveTab] = useState('today'); // 'today' | 'templates'
-  const showToast = useToast();
+  const { showToast } = useToast();
 
   const fetchTodayTasks = useCallback(async () => {
     try {
