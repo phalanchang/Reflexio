@@ -8,7 +8,7 @@ const menuItems = [
   { path: '/accounting', label: 'Accounting', short: 'A' },
   { path: '/notes', label: 'Notes', short: 'N' },
   { path: '/knowledge', label: '📚 学習', short: '📚' },
-  { path: '/tasks', label: 'Task Management', short: 'T' },
+  { path: '/tasks', label: '✅ タスク管理', short: '✅' },
   { path: '/settings', label: '⚙️ 設定', short: '⚙️' },
   { path: '/clawdbot', label: '🤖 Clawdbot Badge', short: '🤖' },
   { path: '/voice-test', label: '🎤 Voice Test', short: 'Mic' },

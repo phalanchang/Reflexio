@@ -12,6 +12,7 @@ import VoiceTest from './components/VoiceTest';
 import KnowledgeList from './components/KnowledgeList';
 import KnowledgeForm from './components/KnowledgeForm';
 import KnowledgeDetail from './components/KnowledgeDetail';
+import TaskList from './components/TaskList';
 import { ToastProvider } from './components/Toast';
 import './App.css';
 
@@ -83,6 +84,7 @@ function App() {
                   <Route path="/knowledge/new" element={<KnowledgeForm />} />
                   <Route path="/knowledge/:id" element={<KnowledgeDetail />} />
                   <Route path="/knowledge/:id/edit" element={<KnowledgeForm />} />
+                  <Route path="/tasks" element={<TaskList />} />
                   <Route path="/voice-test" element={<VoiceTest />} />
                   <Route path="/auth/google/callback" element={<GoogleCallback />} />
                   <Route path="*" element={<Navigate to="/" replace />} />

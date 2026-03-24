@@ -1,0 +1,48 @@
+.task-badge-button {
+  position: relative;
+  display: flex;
+  align-items: center;
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 12px;
+  padding: 3px 10px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.task-badge-button:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.task-badge-label {
+  color: var(--header-text);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.3px;
+}
+
+.task-badge-count {
+  position: absolute;
+  top: -6px;
+  right: -6px;
+  min-width: 18px;
+  height: 18px;
+  background-color: #e74c3c;
+  color: #fff;
+  font-size: 11px;
+  font-weight: 700;
+  border-radius: 9px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 4px;
+  line-height: 1;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+  animation: task-badge-pop 0.3s ease-out;
+}
+
+@keyframes task-badge-pop {
+  0% { transform: scale(0); }
+  60% { transform: scale(1.2); }
+  100% { transform: scale(1); }
+}

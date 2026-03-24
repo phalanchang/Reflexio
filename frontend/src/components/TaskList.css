@@ -1,0 +1,377 @@
+.task-list-container {
+  padding: 20px;
+  max-width: 900px;
+}
+
+.task-loading {
+  padding: 40px;
+  text-align: center;
+  color: var(--text-secondary);
+}
+
+/* ヘッダー */
+.task-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 16px;
+}
+
+.task-header h2 {
+  margin: 0;
+  color: var(--text-primary);
+  font-size: 20px;
+}
+
+.task-add-button {
+  background-color: var(--btn-primary-bg, #3498db);
+  color: #fff;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 600;
+  transition: background-color 0.2s;
+}
+
+.task-add-button:hover {
+  background-color: var(--btn-primary-hover-bg, #2980b9);
+}
+
+/* タブ */
+.task-tabs {
+  display: flex;
+  gap: 0;
+  border-bottom: 2px solid var(--border-color, #ddd);
+  margin-bottom: 20px;
+}
+
+.task-tab {
+  background: transparent;
+  border: none;
+  padding: 10px 20px;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--text-secondary);
+  cursor: pointer;
+  border-bottom: 2px solid transparent;
+  margin-bottom: -2px;
+  transition: color 0.2s, border-color 0.2s;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.task-tab:hover {
+  color: var(--text-primary);
+}
+
+.task-tab.active {
+  color: var(--btn-primary-bg, #3498db);
+  border-bottom-color: var(--btn-primary-bg, #3498db);
+  font-weight: 600;
+}
+
+.task-tab-badge {
+  background-color: #e74c3c;
+  color: #fff;
+  font-size: 11px;
+  font-weight: 700;
+  min-width: 18px;
+  height: 18px;
+  border-radius: 9px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 4px;
+}
+
+.task-tab-count {
+  color: var(--text-secondary);
+  font-size: 12px;
+}
+
+/* 空状態 */
+.task-empty {
+  text-align: center;
+  padding: 40px 20px;
+  color: var(--text-secondary);
+}
+
+.task-empty p {
+  margin: 4px 0;
+}
+
+.task-empty-hint {
+  font-size: 13px;
+  opacity: 0.7;
+}
+
+/* タスクグループ */
+.task-group {
+  margin-bottom: 24px;
+}
+
+.task-group-title {
+  font-size: 14px;
+  color: var(--text-secondary);
+  margin: 0 0 8px 0;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.task-group-title.completed-title {
+  color: #27ae60;
+}
+
+.task-group-title.skipped-title {
+  color: #95a5a6;
+}
+
+.task-group-count {
+  font-size: 12px;
+  opacity: 0.8;
+}
+
+/* チェックリスト */
+.task-checklist {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.task-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 12px;
+  border-radius: 8px;
+  margin-bottom: 4px;
+  background-color: var(--card-bg, #fff);
+  border: 1px solid var(--border-color, #e0e0e0);
+  transition: background-color 0.15s, transform 0.15s;
+}
+
+.task-item:hover {
+  background-color: var(--hover-bg, #f5f5f5);
+}
+
+.task-item.completed {
+  opacity: 0.65;
+}
+
+.task-item.completed .task-item-title {
+  text-decoration: line-through;
+  color: var(--text-secondary);
+}
+
+.task-item.skipped {
+  opacity: 0.5;
+}
+
+.task-item.skipped .task-item-title {
+  text-decoration: line-through;
+  color: var(--text-secondary);
+}
+
+/* チェックボックス */
+.task-checkbox {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  border: 2px solid var(--border-color, #ccc);
+  background: transparent;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  transition: border-color 0.2s, background-color 0.2s;
+}
+
+.task-checkbox:hover {
+  border-color: #27ae60;
+  background-color: rgba(39, 174, 96, 0.1);
+}
+
+.task-checkbox.checked {
+  border-color: #27ae60;
+  background-color: #27ae60;
+}
+
+.task-checkbox.checked .checkbox-icon {
+  color: #fff;
+}
+
+.checkbox-icon {
+  font-size: 14px;
+  color: var(--text-secondary);
+}
+
+/* タスク内容 */
+.task-item-content {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.task-item-title {
+  font-size: 14px;
+  color: var(--text-primary);
+  font-weight: 500;
+}
+
+.task-item-desc {
+  font-size: 12px;
+  color: var(--text-secondary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* タイプバッジ */
+.task-type-badge {
+  color: #fff;
+  font-size: 10px;
+  font-weight: 700;
+  padding: 2px 8px;
+  border-radius: 10px;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+/* スキップボタン */
+.task-skip-button {
+  background: transparent;
+  border: 1px solid var(--border-color, #ccc);
+  color: var(--text-secondary);
+  padding: 3px 8px;
+  border-radius: 4px;
+  font-size: 11px;
+  cursor: pointer;
+  flex-shrink: 0;
+  transition: background-color 0.2s;
+}
+
+.task-skip-button:hover {
+  background-color: var(--hover-bg, #f0f0f0);
+}
+
+/* テンプレートテーブル */
+.task-template-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+}
+
+.task-template-table th {
+  text-align: left;
+  padding: 8px 10px;
+  border-bottom: 2px solid var(--border-color, #ddd);
+  color: var(--text-secondary);
+  font-weight: 600;
+  font-size: 12px;
+  white-space: nowrap;
+}
+
+.task-template-table td {
+  padding: 10px;
+  border-bottom: 1px solid var(--border-color, #eee);
+  color: var(--text-primary);
+  vertical-align: middle;
+}
+
+.task-template-table tbody tr:hover {
+  background-color: var(--hover-bg, #f9f9f9);
+}
+
+.inactive-row {
+  opacity: 0.5;
+}
+
+.template-title {
+  font-weight: 500;
+}
+
+.template-desc {
+  font-size: 11px;
+  color: var(--text-secondary);
+  margin-top: 2px;
+}
+
+/* 曜日チップ */
+.weekday-chips {
+  display: flex;
+  gap: 3px;
+}
+
+.weekday-chip {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 10px;
+  font-weight: 600;
+  background-color: var(--border-color, #e0e0e0);
+  color: var(--text-secondary);
+}
+
+.weekday-chip.active {
+  background-color: #3498db;
+  color: #fff;
+}
+
+/* ON/OFFトグル */
+.toggle-active-btn {
+  border: none;
+  padding: 3px 10px;
+  border-radius: 10px;
+  font-size: 11px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.toggle-active-btn.on {
+  background-color: #27ae60;
+  color: #fff;
+}
+
+.toggle-active-btn.off {
+  background-color: var(--border-color, #ccc);
+  color: var(--text-secondary);
+}
+
+/* テンプレート操作ボタン */
+.template-actions {
+  display: flex;
+  gap: 6px;
+}
+
+.template-edit-btn,
+.template-delete-btn {
+  border: 1px solid var(--border-color, #ccc);
+  background: transparent;
+  color: var(--text-primary);
+  padding: 4px 10px;
+  border-radius: 4px;
+  font-size: 12px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.template-edit-btn:hover {
+  background-color: var(--hover-bg, #f0f0f0);
+}
+
+.template-delete-btn:hover {
+  background-color: #e74c3c;
+  color: #fff;
+  border-color: #e74c3c;
+}

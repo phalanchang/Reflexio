@@ -1,0 +1,193 @@
+.task-form-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.task-form-modal {
+  background-color: var(--card-bg, #fff);
+  border-radius: 12px;
+  padding: 24px;
+  width: 90%;
+  max-width: 480px;
+  max-height: 90vh;
+  overflow-y: auto;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+}
+
+.task-form-modal h3 {
+  margin: 0 0 20px 0;
+  color: var(--text-primary);
+  font-size: 18px;
+}
+
+.task-form-field {
+  margin-bottom: 16px;
+}
+
+.task-form-field label {
+  display: block;
+  margin-bottom: 4px;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-secondary);
+}
+
+.required {
+  color: #e74c3c;
+}
+
+.task-form-field input[type="text"],
+.task-form-field input[type="time"],
+.task-form-field textarea {
+  width: 100%;
+  padding: 8px 10px;
+  border: 1px solid var(--border-color, #ccc);
+  border-radius: 6px;
+  font-size: 14px;
+  background-color: var(--input-bg, #fff);
+  color: var(--text-primary);
+  box-sizing: border-box;
+}
+
+.task-form-field textarea {
+  resize: vertical;
+}
+
+.task-form-field input:focus,
+.task-form-field textarea:focus {
+  outline: none;
+  border-color: var(--btn-primary-bg, #3498db);
+  box-shadow: 0 0 0 2px rgba(52, 152, 219, 0.2);
+}
+
+.field-hint {
+  display: block;
+  margin-top: 4px;
+  font-size: 11px;
+  color: var(--text-secondary);
+  opacity: 0.7;
+}
+
+/* タスクタイプセレクター */
+.task-type-selector {
+  display: flex;
+  gap: 8px;
+}
+
+.type-option {
+  flex: 1;
+  padding: 10px 8px;
+  border: 2px solid var(--border-color, #ddd);
+  border-radius: 8px;
+  background: transparent;
+  cursor: pointer;
+  text-align: center;
+  transition: border-color 0.2s, background-color 0.2s;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.type-option:hover {
+  border-color: var(--btn-primary-bg, #3498db);
+}
+
+.type-option.selected {
+  border-color: var(--btn-primary-bg, #3498db);
+  background-color: rgba(52, 152, 219, 0.08);
+}
+
+.type-option-label {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.type-option-desc {
+  font-size: 10px;
+  color: var(--text-secondary);
+}
+
+/* 曜日セレクター */
+.weekday-selector {
+  display: flex;
+  gap: 6px;
+}
+
+.weekday-btn {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: 2px solid var(--border-color, #ddd);
+  background: transparent;
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s;
+}
+
+.weekday-btn:hover {
+  border-color: #3498db;
+}
+
+.weekday-btn.selected {
+  background-color: #3498db;
+  border-color: #3498db;
+  color: #fff;
+}
+
+/* フォームアクション */
+.task-form-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+  margin-top: 20px;
+}
+
+.task-form-cancel {
+  padding: 8px 16px;
+  border: 1px solid var(--border-color, #ccc);
+  border-radius: 6px;
+  background: transparent;
+  color: var(--text-primary);
+  font-size: 14px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.task-form-cancel:hover {
+  background-color: var(--hover-bg, #f0f0f0);
+}
+
+.task-form-submit {
+  padding: 8px 20px;
+  background-color: var(--btn-primary-bg, #3498db);
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.task-form-submit:hover {
+  background-color: var(--btn-primary-hover-bg, #2980b9);
+}
+
+.task-form-submit:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
