@@ -15,6 +15,7 @@ const recordingsRoutes = require('./routes/recordings');
 const transcribeRoutes = require('./routes/transcribe');
 const knowledgeRoutes = require('./routes/knowledge');
 const quizzesRoutes = require('./routes/quizzes');
+const tasksRoutes = require('./routes/tasks');
 const pool = require('./config/database');
 
 const app = express();
@@ -69,6 +70,7 @@ app.use('/api/recordings', recordingsRoutes);
 app.use('/api', transcribeRoutes);
 app.use('/api/knowledge', knowledgeRoutes);
 app.use('/api', quizzesRoutes);
+app.use('/api/tasks', tasksRoutes);
 
 app.listen(PORT, '0.0.0.0', () => {
   console.log(`Server is running on port ${PORT}`);
